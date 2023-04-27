@@ -1,5 +1,5 @@
-﻿using Abstractions.IRepositories;
-using Application.Commands.Common;
+﻿using Application.Commands.Common;
+using Application.Data.IRepositories;
 using Application.DTOs;
 using Domain;
 
@@ -7,11 +7,11 @@ namespace Application.Commands.HardSkills.CreateHardSkill;
 
 internal sealed class CreateHardSkillCommandHandler_1_0 : ICommandHandler<CreateHardSkillCommand_1_0>
 {
-    private readonly IHardSkillsRepository _HSRepo;
+    private readonly IHardSkillsRepository _repository;
 
-    public CreateHardSkillCommandHandler_1_0(IHardSkillsRepository hSRepo)
+    public CreateHardSkillCommandHandler_1_0(IHardSkillsRepository repository)
     {
-        _HSRepo = hSRepo;
+        _repository = repository;
     }
 
     public async Task<Result> Handle(CreateHardSkillCommand_1_0 request, CancellationToken cancellationToken)
@@ -26,8 +26,8 @@ internal sealed class CreateHardSkillCommandHandler_1_0 : ICommandHandler<Create
             request.Category
             );
 
-        _HSRepo.Add(hardSkill);
-        await _HSRepo.SaveChangesAsync(cancellationToken);
+        _repository.Add(hardSkill);
+        await _repository.SaveChangesAsync(cancellationToken);
 
         return Result.Success();
     }
