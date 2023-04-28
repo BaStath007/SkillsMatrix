@@ -8,7 +8,7 @@ namespace GenericDomain
         [Required]
         public string Name { get; set; }
         public string? Description { get; set; }
-        public Dictionary<int, T>? Nodes { get; set; }
+        public virtual List<T>? Nodes { get; set; }
 
         public NodeModel()
         {

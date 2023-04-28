@@ -5,11 +5,10 @@ using Domain.Versions;
 
 namespace Application.Commands.HardSkills.CreateHardSkill;
 
-public sealed record CreateHardSkillCommand_1_0(
-    int Id, 
+public sealed record CreateHardSkillCommand_1_0( 
     string Name, 
     string? Description, 
     string? Version, 
-    Dictionary<int, HardSkillNode_1_0>? HardSkills, 
+    List<HardSkill>? HardSkills, 
     List<Tag>? Tags, 
     List<HardSkillCategory>? Categories) : ICommand;

@@ -21,7 +21,6 @@ public sealed class HardSkillsController : ApiController
     public async Task<IActionResult> RegisterHardSkill(HardSkillCreateDTO request, CancellationToken cancellationToken)
     {
         var createHSCommand = new CreateHardSkillCommand_1_0(
-            request.Id,
             request.Name,
             request.Description,
             request.Version,

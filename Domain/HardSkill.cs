@@ -1,25 +1,24 @@
 ﻿using Domain.Helpers;
 using Domain.Versions;
+using GenericDomain;
 
 namespace Domain;
 
-public sealed class HardSkill : HardSkillNode_1_0
+public class HardSkill : NodeModel<HardSkill>, IHardSkill_1_0
 {
     public HardSkill()
     {
         
     }
     public HardSkill(
-        int id,
         string name,
         string? description,
         string? version,
-        Dictionary<int, HardSkillNode_1_0>? nodes,
+        List<HardSkill>? nodes,
         List<Tag>? tags,
         List<HardSkillCategory>? categories
         )
     {
-        Id = id;
         Name = name;
         Description = description;
         Version = version;
@@ -28,4 +27,9 @@ public sealed class HardSkill : HardSkillNode_1_0
         Categories = categories;
     }
 
+    public string? Version { get; set; }
+
+    // Navigation Properties
+    public virtual List<Tag>? Tags { get; set; }
+    public virtual List<HardSkillCategory>? Categories { get; set; }
 }

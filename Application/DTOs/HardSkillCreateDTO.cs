@@ -10,7 +10,7 @@ public sealed class HardSkillCreateDTO
     public string Name { get; set; }
     public string? Description { get; set; }
     public string? Version { get; set; }
-    public Dictionary<int, HardSkillNode_1_0>? HardSkills { get; set; }
+    public List<HardSkill>? HardSkills { get; set; }
     public List<Tag>? Tags { get; set; }
     public List<HardSkillCategory>? Categories { get; set; }
 }

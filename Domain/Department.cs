@@ -1,11 +1,15 @@
 ﻿using Domain.Versions;
+using GenericDomain;
 
 namespace Domain;
 
-public sealed class Department : DepartmentNode_1_0
+public class Department : NodeModel<Department>,IDepartment_1_0
 {
 	public Department()
 	{
 
 	}
+
+    // Navigation Properties
+    public List<Application>? Applications { get; set; }
 }
