@@ -33,9 +33,9 @@ namespace Infrastructure.Persistence.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<int> SaveChangesAsync(CancellationToken cancellationToken)
+        public async Task<int> SaveChangesAsync(CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return await _context.SaveChangesAsync(cancellationToken); 
         }
 
         public void Update(HardSkill entity)

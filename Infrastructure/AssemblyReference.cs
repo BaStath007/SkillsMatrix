@@ -20,9 +20,9 @@ public static class AssemblyReference
         else
         {
             services.AddDbContext<SkillsMatrixDbContext>(options =>
-            options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
-            builder =>
-                builder.MigrationsAssembly(typeof(SkillsMatrixDbContext).Assembly.FullName)));
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
+                builder =>
+                    builder.MigrationsAssembly(typeof(SkillsMatrixDbContext).Assembly.FullName)));
         }
         
         services.AddScoped<ISkillsMatrixDbContext, SkillsMatrixDbContext>();

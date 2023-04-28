@@ -24,7 +24,7 @@ internal sealed class CreateHardSkillCommandHandler_1_0 : ICommandHandler<Create
             request.Version,
             request.HardSkills,
             request.Tags,
-            request.Category
+            request.Categories
             );
 
         try

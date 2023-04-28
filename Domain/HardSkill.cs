@@ -16,7 +16,7 @@ public sealed class HardSkill : HardSkillNode_1_0
         string? version,
         Dictionary<int, HardSkillNode_1_0>? nodes,
         List<Tag>? tags,
-        HardSkillCategory? category
+        List<HardSkillCategory>? categories
         )
     {
         Id = id;
@@ -25,7 +25,7 @@ public sealed class HardSkill : HardSkillNode_1_0
         Version = version;
         Nodes = nodes;
         Tags = tags;
-        Category = category;
+        Categories = categories;
     }
 
 }

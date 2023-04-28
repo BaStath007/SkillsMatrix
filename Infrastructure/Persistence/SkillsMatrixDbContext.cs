@@ -8,8 +8,13 @@ public class SkillsMatrixDbContext : DbContext, ISkillsMatrixDbContext
 {
     public DbSet<HardSkill> HardSkills { get; set; }
 
-    public SkillsMatrixDbContext(DbContextOptions options)
+    public SkillsMatrixDbContext(DbContextOptions<SkillsMatrixDbContext> options)
         :base(options)
     {
+    }
+
+    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        return base.SaveChangesAsync(cancellationToken);
     }
 }

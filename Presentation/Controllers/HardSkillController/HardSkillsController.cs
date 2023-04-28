@@ -27,7 +27,7 @@ public sealed class HardSkillsController : ApiController
             request.Version,
             request.HardSkills,
             request.Tags,
-            request.Category
+            request.Categories
             );
 
         var result = await _sender.Send(createHSCommand, cancellationToken);

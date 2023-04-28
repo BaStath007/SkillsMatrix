@@ -12,4 +12,4 @@ public sealed record CreateHardSkillCommand_1_0(
     string? Version, 
     Dictionary<int, HardSkillNode_1_0>? HardSkills, 
     List<Tag>? Tags, 
-    HardSkillCategory? Category) : ICommand;
+    List<HardSkillCategory>? Categories) : ICommand;
