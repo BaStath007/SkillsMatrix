@@ -12,10 +12,19 @@ public static class AssemblyReference
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddDbContext<SkillsMatrixDbContext>(options =>
+        if (configuration.GetValue<bool>("UseInMemoryDatabase"))
+        {
+            services.AddDbContext<SkillsMatrixDbContext>(options =>
+                options.UseInMemoryDatabase("SkillsMatrixDb"));
+        }
+        else
+        {
+            services.AddDbContext<SkillsMatrixDbContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
-            builder => 
+            builder =>
                 builder.MigrationsAssembly(typeof(SkillsMatrixDbContext).Assembly.FullName)));
+        }
+        
         services.AddScoped<ISkillsMatrixDbContext, SkillsMatrixDbContext>();
         services.AddScoped<IHardSkillsRepository, HardSkillsRepository>();
         

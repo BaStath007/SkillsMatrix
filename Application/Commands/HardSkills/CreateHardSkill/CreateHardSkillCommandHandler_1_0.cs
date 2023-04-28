@@ -1,6 +1,7 @@
 ﻿using Application.Commands.Common;
 using Application.Data.IRepositories;
 using Application.DTOs;
+using Application.Exceptions;
 using Domain;
 
 namespace Application.Commands.HardSkills.CreateHardSkill;
@@ -26,8 +27,15 @@ internal sealed class CreateHardSkillCommandHandler_1_0 : ICommandHandler<Create
             request.Category
             );
 
-        _repository.Add(hardSkill);
-        await _repository.SaveChangesAsync(cancellationToken);
+        try
+        {
+            _repository.Add(hardSkill);
+            await _repository.SaveChangesAsync(cancellationToken);
+        }
+        catch (BadRequestException ex)
+        {
+            return Result.Failure(ex.Errors);
+        }
 
         return Result.Success();
     }

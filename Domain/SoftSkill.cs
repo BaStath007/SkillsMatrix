@@ -1,5 +1,4 @@
 ﻿using Domain.Versions;
-using GenericDomain;
 
 namespace Domain;
 
