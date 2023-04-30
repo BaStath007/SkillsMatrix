@@ -1,13 +1,13 @@
-﻿using Domain;
+﻿using Application.DTOs;
 
 namespace Application.Data.IRepositories;
 
 public interface IHardSkillsRepository
 {
-    Task<HardSkill> GetById(int id);
-    Task<List<HardSkill>> GetAll();
-    void Add(HardSkill entity);
-    void Update(HardSkill entity);
+    Task<HardSkillGetDTO> GetById(int id);
+    Task<List<HardSkillGetDTO>> GetAll();
+    void Add(HardSkillCreateDTO entity);
+    void Update(HardSkillUpdateDTO entity);
     void Delete(int id);
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

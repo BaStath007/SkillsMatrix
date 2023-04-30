@@ -1,6 +1,7 @@
 ﻿using Application.Data;
 using Application.Data.IRepositories;
-using Domain;
+using Application.DTOs;
+using Application.Mapping;
 
 namespace Infrastructure.Persistence.Repositories
 {
@@ -13,9 +14,9 @@ namespace Infrastructure.Persistence.Repositories
             _context = context;
         }
 
-        public void Add(HardSkill entity)
+        public void Add(HardSkillCreateDTO entity)
         {
-            _context.HardSkills.Add(entity);
+            _context.HardSkills.Add(HardSkillExtensions.ToDomain(entity));
         }
 
         public void Delete(int id)
@@ -23,12 +24,12 @@ namespace Infrastructure.Persistence.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<List<HardSkill>> GetAll()
+        public Task<List<HardSkillGetDTO>> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public Task<HardSkill> GetById(int id)
+        public Task<HardSkillGetDTO> GetById(int id)
         {
             throw new NotImplementedException();
         }
@@ -38,7 +39,7 @@ namespace Infrastructure.Persistence.Repositories
             return await _context.SaveChangesAsync(cancellationToken); 
         }
 
-        public void Update(HardSkill entity)
+        public void Update(HardSkillUpdateDTO entity)
         {
             throw new NotImplementedException();
         }

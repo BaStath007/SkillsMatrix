@@ -1,6 +1,5 @@
 ﻿using Domain;
 using Domain.Helpers;
-using Domain.Versions;
 
 namespace Application.DTOs;
 
@@ -13,4 +12,25 @@ public sealed class HardSkillCreateDTO
     public List<HardSkill>? HardSkills { get; set; }
     public List<Tag>? Tags { get; set; }
     public List<HardSkillCategory>? Categories { get; set; }
+
+    public HardSkillCreateDTO()
+    {
+        
+    }
+    public HardSkillCreateDTO(
+        string name,
+        string? description,
+        string? version,
+        List<HardSkill>? hardSkills,
+        List<Tag>? tags,
+        List<HardSkillCategory>? categories
+        )
+    {
+        Name = name;
+        Description = description;
+        Version = version;
+        HardSkills = hardSkills;
+        Tags = tags;
+        Categories = categories;
+    }
 }
