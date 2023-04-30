@@ -1,8 +1,10 @@
-﻿namespace Application.DTOs;
+﻿using Application.Errors;
+
+namespace Application.DTOs;
 
 public class Result
 {
-    internal Result(bool succeeded, string[]? errors)
+    internal Result(bool succeeded, Error[]? errors)
     {
         Succeeded = succeeded;
         Errors = errors;
@@ -10,14 +12,14 @@ public class Result
 
     public bool Succeeded { get; init; }
 
-    public string[]? Errors { get; init; }
+    public Error[]? Errors { get; init; }
 
     public static Result Success()
     {
-        return new Result(true, Array.Empty<string>());
+        return new Result(true, Array.Empty<Error>());
     }
 
-    public static Result Failure(string[]? errors)
+    public static Result Failure(Error[]? errors)
     {
         return new Result(false, errors);
     }

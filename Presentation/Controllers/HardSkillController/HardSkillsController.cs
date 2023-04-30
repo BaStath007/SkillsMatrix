@@ -1,4 +1,5 @@
 ﻿using Application.Commands.HardSkills.CreateHardSkill;
+using Application.Commands.HardSkills.UpdateHardSkill;
 using Application.DTOs;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -20,7 +21,8 @@ public sealed class HardSkillsController : ApiController
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> RegisterHardSkill(HardSkillCreateDTO request, CancellationToken cancellationToken)
     {
-        var createHSCommand = new CreateHardSkillCommand_1_0(
+        var createHSCommand = new CreateHardSkillCommand_1_0
+            (
             request.Name,
             request.Description,
             request.Version,
@@ -32,5 +34,27 @@ public sealed class HardSkillsController : ApiController
         var result = await _sender.Send(createHSCommand, cancellationToken);
 
         return result.Succeeded ? Ok() : BadRequest(result.Errors);
+    }
+
+    [HttpPut("modifyhardskill")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> ModifyHardSkill(HardSkillUpdateDTO request, CancellationToken cancellationToken)
+    {
+        var updateHSCommand = new UpdateHardSkillCommand_1_0
+            (
+                request.Id,
+                request.Name,
+                request.Description,
+                request.Version,
+                request.HardSkills,
+                request.Tags,
+                request.Categories
+            );
+
+        var result = await _sender.Send(updateHSCommand, cancellationToken);
+
+        return result.Succeeded ? Ok() : NotFound(result.Errors);
     }
 }

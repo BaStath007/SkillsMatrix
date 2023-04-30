@@ -17,13 +17,14 @@ internal sealed class CreateHardSkillCommandHandler_1_0 : ICommandHandler<Create
 
     public async Task<Result> Handle(CreateHardSkillCommand_1_0 request, CancellationToken cancellationToken)
     {
-        var hardSkill = new HardSkillCreateDTO(
-            request.Name,
-            request.Description,
-            request.Version,
-            request.HardSkills,
-            request.Tags,
-            request.Categories
+        var hardSkill = new HardSkillCreateDTO
+            (
+                request.Name,
+                request.Description,
+                request.Version,
+                request.HardSkills,
+                request.Tags,
+                request.Categories
             );
 
         try

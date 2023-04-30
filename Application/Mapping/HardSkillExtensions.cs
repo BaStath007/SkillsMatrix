@@ -5,16 +5,44 @@ namespace Application.Mapping;
 
 public static class HardSkillExtensions
 {
-    public static HardSkill ToDomain(HardSkillCreateDTO model)
+    public static HardSkill CreateToDomain(HardSkillCreateDTO entity)
     {
         return new HardSkill
         {
-            Name = model.Name,
-            Description = model.Description,
-            Version = model.Version,
-            Nodes = model.HardSkills,
-            Tags = model.Tags,
-            Categories = model.Categories
+            Name = entity.Name,
+            Description = entity.Description,
+            Version = entity.Version,
+            Nodes = entity.HardSkills,
+            Tags = entity.Tags,
+            Categories = entity.Categories
+        };
+    }
+
+    public static HardSkill UpdateToDomain(HardSkillUpdateDTO entity)
+    {
+        return new HardSkill
+        {
+            Id = entity.Id,
+            Name = entity.Name,
+            Description = entity.Description,
+            Version = entity.Version,
+            Nodes = entity.HardSkills,
+            Tags = entity.Tags,
+            Categories = entity.Categories
+        };
+    }
+
+    public static HardSkillGetDTO GetToApplication(HardSkill entity)
+    {
+        return new HardSkillGetDTO
+        {
+            Id = entity.Id,
+            Name = entity.Name,
+            Description = entity.Description,
+            Version = entity.Version,
+            HardSkills = entity.Nodes,
+            Tags = entity.Tags,
+            Categories = entity.Categories
         };
     }
 }

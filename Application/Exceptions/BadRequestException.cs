@@ -1,6 +1,8 @@
-﻿namespace Application.Exceptions;
+﻿using Application.Errors;
+
+namespace Application.Exceptions;
 
 public sealed class BadRequestException : Exception
 {
-    public string[]? Errors { get; set; }
+    public Error[]? Errors { get; set; }
 }

@@ -17,13 +17,14 @@ public sealed class HardSkillCreateDTO
     {
         
     }
-    public HardSkillCreateDTO(
-        string name,
-        string? description,
-        string? version,
-        List<HardSkill>? hardSkills,
-        List<Tag>? tags,
-        List<HardSkillCategory>? categories
+    public HardSkillCreateDTO
+        (
+            string name,
+            string? description,
+            string? version,
+            List<HardSkill>? hardSkills,
+            List<Tag>? tags,
+            List<HardSkillCategory>? categories
         )
     {
         Name = name;
