@@ -6,7 +6,8 @@ namespace Application.Commands.HardSkills.UpdateHardSkill;
 
 public sealed record UpdateHardSkillCommand_1_0
     (
-        int Id,
+        int IdProvidedByUser,
+        int OriginalId,
         string Name,
         string? Description,
         string? Version,

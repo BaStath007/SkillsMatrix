@@ -1,6 +1,7 @@
 ﻿using Application.Commands.HardSkills.CreateHardSkill;
 using Application.Commands.HardSkills.UpdateHardSkill;
 using Application.DTOs;
+using Application.Errors;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,10 +17,19 @@ public sealed class HardSkillsController : ApiController
     {
     }
 
+    [HttpGet("findhardskillbyid")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesErrorResponseType(typeof(Error))]
+    public async Task<IActionResult> GetById(int id, CancellationToken cancellationToken)
+    {
+
+    }
+
+
     [HttpPost("registerhardskill")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> RegisterHardSkill(HardSkillCreateDTO request, CancellationToken cancellationToken)
+    [ProducesErrorResponseType(typeof(Error))]
+    public async Task<IActionResult> Create(HardSkillCreateDTO request, CancellationToken cancellationToken)
     {
         var createHSCommand = new CreateHardSkillCommand_1_0
             (
@@ -38,12 +48,12 @@ public sealed class HardSkillsController : ApiController
 
     [HttpPut("modifyhardskill")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> ModifyHardSkill(HardSkillUpdateDTO request, CancellationToken cancellationToken)
+    [ProducesErrorResponseType(typeof(Error))]
+    public async Task<IActionResult> Update(int id, HardSkillUpdateDTO request, CancellationToken cancellationToken)
     {
         var updateHSCommand = new UpdateHardSkillCommand_1_0
             (
+                id,
                 request.Id,
                 request.Name,
                 request.Description,

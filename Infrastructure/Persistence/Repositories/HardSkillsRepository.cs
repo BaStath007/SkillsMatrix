@@ -30,9 +30,9 @@ namespace Infrastructure.Persistence.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task<HardSkillGetDTO> GetById(int id)
+        public async Task<HardSkillGetDTO> GetById(int id, CancellationToken cancellationToken)
         {
-            var hardSkill = await _context.HardSkills.FirstOrDefaultAsync(hs => hs.Id == id);
+            var hardSkill = await _context.HardSkills.FirstOrDefaultAsync(hs => hs.Id == id, cancellationToken);
             return HardSkillExtensions.GetToApplication(hardSkill);
         }
 

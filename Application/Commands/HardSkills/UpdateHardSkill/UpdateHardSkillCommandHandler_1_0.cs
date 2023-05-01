@@ -17,41 +17,59 @@ public sealed class UpdateHardSkillCommandHandler_1_0 : ICommandHandler<UpdateHa
 
     public async Task<Result> Handle(UpdateHardSkillCommand_1_0 request, CancellationToken cancellationToken)
     {
-        var newHardSkill = new HardSkillUpdateDTO
-            (
-                request.Id,
-                request.Name,
-                request.Description,
-                request.Version,
-                request.HardSkills,
-                request.Tags,
-                request.Categories
-            );
+        if(request.IdProvidedByUser == request.OriginalId)
+        {
+            var newHardSkill = new HardSkillUpdateDTO
+                (
+                    request.OriginalId,
+                    request.Name,
+                    request.Description,
+                    request.Version,
+                    request.HardSkills,
+                    request.Tags,
+                    request.Categories
+                );
+            try
+            {
+                var oldHardSkill = await _repository.GetById(request.OriginalId, cancellationToken);
+                if (oldHardSkill == null)
+                {
+                    return Result.Failure(new Error[]
+                            {
+                                new Error
+                                (
+                                   "HardSkill.NotFound",
+                                   $"The requested hardskill with Id: {request.OriginalId} was not found."
+                                )
+                            }
+                    );
+                }
+                _repository.Update(newHardSkill);
+                await _repository.SaveChangesAsync(cancellationToken);
 
-        var oldHardSkill = await _repository.GetById(request.Id);
-        if (oldHardSkill == null)
+            }
+            catch (BadRequestException ex)
+            {
+                return Result.Failure(ex.Errors);
+            }
+
+            return Result.Success();
+        }
+        else
         {
             return Result.Failure(new Error[]
                     {
                         new Error
                         (
-                           "HardSkill.NotFound",
-                           $"The hardskill with Id {request.Id} was not found."
+                           "HardSkill.IDOR",
+                           $"During the execution of your request, it is possible that someone" +
+                           $"\ntried to tamper with the hardskill with Id: {request.OriginalId}." +
+                           $"\nThe procedure was terminated before completion for security reasons." +
+                           $"\nPlease try again later."
                         )
                     }
-                );
-        }
-        try
-        {
-            _repository.Update(newHardSkill);
-            await _repository.SaveChangesAsync(cancellationToken);
-
-        }
-        catch (BadRequestException ex)
-        {
-            return Result.Failure(ex.Errors);
+            );
         }
 
-        return Result.Success();
     }
 }

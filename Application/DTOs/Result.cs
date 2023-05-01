@@ -27,7 +27,7 @@ public class Result
 
 public class Result<TResponse> 
 {
-    internal Result(bool succeeded, string[]? errors, TResponse? data)
+    internal Result(bool succeeded, Error[]? errors, TResponse? data)
     {
         Succeeded = succeeded;
         Errors = errors;
@@ -36,15 +36,15 @@ public class Result<TResponse>
 
     public bool Succeeded { get; init; }
 
-    public string[]? Errors { get; init; }
+    public Error[]? Errors { get; init; }
     public TResponse? Data { get; init; }
 
     public static Result<TResponse> Success(TResponse data)
     {
-        return new Result<TResponse>(true, Array.Empty<string>(), data);
+        return new Result<TResponse>(true, Array.Empty<Error>(), data);
     }
 
-    public static Result<TResponse> Failure(string[]? errors)
+    public static Result<TResponse> Failure(Error[]? errors)
     {
         return new Result<TResponse>(false, errors, default(TResponse));
     }

@@ -4,7 +4,7 @@ namespace Application.Data.IRepositories;
 
 public interface IHardSkillsRepository
 {
-    Task<HardSkillGetDTO> GetById(int id);
+    Task<HardSkillGetDTO> GetById(int id, CancellationToken cancelationToken);
     Task<List<HardSkillGetDTO>> GetAll();
     void Add(HardSkillCreateDTO entity);
     void Update(HardSkillUpdateDTO entity);
