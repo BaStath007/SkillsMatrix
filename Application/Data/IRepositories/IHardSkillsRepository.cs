@@ -8,6 +8,6 @@ public interface IHardSkillsRepository
     Task<List<HardSkillGetDTO>> GetAll(CancellationToken cancellationToken);
     void Add(HardSkillCreateDTO entity);
     void Update(HardSkillUpdateDTO entity);
-    void Delete(int id);
+    void Delete(HardSkillDeleteDTO entity);
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

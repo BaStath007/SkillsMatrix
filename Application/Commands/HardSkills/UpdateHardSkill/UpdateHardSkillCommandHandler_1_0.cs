@@ -47,13 +47,12 @@ public sealed class UpdateHardSkillCommandHandler_1_0 : ICommandHandler<UpdateHa
                 _repository.Update(newHardSkill);
                 await _repository.SaveChangesAsync(cancellationToken);
 
+                return Result.Success();
             }
             catch (BadRequestException ex)
             {
                 return Result.Failure(ex.Errors);
             }
-
-            return Result.Success();
         }
         else
         {

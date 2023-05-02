@@ -67,4 +67,18 @@ public static class HardSkillExtensions
         }
         return hardSkills;
     }
+
+    public static HardSkill DeleteToDomain(HardSkillDeleteDTO entity)
+    {
+        return new HardSkill
+        {
+            Id = entity.Id,
+            Name = entity.Name,
+            Description = entity.Description,
+            Version = entity.Version,
+            Nodes = entity.HardSkills,
+            Tags = entity.Tags,
+            Categories = entity.Categories
+        };
+    }
 }

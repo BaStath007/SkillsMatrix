@@ -9,16 +9,16 @@ using MediatR;
 
 namespace Application.Queries.HardSkills.GetAllHardSkills;
 
-public sealed class GetAllHardSkillsQueryHandler : IQueryHandler<GetAllHardSkillsQuery, GetAllHardSkillsResponse>
+public sealed class GetAllHardSkillsQueryHandler_1_0 : IQueryHandler<GetAllHardSkillsQuery_1_0, GetAllHardSkillsResponse>
 {
     private readonly IHardSkillsRepository _repository;
 
-    public GetAllHardSkillsQueryHandler(IHardSkillsRepository repository)
+    public GetAllHardSkillsQueryHandler_1_0(IHardSkillsRepository repository)
     {
         _repository = repository;
     }
 
-    public async Task<Result<GetAllHardSkillsResponse>> Handle(CancellationToken cancellationToken)
+    public async Task<Result<GetAllHardSkillsResponse>> Handle(GetAllHardSkillsQuery_1_0 request, CancellationToken cancellationToken)
     {
         try
         {

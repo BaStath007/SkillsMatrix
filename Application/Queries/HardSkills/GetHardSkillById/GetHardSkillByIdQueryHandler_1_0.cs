@@ -6,16 +6,16 @@ using Application.Queries.Common;
 
 namespace Application.Queries.HardSkills.GetHardSkillById;
 
-public sealed class GetHardSkillByIdQueryHandler : IQueryHandler<GetHardSkillByIdQuery, GetHardSkillByIdResponse>
+public sealed class GetHardSkillByIdQueryHandler_1_0 : IQueryHandler<GetHardSkillByIdQuery_1_0, GetHardSkillByIdResponse>
 {
     private readonly IHardSkillsRepository _repository;
 
-    public GetHardSkillByIdQueryHandler(IHardSkillsRepository repository)
+    public GetHardSkillByIdQueryHandler_1_0(IHardSkillsRepository repository)
     {
         _repository = repository;
     }
 
-    public async Task<Result<GetHardSkillByIdResponse>> Handle(GetHardSkillByIdQuery request, CancellationToken cancellationToken)
+    public async Task<Result<GetHardSkillByIdResponse>> Handle(GetHardSkillByIdQuery_1_0 request, CancellationToken cancellationToken)
     {
         try
         {

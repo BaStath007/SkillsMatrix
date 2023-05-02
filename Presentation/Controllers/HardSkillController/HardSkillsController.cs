@@ -1,4 +1,5 @@
 ﻿using Application.Commands.HardSkills.CreateHardSkill;
+using Application.Commands.HardSkills.DeleteHardSkill;
 using Application.Commands.HardSkills.UpdateHardSkill;
 using Application.DTOs;
 using Application.Errors;
@@ -24,7 +25,7 @@ public sealed class HardSkillsController : ApiController
     [ProducesErrorResponseType(typeof(Error))]
     public async Task<IActionResult> Index(CancellationToken cancellationToken)
     {
-        var getAllHSQuery = new GetAllHardSkillsQuery();
+        var getAllHSQuery = new GetAllHardSkillsQuery_1_0();
 
         var result = await _sender.Send(getAllHSQuery, cancellationToken);
 
@@ -36,7 +37,7 @@ public sealed class HardSkillsController : ApiController
     [ProducesErrorResponseType(typeof(Error))]
     public async Task<IActionResult> Get(int id, CancellationToken cancellationToken)
     {
-        var getHSByIdQuery = new GetHardSkillByIdQuery(id);
+        var getHSByIdQuery = new GetHardSkillByIdQuery_1_0(id);
 
         var result = await _sender.Send(getHSByIdQuery, cancellationToken);
 
@@ -82,6 +83,18 @@ public sealed class HardSkillsController : ApiController
             );
 
         var result = await _sender.Send(updateHSCommand, cancellationToken);
+
+        return result.Succeeded ? Ok() : NotFound(result.Errors);
+    }
+
+    [HttpDelete("delete/{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesErrorResponseType(typeof(Error))]
+    public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
+    {
+        var deleteHSCommand = new DeleteHardSkillCommand_1_0(id);
+
+        var result = await _sender.Send(deleteHSCommand, cancellationToken);
 
         return result.Succeeded ? Ok() : NotFound(result.Errors);
     }

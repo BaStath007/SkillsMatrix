@@ -21,9 +21,9 @@ namespace Infrastructure.Persistence.Repositories
             _context.HardSkills.Add(HardSkillExtensions.CreateToDomain(entity));
         }
 
-        public void Delete(int id)
+        public void Delete(HardSkillDeleteDTO entity)
         {
-            throw new NotImplementedException();
+            _context.HardSkills.Remove(HardSkillExtensions.DeleteToDomain(entity));
         }
 
         public async Task<List<HardSkillGetDTO>> GetAll(CancellationToken cancellationToken)

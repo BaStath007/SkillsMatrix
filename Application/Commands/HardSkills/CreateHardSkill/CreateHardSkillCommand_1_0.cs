@@ -1,7 +1,6 @@
 ﻿using Application.Commands.Common;
 using Domain;
 using Domain.Helpers;
-using Domain.Versions;
 
 namespace Application.Commands.HardSkills.CreateHardSkill;
 
