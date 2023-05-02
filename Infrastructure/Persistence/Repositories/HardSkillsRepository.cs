@@ -2,6 +2,7 @@
 using Application.Data.IRepositories;
 using Application.DTOs;
 using Application.Mapping;
+using Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistence.Repositories
@@ -25,15 +26,16 @@ namespace Infrastructure.Persistence.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<List<HardSkillGetDTO>> GetAll()
+        public async Task<List<HardSkillGetDTO>> GetAll(CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var hardSkills = await _context.HardSkills.ToListAsync(cancellationToken);
+            return HardSkillExtensions.GetAllHSToApplication(hardSkills);
         }
 
-        public async Task<HardSkillGetDTO> GetById(int id, CancellationToken cancellationToken)
+        public async Task<HardSkillGetDTO?> GetById(int id, CancellationToken cancellationToken)
         {
             var hardSkill = await _context.HardSkills.FirstOrDefaultAsync(hs => hs.Id == id, cancellationToken);
-            return HardSkillExtensions.GetToApplication(hardSkill);
+            return HardSkillExtensions.GetHSToApplication(hardSkill);
         }
 
         public async Task<int> SaveChangesAsync(CancellationToken cancellationToken)

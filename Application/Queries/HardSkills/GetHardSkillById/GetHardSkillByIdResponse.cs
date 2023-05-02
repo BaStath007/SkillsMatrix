@@ -2,5 +2,5 @@
 
 namespace Application.Queries.HardSkills.GetHardSkillById
 {
-    public sealed record HardSkillResponce(HardSkillGetDTO hardSkill);
+    public sealed record GetHardSkillByIdResponse(HardSkillGetDTO hardSkill);
 }

@@ -2,4 +2,4 @@
 
 namespace Application.Queries.HardSkills.GetHardSkillById;
 
-public sealed record GetHardSkillByIdQuery(int id) : IQuery<HardSkillResponce>;
+public sealed record GetHardSkillByIdQuery(int id) : IQuery<GetHardSkillByIdResponse>;

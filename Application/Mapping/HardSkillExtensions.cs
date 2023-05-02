@@ -32,8 +32,10 @@ public static class HardSkillExtensions
         };
     }
 
-    public static HardSkillGetDTO GetToApplication(HardSkill entity)
+    public static HardSkillGetDTO? GetHSToApplication(HardSkill? entity)
     {
+        if (entity == null) return null;
+
         return new HardSkillGetDTO
         {
             Id = entity.Id,
@@ -44,5 +46,25 @@ public static class HardSkillExtensions
             Tags = entity.Tags,
             Categories = entity.Categories
         };
+    }
+
+    public static List<HardSkillGetDTO> GetAllHSToApplication(List<HardSkill> dbHardSkills)
+    {
+        var hardSkills = new List<HardSkillGetDTO>();
+        foreach (var dbHardSkill in dbHardSkills)
+        {
+            var hardSkill = new HardSkillGetDTO
+                (
+                    dbHardSkill.Id,
+                    dbHardSkill.Name,
+                    dbHardSkill.Description,
+                    dbHardSkill.Version,
+                    dbHardSkill.Nodes,
+                    dbHardSkill.Tags,
+                    dbHardSkill.Categories
+                );
+            hardSkills.Add(hardSkill);
+        }
+        return hardSkills;
     }
 }

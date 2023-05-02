@@ -6,7 +6,7 @@ using Application.Queries.Common;
 
 namespace Application.Queries.HardSkills.GetHardSkillById;
 
-public sealed class GetHardSkillByIdQueryHandler : IQueryHandler<GetHardSkillByIdQuery, HardSkillResponce>
+public sealed class GetHardSkillByIdQueryHandler : IQueryHandler<GetHardSkillByIdQuery, GetHardSkillByIdResponse>
 {
     private readonly IHardSkillsRepository _repository;
 
@@ -15,7 +15,7 @@ public sealed class GetHardSkillByIdQueryHandler : IQueryHandler<GetHardSkillByI
         _repository = repository;
     }
 
-    public async Task<Result<HardSkillResponce>> Handle(GetHardSkillByIdQuery request, CancellationToken cancellationToken)
+    public async Task<Result<GetHardSkillByIdResponse>> Handle(GetHardSkillByIdQuery request, CancellationToken cancellationToken)
     {
         try
         {
@@ -23,7 +23,7 @@ public sealed class GetHardSkillByIdQueryHandler : IQueryHandler<GetHardSkillByI
 
             if (hardSkill == null)
             {
-                return Result<HardSkillResponce>.Failure(new Error[]
+                return Result<GetHardSkillByIdResponse>.Failure(new Error[]
                     {
                     new Error
                     (
@@ -34,13 +34,13 @@ public sealed class GetHardSkillByIdQueryHandler : IQueryHandler<GetHardSkillByI
                 );
             }
 
-            var responce = new HardSkillResponce(hardSkill);
+            var response = new GetHardSkillByIdResponse(hardSkill);
 
-            return Result<HardSkillResponce>.Success(responce);
+            return Result<GetHardSkillByIdResponse>.Success(response);
         }
         catch (BadRequestException ex)
         {
-            return Result<HardSkillResponce>.Failure(ex.Errors);
+            return Result<GetHardSkillByIdResponse>.Failure(ex.Errors);
         }
     }
 }

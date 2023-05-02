@@ -2,6 +2,8 @@
 using Application.Commands.HardSkills.UpdateHardSkill;
 using Application.DTOs;
 using Application.Errors;
+using Application.Queries.HardSkills.GetAllHardSkills;
+using Application.Queries.HardSkills.GetHardSkillById;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,19 +19,35 @@ public sealed class HardSkillsController : ApiController
     {
     }
 
-    [HttpGet("findhardskillbyid")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
+    [HttpGet("list")]
+    [ProducesResponseType(typeof(List<HardSkillGetDTO>), StatusCodes.Status200OK)]
     [ProducesErrorResponseType(typeof(Error))]
-    public async Task<IActionResult> GetById(int id, CancellationToken cancellationToken)
+    public async Task<IActionResult> Index(CancellationToken cancellationToken)
     {
+        var getAllHSQuery = new GetAllHardSkillsQuery();
 
+        var result = await _sender.Send(getAllHSQuery, cancellationToken);
+
+        return result.Succeeded ? Ok(result.Data) : BadRequest(result.Errors);
+    }
+
+    [HttpGet("find/{id}")]
+    [ProducesResponseType(typeof(HardSkillGetDTO), StatusCodes.Status200OK)]
+    [ProducesErrorResponseType(typeof(Error))]
+    public async Task<IActionResult> Get(int id, CancellationToken cancellationToken)
+    {
+        var getHSByIdQuery = new GetHardSkillByIdQuery(id);
+
+        var result = await _sender.Send(getHSByIdQuery, cancellationToken);
+
+        return result.Succeeded ? Ok(result.Data) : BadRequest(result.Errors);
     }
 
 
-    [HttpPost("registerhardskill")]
+    [HttpPost("register")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesErrorResponseType(typeof(Error))]
-    public async Task<IActionResult> Create(HardSkillCreateDTO request, CancellationToken cancellationToken)
+    public async Task<IActionResult> Create([FromBody] HardSkillCreateDTO request, CancellationToken cancellationToken)
     {
         var createHSCommand = new CreateHardSkillCommand_1_0
             (
@@ -46,10 +64,10 @@ public sealed class HardSkillsController : ApiController
         return result.Succeeded ? Ok() : BadRequest(result.Errors);
     }
 
-    [HttpPut("modifyhardskill")]
+    [HttpPut("modify/{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesErrorResponseType(typeof(Error))]
-    public async Task<IActionResult> Update(int id, HardSkillUpdateDTO request, CancellationToken cancellationToken)
+    public async Task<IActionResult> Update(int id, [FromBody] HardSkillUpdateDTO request, CancellationToken cancellationToken)
     {
         var updateHSCommand = new UpdateHardSkillCommand_1_0
             (
