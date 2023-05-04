@@ -2,7 +2,6 @@
 using Application.Data.IRepositories;
 using Application.DTOs;
 using Application.Exceptions;
-using Domain;
 
 namespace Application.Commands.HardSkills.CreateHardSkill;
 

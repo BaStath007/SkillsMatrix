@@ -2,7 +2,6 @@
 using Application.Data.IRepositories;
 using Application.DTOs;
 using Application.Mapping;
-using Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistence.Repositories
@@ -34,7 +33,7 @@ namespace Infrastructure.Persistence.Repositories
 
         public async Task<HardSkillGetDTO?> GetById(int id, CancellationToken cancellationToken)
         {
-            var hardSkill = await _context.HardSkills.FirstOrDefaultAsync(hs => hs.Id == id, cancellationToken);
+            var hardSkill = await _context.HardSkills.AsNoTracking().FirstOrDefaultAsync(hs => hs.Id == id, cancellationToken);
             return HardSkillExtensions.GetHSToApplication(hardSkill);
         }
 

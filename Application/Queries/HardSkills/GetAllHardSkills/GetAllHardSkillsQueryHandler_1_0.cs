@@ -3,9 +3,6 @@ using Application.DTOs;
 using Application.Errors;
 using Application.Exceptions;
 using Application.Queries.Common;
-using Application.Queries.HardSkills.GetHardSkillById;
-using Domain;
-using MediatR;
 
 namespace Application.Queries.HardSkills.GetAllHardSkills;
 

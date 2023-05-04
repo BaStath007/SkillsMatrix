@@ -5,6 +5,6 @@ namespace Application.Data;
 
 public interface ISkillsMatrixDbContext
 {
-	DbSet<HardSkill> HardSkills { get; set; }
-    Task<int> SaveChangesAsync(CancellationToken cancellationToken);
+    public DbSet<HardSkill> HardSkills { get; set; }
+    public Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

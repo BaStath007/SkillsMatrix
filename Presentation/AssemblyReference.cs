@@ -14,7 +14,7 @@ public static class AssemblyReference
         //mvcBuilder.AddAuthorization();
         //mvcBuilder.AddControllersAsServices();
 
-        var assembly = Assembly.GetExecutingAssembly();
+        var assembly = Assembly.GetExecutingAssembly(); //typeof(Presentation.AssemblyReference).Assembly;
         services.AddControllers()
             .AddApplicationPart(assembly);
 

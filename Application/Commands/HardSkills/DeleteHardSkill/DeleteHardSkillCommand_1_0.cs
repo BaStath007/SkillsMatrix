@@ -1,6 +1,4 @@
-﻿using Domain.Helpers;
-using Domain;
-using Application.Commands.Common;
+﻿using Application.Commands.Common;
 
 namespace Application.Commands.HardSkills.DeleteHardSkill;
 

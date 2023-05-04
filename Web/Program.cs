@@ -1,4 +1,3 @@
-using Application;
 using Infrastructure;
 using Presentation;
 
@@ -12,11 +11,9 @@ public class Program
 
         // Add Services to the container.
         builder.Services
-            .AddApplication()
             .AddInfrastructure(builder.Configuration)
             .AddPresentation();
 
-        builder.Services.AddSwaggerGen();
         var app = builder.Build();
 
         if (app.Environment.IsDevelopment())

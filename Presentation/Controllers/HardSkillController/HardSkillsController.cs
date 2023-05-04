@@ -12,6 +12,7 @@ using Presentation.Controllers.Common;
 
 namespace Presentation.Controllers.HardSkillController;
 
+//[ApiController]
 [Route("api/hardskills")]
 public sealed class HardSkillsController : ApiController
 {
@@ -32,23 +33,23 @@ public sealed class HardSkillsController : ApiController
         return result.Succeeded ? Ok(result.Data) : BadRequest(result.Errors);
     }
 
-    [HttpGet("find/{id}")]
+    [HttpGet("find")]
     [ProducesResponseType(typeof(HardSkillGetDTO), StatusCodes.Status200OK)]
     [ProducesErrorResponseType(typeof(Error))]
-    public async Task<IActionResult> Get(int id, CancellationToken cancellationToken)
+    public async Task<IActionResult> Get([FromQuery] int id, CancellationToken cancellationToken)
     {
         var getHSByIdQuery = new GetHardSkillByIdQuery_1_0(id);
 
         var result = await _sender.Send(getHSByIdQuery, cancellationToken);
 
-        return result.Succeeded ? Ok(result.Data) : BadRequest(result.Errors);
+        return result.Succeeded ? Ok(result.Data) : NotFound(result.Errors);
     }
 
 
     [HttpPost("register")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesErrorResponseType(typeof(Error))]
-    public async Task<IActionResult> Create([FromBody] HardSkillCreateDTO request, CancellationToken cancellationToken)
+    public async Task<IActionResult> Post([FromBody] HardSkillCreateDTO request, CancellationToken cancellationToken)
     {
         var createHSCommand = new CreateHardSkillCommand_1_0
             (
@@ -65,10 +66,10 @@ public sealed class HardSkillsController : ApiController
         return result.Succeeded ? Ok() : BadRequest(result.Errors);
     }
 
-    [HttpPut("modify/{id}")]
+    [HttpPut("modify")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesErrorResponseType(typeof(Error))]
-    public async Task<IActionResult> Update(int id, [FromBody] HardSkillUpdateDTO request, CancellationToken cancellationToken)
+    public async Task<IActionResult> Put([FromQuery] int id, [FromBody] HardSkillUpdateDTO request, CancellationToken cancellationToken)
     {
         var updateHSCommand = new UpdateHardSkillCommand_1_0
             (
@@ -87,10 +88,10 @@ public sealed class HardSkillsController : ApiController
         return result.Succeeded ? Ok() : NotFound(result.Errors);
     }
 
-    [HttpDelete("delete/{id}")]
+    [HttpDelete("delete")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesErrorResponseType(typeof(Error))]
-    public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
+    public async Task<IActionResult> Delete([FromQuery] int id, CancellationToken cancellationToken)
     {
         var deleteHSCommand = new DeleteHardSkillCommand_1_0(id);
 

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Presentation.Controllers.Common;
 
-public abstract class ApiController : ControllerBase
+public abstract class ApiController : Controller
 {
     protected readonly ISender _sender;
 

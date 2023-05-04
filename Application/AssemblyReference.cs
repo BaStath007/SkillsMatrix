@@ -7,7 +7,7 @@ public static class AssemblyReference
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
-        var assembly = Assembly.GetExecutingAssembly(); //typeof(AssemblyReference).Assembly;
+        var assembly = Assembly.GetExecutingAssembly(); //typeof(Application.AssemblyReference).Assembly;
         services.AddMediatR(cfg => 
             cfg.RegisterServicesFromAssembly(assembly)
             );

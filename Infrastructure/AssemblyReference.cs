@@ -1,4 +1,5 @@
-﻿using Application.Data;
+﻿using Application;
+using Application.Data;
 using Application.Data.IRepositories;
 using Infrastructure.Persistence;
 using Infrastructure.Persistence.Repositories;
@@ -12,13 +13,23 @@ public static class AssemblyReference
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddApplication();
+
         if (configuration.GetValue<bool>("UseInMemoryDatabase"))
         {
+            services.AddDbContext<BaseSkillsMatrixDbContext>(options =>
+                options.UseInMemoryDatabase("SkillsMatrixDb"));
+
             services.AddDbContext<SkillsMatrixDbContext>(options =>
                 options.UseInMemoryDatabase("SkillsMatrixDb"));
         }
         else
         {
+            services.AddDbContext<BaseSkillsMatrixDbContext>(options =>
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
+                builder =>
+                    builder.MigrationsAssembly(typeof(BaseSkillsMatrixDbContext).Assembly.FullName)));
+
             services.AddDbContext<SkillsMatrixDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
                 builder =>
