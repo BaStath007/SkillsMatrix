@@ -12,9 +12,25 @@ public sealed class Tag : BaseClass
 {
 
     // Navigation Properties
-    public HardSkill? HardSkill { get; set; } // C#
+    public HardSkill? Hardskill { get; }
+
     public Tag()
     {
 
     }
+
+    //public Tag(string name, string? description, HardSkill? hardskill)
+    //{
+    //    Name = name;
+    //    Description = description;
+    //    Hardskill = hardskill;
+    //}
+
+    //public Tag(int id, string name, string? description, HardSkill? hardskill)
+    //{
+    //    Id = id;
+    //    Name = name;
+    //    Description = description;
+    //    Hardskill = hardskill;
+    //}
 }

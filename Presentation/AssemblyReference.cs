@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
+using System.Text.Json.Serialization;
 
 namespace Presentation;
 
@@ -16,6 +17,9 @@ public static class AssemblyReference
 
         var assembly = Assembly.GetExecutingAssembly(); //typeof(Presentation.AssemblyReference).Assembly;
         services.AddControllers()
+            .AddJsonOptions(options => {
+                options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+            })
             .AddApplicationPart(assembly);
 
         services.AddEndpointsApiExplorer();

@@ -27,13 +27,17 @@ namespace Infrastructure.Persistence.Repositories
 
         public async Task<List<HardSkillGetDTO>> GetAll(CancellationToken cancellationToken)
         {
-            var hardSkills = await _context.HardSkills.ToListAsync(cancellationToken);
+            var hardSkills = await _context.HardSkills.Include(hardSkill => hardSkill.Nodes)
+                .Include(hardSkill => hardSkill.Tags).Include(hardSkill => hardSkill.Categories)
+                .ToListAsync(cancellationToken);
             return HardSkillExtensions.GetAllHSToApplication(hardSkills);
         }
 
         public async Task<HardSkillGetDTO?> GetById(int id, CancellationToken cancellationToken)
         {
-            var hardSkill = await _context.HardSkills.AsNoTracking().FirstOrDefaultAsync(hs => hs.Id == id, cancellationToken);
+            var hardSkill = await _context.HardSkills.AsNoTracking().Include(hardSkill => hardSkill.Nodes)
+                .Include(hardSkill => hardSkill.Tags).Include(hardSkill => hardSkill.Categories)
+                .FirstOrDefaultAsync(hs => hs.Id == id, cancellationToken);
             return HardSkillExtensions.GetHSToApplication(hardSkill);
         }
 

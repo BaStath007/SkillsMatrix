@@ -12,7 +12,6 @@ using Presentation.Controllers.Common;
 
 namespace Presentation.Controllers.HardSkillController;
 
-//[ApiController]
 [Route("api/hardskills")]
 public sealed class HardSkillsController : ApiController
 {

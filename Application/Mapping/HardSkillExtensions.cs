@@ -72,13 +72,7 @@ public static class HardSkillExtensions
     {
         return new HardSkill
         {
-            Id = entity.Id,
-            Name = entity.Name,
-            Description = entity.Description,
-            Version = entity.Version,
-            Nodes = entity.HardSkills,
-            Tags = entity.Tags,
-            Categories = entity.Categories
+            Id = entity.Id
         };
     }
 }

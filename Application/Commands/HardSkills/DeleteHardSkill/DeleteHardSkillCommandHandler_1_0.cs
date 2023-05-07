@@ -36,13 +36,7 @@ public sealed class DeleteHardSkillCommandHandler_1_0 : ICommandHandler<DeleteHa
 
             var hardSkillToDelete = new HardSkillDeleteDTO
                     (
-                        dbHardSkill.Id,
-                        dbHardSkill.Name,
-                        dbHardSkill.Description,
-                        dbHardSkill.Version,
-                        dbHardSkill.HardSkills,
-                        dbHardSkill.Tags,
-                        dbHardSkill.Categories
+                        dbHardSkill.Id
                     );
 
             _repository.Delete(hardSkillToDelete);
