@@ -1,12 +1,12 @@
-﻿using Domain;
+﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Data;
 
 public class BaseSkillsMatrixDbContext : DbContext, ISkillsMatrixDbContext
 {
-    public DbSet<HardSkill> HardSkills { get; set; }
-    public DbSet<HardSkillCategory> HardSkillCategories { get; set; }
+    public DbSet<Skill> Skills { get; set; }
+    public DbSet<SkillCategory> SkillCategories { get; set; }
 
     public BaseSkillsMatrixDbContext(DbContextOptions<BaseSkillsMatrixDbContext> options)
         : base(options)

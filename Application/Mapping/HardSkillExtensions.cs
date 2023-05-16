@@ -1,78 +1,52 @@
 ﻿using Application.DTOs;
-using Domain;
+using Domain.Entities;
 
 namespace Application.Mapping;
 
 public static class HardSkillExtensions
 {
-    public static HardSkill CreateToDomain(HardSkillCreateDTO entity)
+    public static Skill CreateToDomain(SkillCreateDTO skill)
     {
-        return new HardSkill
-        {
-            Name = entity.Name,
-            Description = entity.Description,
-            Version = entity.Version,
-            Nodes = entity.HardSkills,
-            Tags = entity.Tags,
-            Categories = entity.Categories
-        };
+        return Skill.Create(skill.CreatedBy, skill.ParentSkillId, skill.Description,
+            skill.SkillType, skill.ParentSkill, skill.ChildrenSkills,
+            skill.EmployeeSkills, skill.RoleSkills, skill.CategoriesPerSkill);
     }
 
-    public static HardSkill UpdateToDomain(HardSkillUpdateDTO entity)
+    public static Skill UpdateToDomain(SkillUpdateDTO skill)
     {
-        return new HardSkill
-        {
-            Id = entity.Id,
-            Name = entity.Name,
-            Description = entity.Description,
-            Version = entity.Version,
-            Nodes = entity.HardSkills,
-            Tags = entity.Tags,
-            Categories = entity.Categories
-        };
+        return Skill.Update(skill.UpdatedAt, skill.DeletedAt, skill.CreatedBy, skill.UpdatedBy,
+        skill.DeletedBy, skill.IsActive, skill.IsDeleted, skill.ParentSkillId,
+        skill.Description, skill.SkillType, skill.ParentSkill,
+        skill.ChildrenSkills, skill.EmployeeSkills,
+        skill.RoleSkills, skill.CategoriesPerSkill);
     }
 
-    public static HardSkillGetDTO? GetHSToApplication(HardSkill? entity)
+    public static SkillGetDTO? GetSkillToApplication(Skill? skill)
     {
-        if (entity == null) return null;
+        if (skill == null) return null;
 
-        return new HardSkillGetDTO
-        {
-            Id = entity.Id,
-            Name = entity.Name,
-            Description = entity.Description,
-            Version = entity.Version,
-            HardSkills = entity.Nodes,
-            Tags = entity.Tags,
-            Categories = entity.Categories
-        };
+        return new SkillGetDTO(skill.Id, skill.CreatedAt, skill.UpdatedAt,
+            skill.DeletedAt, skill.CreatedBy, skill.UpdatedBy,
+            skill.DeletedBy, skill.IsActive, skill.IsDeleted,
+            skill.ParentSkillId, skill.Description, skill.SkillType,
+            skill.ParentSkill, skill.ChildrenSkills, skill.EmployeeSkills,
+            skill.RoleSkills, skill.CategoriesPerSkill
+        );
     }
 
-    public static List<HardSkillGetDTO> GetAllHSToApplication(List<HardSkill> dbHardSkills)
+    public static List<SkillGetDTO> GetAllSkillsToApplication(List<Skill> dbSkills)
     {
-        var hardSkills = new List<HardSkillGetDTO>();
-        foreach (var dbHardSkill in dbHardSkills)
+        var skills = new List<SkillGetDTO>();
+        foreach (var dbSkill in dbSkills)
         {
-            var hardSkill = new HardSkillGetDTO
-                (
-                    dbHardSkill.Id,
-                    dbHardSkill.Name,
-                    dbHardSkill.Description,
-                    dbHardSkill.Version,
-                    dbHardSkill.Nodes,
-                    dbHardSkill.Tags,
-                    dbHardSkill.Categories
-                );
-            hardSkills.Add(hardSkill);
+            var skill = new SkillGetDTO(dbSkill.Id, dbSkill.CreatedAt, dbSkill.UpdatedAt,
+            dbSkill.DeletedAt, dbSkill.CreatedBy, dbSkill.UpdatedBy,
+            dbSkill.DeletedBy, dbSkill.IsActive, dbSkill.IsDeleted,
+            dbSkill.ParentSkillId, dbSkill.Description, dbSkill.SkillType,
+            dbSkill.ParentSkill, dbSkill.ChildrenSkills, dbSkill.EmployeeSkills,
+            dbSkill.RoleSkills, dbSkill.CategoriesPerSkill);
+            skills.Add(skill);
         }
-        return hardSkills;
-    }
-
-    public static HardSkill DeleteToDomain(HardSkillDeleteDTO entity)
-    {
-        return new HardSkill
-        {
-            Id = entity.Id
-        };
+        return skills;
     }
 }

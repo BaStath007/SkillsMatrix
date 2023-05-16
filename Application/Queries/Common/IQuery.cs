@@ -1,4 +1,4 @@
-﻿using Application.DTOs;
+﻿using Domain.Shared;
 using MediatR;
 
 namespace Application.Queries.Common;
