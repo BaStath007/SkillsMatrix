@@ -9,6 +9,10 @@ namespace Domain.Entities.JoinEntities;
 /// </summary>
 public class CategoryPerSkill
 {
+    public CategoryPerSkill()
+    {
+        
+    }
     private CategoryPerSkill(Guid skillId, Guid skillCategoryId, 
         Option<Skill> skill, Option<SkillCategory> skillCategory)
     {

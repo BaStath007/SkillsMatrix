@@ -3,6 +3,7 @@ using Domain.Entities.JoinEntities;
 using Domain.Enums;
 using Domain.Shared;
 using Domain.ValueObjects;
+using System.Collections.Generic;
 
 namespace Application.DTOs;
 
@@ -27,28 +28,28 @@ public sealed class SkillGetDTO
     public Option<ICollection<CategoryPerSkill>> CategoriesPerSkill { get; set; }
 
     public SkillGetDTO(Guid id, DateTime createdAt, DateTime updatedAt,
-        DateTime deletedAt, Option<string> createdBy, Option<string> updatedBy,
-        Option<string> deletedBy, bool isActive, bool isDeleted, Guid parentSkillId,
-        Option<Description> description, SkillType skillType, Option<Skill> parentSkill,
-        Option<ICollection<Skill>> childrenSkills, Option<ICollection<EmployeeSkill>> employeeSkills,
-        Option<ICollection<RoleSkill>> roleSkills, Option<ICollection<CategoryPerSkill>> categoriesPerSkill)
+        DateTime deletedAt, string createdBy, string updatedBy,
+        string deletedBy, bool isActive, bool isDeleted, Guid parentSkillId,
+        Description description, SkillType skillType, Skill parentSkill,
+        ICollection<Skill> childrenSkills, ICollection<EmployeeSkill> employeeSkills,
+        ICollection<RoleSkill> roleSkills, ICollection<CategoryPerSkill> categoriesPerSkill)
     {
         Id = id;
         CreatedAt = createdAt;
         UpdatedAt = updatedAt;
         DeletedAt = deletedAt;
-        CreatedBy = createdBy;
-        UpdatedBy = updatedBy;
-        DeletedBy = deletedBy;
+        CreatedBy = Option<string>.Some(createdBy);
+        UpdatedBy = Option<string>.Some(updatedBy);
+        DeletedBy = Option<string>.Some(deletedBy);
         IsActive = isActive;
         IsDeleted = isDeleted;
         ParentSkillId = parentSkillId;
-        Description = description;
+        Description = Option<Description>.Some(description);
         SkillType = skillType;
-        ParentSkill = parentSkill;
-        ChildrenSkills = childrenSkills;
-        EmployeeSkills = employeeSkills;
-        RoleSkills = roleSkills;
-        CategoriesPerSkill = categoriesPerSkill;
+        ParentSkill = Option<Skill>.Some(parentSkill);
+        ChildrenSkills = Option<ICollection<Skill>>.Some(childrenSkills);
+        EmployeeSkills = Option<ICollection<EmployeeSkill>>.Some(employeeSkills);
+        RoleSkills = Option<ICollection<RoleSkill>>.Some(roleSkills);
+        CategoriesPerSkill = Option<ICollection<CategoryPerSkill>>.Some(categoriesPerSkill);
     }
 }

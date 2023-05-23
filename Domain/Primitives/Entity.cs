@@ -8,13 +8,13 @@ public abstract class Entity : IEquatable<Entity>
     public DateTime CreatedAt { get; private init; } = DateTime.UtcNow;
     public DateTime UpdatedAt { get; set; } = default!;
     public DateTime DeletedAt { get; set; } = default!;
-    public Option<string> CreatedBy { get; private init; }
-    public Option<string> UpdatedBy { get; set; } = null!;
-    public Option<string> DeletedBy { get; set; } = null!;
+    public string CreatedBy { get; private init; }
+    public string UpdatedBy { get; set; } = null!;
+    public string DeletedBy { get; set; } = null!;
     public bool IsActive { get; set; } = false;
     public bool IsDeleted { get; set; } = false;
 
-    protected Entity(Option<string> createdBy)
+    protected Entity(string createdBy)
     {
         CreatedBy = createdBy;
     }

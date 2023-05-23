@@ -48,22 +48,22 @@ public sealed class SkillsController : ApiController
     [HttpPost("register")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesErrorResponseType(typeof(Error))]
-    public async Task<IActionResult> Post([FromBody] SkillCreateDTO request, CancellationToken cancellationToken)
+    public async Task<IActionResult> Post( CreateSkillCommand Command, CancellationToken cancellationToken)
     {
-        var createSkillCommand = new CreateSkillCommand
-            (
-                request.CreatedBy,
-                request.ParentSkillId,
-                request.Description,
-                request.SkillType,
-                request.ParentSkill,
-                request.ChildrenSkills,
-                request.EmployeeSkills,
-                request.RoleSkills,
-                request.CategoriesPerSkill
-            );
+        //var createSkillCommand = new CreateSkillCommand
+        //    (
+        //        request.CreatedBy,
+        //        request.ParentSkillId,
+        //        request.Description,
+        //        request.SkillType,
+        //        request.ParentSkill,
+        //        request.ChildrenSkills,
+        //        request.EmployeeSkills,
+        //        request.RoleSkills,
+        //        request.CategoriesPerSkill
+        //    );
 
-        var result = await _sender.Send(createSkillCommand, cancellationToken);
+        var result = await _sender.Send(Command, cancellationToken);
 
         return result.IsSuccess ? Ok() : BadRequest(result.Error);
     }

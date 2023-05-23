@@ -9,11 +9,11 @@ namespace Application.Commands.Skills.CreateSkill;
 
 public sealed record CreateSkillCommand
     (
-        Option<string> CreatedBy, Guid ParentSkillId,
-        Option<Description> Description,
-        SkillType SkillType, Option<Skill> ParentSkill,
-        Option<ICollection<Skill>> ChildrenSkills,
-        Option<ICollection<EmployeeSkill>> EmployeeSkills,
-        Option<ICollection<RoleSkill>> RoleSkills,
-        Option<ICollection<CategoryPerSkill>> CategoriesPerSkill
+        string CreatedBy, Guid ParentSkillId,
+        string Description,
+        SkillType SkillType, Skill ParentSkill,
+        ICollection<Skill> ChildrenSkills,
+        ICollection<EmployeeSkill> EmployeeSkills,
+        ICollection<RoleSkill> RoleSkills,
+        ICollection<CategoryPerSkill> CategoriesPerSkill
     ) : ICommand;

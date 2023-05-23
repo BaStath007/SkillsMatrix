@@ -12,7 +12,12 @@ namespace Domain.Entities;
 /// </summary>
 public class SkillCategory : Entity
 {
-    private SkillCategory(Option<string> createdBy, Option<Description> description, 
+    public SkillCategory(string createdBy)
+        : base(createdBy)
+    {
+        
+    }
+    private SkillCategory(string createdBy, Option<Description> description, 
         Option<ICollection<CategoryPerSkill>> categoriesPerSkill) 
         : base(createdBy)
     {
@@ -25,7 +30,7 @@ public class SkillCategory : Entity
     // Navigation Properties
     public virtual Option<ICollection<CategoryPerSkill>> CategoriesPerSkill { get; set; }
 
-    public static SkillCategory Create(Option<string> createdBy, Option<Description> description, 
+    public static SkillCategory Create(string createdBy, Option<Description> description, 
         Option<ICollection<CategoryPerSkill>> categoriesPerSkill) 
         => new(
             createdBy, description, categoriesPerSkill);

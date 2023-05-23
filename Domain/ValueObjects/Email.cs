@@ -6,6 +6,10 @@ namespace Domain.ValueObjects;
 
 public sealed class Email : ValueObject
 {
+    public Email()
+    {
+        
+    }
     private const int MaxLength = 30;
     public string Value;
 

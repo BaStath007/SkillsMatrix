@@ -8,7 +8,12 @@ namespace Domain.Entities;
 
 public class Team : Entity
 {
-    private Team(Option<string> createdBy, Guid parentTeamId,
+    public Team(string createdBy)
+        : base(createdBy)
+    {
+        
+    }
+    private Team(string createdBy, Guid parentTeamId,
         Option<Description> description, TeamType teamType,
         Option<Team> parentTeam, Option<ICollection<Team>> childrenTeams,
         Option<ICollection<Employee>> employees, Option<ICollection<TeamRole>> teamRoles,
@@ -37,7 +42,7 @@ public class Team : Entity
     public Option<ICollection<CategoryPerTeam>> CategoriesPerTeam { get; set; }
 
     public static Team Create(
-        Option<string> createdBy, Guid parentTeamId, Option<Description> description,
+        string createdBy, Guid parentTeamId, Option<Description> description,
         TeamType teamType, Option<Team> ParentTeam, Option<ICollection<Team>> childrenTeams,
         Option<ICollection<Employee>> employees, Option<ICollection<TeamRole>> teamRole,
         Option<ICollection<CategoryPerTeam>> categoriesPerTeam)

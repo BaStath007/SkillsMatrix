@@ -4,6 +4,10 @@ namespace Domain.Entities.JoinEntities;
 
 public class TeamRole
 {
+    public TeamRole()
+    {
+        
+    }
     private TeamRole(Guid teamId, Guid roleId, Option<Team> team, Option<Role> role)
     {
         TeamId = teamId;

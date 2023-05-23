@@ -3,6 +3,7 @@ using Application.Data.IRepositories;
 using Application.DTOs;
 using Application.Exceptions;
 using Domain.Shared;
+using Domain.ValueObjects;
 
 namespace Application.Commands.Skills.CreateSkill;
 
@@ -17,11 +18,16 @@ internal sealed class CreateSkillCommandHandler : ICommandHandler<CreateSkillCom
 
     public async Task<Result> Handle(CreateSkillCommand request, CancellationToken cancellationToken)
     {
-        var skill = new SkillCreateDTO
+        var description = Description.Create(request.Description);
+        if(description.IsFailure)
+        {
+            return description;
+        }
+        var skill = SkillCreateDTO.Create
             (
                 request.CreatedBy,
                 request.ParentSkillId,
-                request.Description,
+                description.Data,
                 request.SkillType,
                 request.ParentSkill,
                 request.ChildrenSkills,

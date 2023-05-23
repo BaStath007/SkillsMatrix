@@ -4,6 +4,10 @@ namespace Domain.Entities.JoinEntities;
 
 public class RoleSkill
 {
+    public RoleSkill()
+    {
+        
+    }
     private RoleSkill(Guid roleId, Guid skillId, Option<Role> role, Option<Skill> skill)
     {
         RoleId = roleId;

@@ -7,7 +7,12 @@ namespace Domain.Entities;
 
 public class Role : Entity
 {
-    private Role(Option<string> createdBy, Option<Description> description, 
+    public Role(string createdBy)
+        :base(createdBy)
+    {
+        
+    }
+    private Role(string createdBy, Option<Description> description, 
         Option<ICollection<Employee>> employees, Option<ICollection<TeamRole>> teamRoles,
         Option<ICollection<RoleSkill>> roleSkills)
         : base(createdBy)
@@ -26,7 +31,7 @@ public class Role : Entity
     public virtual Option<ICollection<RoleSkill>> RoleSkills { get; set; }
 
     public static Role Create(
-        Option<string> createdBy, Option<Description> description, Option<ICollection<Employee>> employees,
+        string createdBy, Option<Description> description, Option<ICollection<Employee>> employees,
         Option<ICollection<TeamRole>> teamRoles, Option<ICollection<RoleSkill>> roleSkills)
         => new(
             createdBy, description,

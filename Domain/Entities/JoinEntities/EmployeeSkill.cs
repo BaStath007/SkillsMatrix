@@ -4,6 +4,10 @@ namespace Domain.Entities.JoinEntities;
 
 public class EmployeeSkill
 {
+    public EmployeeSkill()
+    {
+        
+    }
     private EmployeeSkill(Guid employeeId, Guid skillId, 
         Option<Employee> employee, Option<Skill> skill)
     {

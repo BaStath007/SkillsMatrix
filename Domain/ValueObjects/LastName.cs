@@ -5,6 +5,10 @@ namespace Domain.ValueObjects;
 
 public sealed class LastName : ValueObject
 {
+    public LastName()
+    {
+        
+    }
     private const int MaxLength = 25;
     public string Value { get; }
 

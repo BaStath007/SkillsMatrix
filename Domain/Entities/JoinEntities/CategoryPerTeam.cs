@@ -4,6 +4,10 @@ namespace Domain.Entities.JoinEntities;
 
 public class CategoryPerTeam
 {
+    public CategoryPerTeam()
+    {
+        
+    }
     private CategoryPerTeam(Guid teamId, Guid teamCategoryId, 
         Option<Team> team, Option<TeamCategory> teamCategory)
     {

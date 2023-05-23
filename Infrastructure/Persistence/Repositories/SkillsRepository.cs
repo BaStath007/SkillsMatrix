@@ -9,7 +9,6 @@ namespace Infrastructure.Persistence.Repositories
     public class SkillsRepository : ISkillsRepository
     {
         private readonly ISkillsMatrixDbContext _context;
-
         public SkillsRepository(SkillsMatrixDbContext context)
         {
             _context = context;

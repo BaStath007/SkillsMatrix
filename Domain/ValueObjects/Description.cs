@@ -6,6 +6,10 @@ namespace Domain.ValueObjects;
 
 public sealed class Description : ValueObject
 {
+    public Description()
+    {
+        
+    }
     private const int MaxLength = 50;
     public string Value;
 

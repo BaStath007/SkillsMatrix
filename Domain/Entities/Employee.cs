@@ -8,7 +8,12 @@ namespace Domain.Entities;
 
 public class Employee : Entity
 {
-    private Employee(Option<string> createdBy, Guid roleId, Guid teamId, 
+    public Employee(string createdBy)
+        : base(createdBy)
+    {
+        
+    }
+    private Employee(string createdBy, Guid roleId, Guid teamId, 
         FirstName firstName, LastName lastName, Email email, Age age, 
         Option<Role> role, Option<Team> team, Option<ICollection<EmployeeSkill>> employeeSkills)
         : base(createdBy)
@@ -36,7 +41,7 @@ public class Employee : Entity
     public virtual Option<Team> Team { get; set; }
     public virtual Option<ICollection<EmployeeSkill>> EmployeeSkills { get; set; }
 
-    public static Employee Create(Option<string> createdBy, Guid roleId, Guid teamId, 
+    public static Employee Create(string createdBy, Guid roleId, Guid teamId, 
         FirstName firstName, LastName lastName, Email email, Age age,
         Option<Role> role, Option<Team> team, Option<ICollection<EmployeeSkill>> employeeSkills)
         => new(
