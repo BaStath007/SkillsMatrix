@@ -1,7 +1,7 @@
 ﻿using Domain.Entities.JoinEntities;
 using Domain.Primitives;
-using Domain.Shared;
 using Domain.ValueObjects;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Entities;
 
@@ -17,21 +17,22 @@ public class SkillCategory : Entity
     {
         
     }
-    private SkillCategory(string createdBy, Option<Description> description, 
-        Option<ICollection<CategoryPerSkill>> categoriesPerSkill) 
+    private SkillCategory(string createdBy, Description description, 
+        ICollection<CategoryPerSkill> categoriesPerSkill) 
         : base(createdBy)
     {
         Description = description;
         CategoriesPerSkill = categoriesPerSkill;
     }
 
-    public Option<Description> Description { get; set; }
+    [NotMapped]
+    public Description Description { get; set; }
 
     // Navigation Properties
-    public virtual Option<ICollection<CategoryPerSkill>> CategoriesPerSkill { get; set; }
+    public virtual ICollection<CategoryPerSkill> CategoriesPerSkill { get; set; }
 
-    public static SkillCategory Create(string createdBy, Option<Description> description, 
-        Option<ICollection<CategoryPerSkill>> categoriesPerSkill) 
+    public static SkillCategory Create(string createdBy, Description description, 
+        ICollection<CategoryPerSkill> categoriesPerSkill) 
         => new(
             createdBy, description, categoriesPerSkill);
 }

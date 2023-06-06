@@ -33,8 +33,6 @@ public sealed class DeleteSkillCommandHandler : ICommandHandler<DeleteSkillComma
             var skillToDelete = new SkillUpdateDTO(
                     dbSkill.Id,
                     dbSkill.CreatedAt,
-                    dbSkill.UpdatedAt,
-                    DateTime.UtcNow,
                     dbSkill.CreatedBy,
                     dbSkill.UpdatedBy,
                     dbSkill.DeletedBy,

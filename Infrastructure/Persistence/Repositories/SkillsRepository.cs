@@ -18,28 +18,29 @@ namespace Infrastructure.Persistence.Repositories
         {
             var skill = await _context.Skills.AsNoTracking()
                 .FirstOrDefaultAsync(hs => hs.Id == id, cancellationToken);
-            return HardSkillExtensions.GetSkillToApplication(skill);
+            return SkillExtensions.GetSkillToApplication(skill);
         }
 
         public async Task<List<SkillGetDTO>> GetAll(CancellationToken cancellationToken)
         {
             var hardSkills = await _context.Skills.ToListAsync(cancellationToken);
-            return HardSkillExtensions.GetAllSkillsToApplication(hardSkills);
+            return SkillExtensions.GetAllSkillsToApplication(hardSkills);
         }
 
         public void Add(SkillCreateDTO entity)
         {
-            _context.Skills.Add(HardSkillExtensions.CreateToDomain(entity));
+            _context.Skills.Add(SkillExtensions.CreateToDomain(entity));
         }
         
         public void Update(SkillUpdateDTO entity)
         {
-            _context.Skills.Update(HardSkillExtensions.UpdateToDomain(entity));
+            _context.Skills.Update(SkillExtensions.UpdateToDomain(entity));
         }
 
         public async Task<int> SaveChangesAsync(CancellationToken cancellationToken)
         {
-            return await _context.SaveChangesAsync(cancellationToken); 
+            var number = await _context.SaveChangesAsync(cancellationToken); 
+            return number;
         }
     }
 }

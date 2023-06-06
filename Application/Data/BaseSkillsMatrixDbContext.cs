@@ -2,6 +2,7 @@
 using Domain.Entities;
 using Domain.Entities.JoinEntities;
 using Domain.Shared;
+using Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Data;
@@ -10,6 +11,15 @@ public class BaseSkillsMatrixDbContext : DbContext, ISkillsMatrixDbContext
 {
     public DbSet<Skill> Skills { get; set; }
     public DbSet<SkillCategory> SkillCategories { get; set; }
+    public DbSet<TeamCategory> TeamCategories { get; set; }
+    public DbSet<Team> Teams { get; set; }
+    public DbSet<Role> Roles { get; set; }
+    public DbSet<Employee> Employees { get; set; }
+    public DbSet<CategoryPerSkill> CategoriesPerSkill { get; set; }
+    public DbSet<CategoryPerTeam> CategoriesPerTeam { get; set; }
+    public DbSet<EmployeeSkill> EmployeeSkills { get; set; }
+    public DbSet<RoleSkill> RoleSkills { get; set; }
+    public DbSet<TeamRole> TeamRoles { get; set; }
 
     public BaseSkillsMatrixDbContext(DbContextOptions<BaseSkillsMatrixDbContext> options)
         : base(options)
@@ -24,59 +34,24 @@ public class BaseSkillsMatrixDbContext : DbContext, ISkillsMatrixDbContext
         modelBuilder.Entity<RoleSkill>().HasKey(c => new { c.SkillId, c.RoleId });
         modelBuilder.Entity<TeamRole>().HasKey(c => new { c.TeamId, c.RoleId });
 
+        //modelBuilder.Entity<Age>().HasNoKey();
+        //modelBuilder.Entity<Description>().HasNoKey();
+        //modelBuilder.Entity<Email>().HasNoKey();
+        //modelBuilder.Entity<FirstName>().HasNoKey();
+        //modelBuilder.Entity<LastName>().HasNoKey();
 
-        modelBuilder.Entity<CategoryPerSkill>()
-        .Property(c => c.Skill)
-        .HasConversion(new OptionValueConverter<Skill>());
-
-        modelBuilder.Entity<CategoryPerSkill>()
-            .Property(c => c.SkillCategory)
-            .HasConversion(new OptionValueConverter<SkillCategory>());
-
-        modelBuilder.Entity<CategoryPerTeam>()
-            .Property(c => c.TeamCategory)
-            .HasConversion(new OptionValueConverter<TeamCategory>());
-
-        modelBuilder.Entity<CategoryPerTeam>()
-            .Property(c => c.Team)
-            .HasConversion(new OptionValueConverter<Team>());
-
-        modelBuilder.Entity<EmployeeSkill>()
-            .Property(c => c.Employee)
-            .HasConversion(new OptionValueConverter<Employee>());
-
-        modelBuilder.Entity<EmployeeSkill>()
-            .Property(c => c.Skill)
-            .HasConversion(new OptionValueConverter<Skill>());
-
-        modelBuilder.Entity<RoleSkill>()
-            .Property(c => c.Skill)
-            .HasConversion(new OptionValueConverter<Skill>());
-
-        modelBuilder.Entity<RoleSkill>()
-            .Property(c => c.Role)
-            .HasConversion(new OptionValueConverter<Role>());
-
-        modelBuilder.Entity<TeamRole>()
-            .Property(c => c.Team)
-            .HasConversion(new OptionValueConverter<Team>());
-        
-        modelBuilder.Entity<TeamRole>()
-            .Property(c => c.Role)
-            .HasConversion(new OptionValueConverter<Role>());
-
+        modelBuilder.Owned<Age>();
+        modelBuilder.Owned<Description>();
+        modelBuilder.Owned<Email>();
+        modelBuilder.Owned<FirstName>();
+        modelBuilder.Owned<LastName>();
 
         base.OnModelCreating(modelBuilder);
-        //    modelBuilder.Entity<Option<Employee>>().HasNoKey();
-        //    modelBuilder.Entity<Option<Skill>>().HasNoKey();
-        //    modelBuilder.Entity<Option<SkillCategory>>().HasNoKey();
-        //    modelBuilder.Entity<Option<TeamCategory>>().HasNoKey();
-        //    modelBuilder.Entity<Option<Role>>().HasNoKey();
-        //    modelBuilder.Entity<Option<Team>>().HasNoKey();
     }
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
-        return base.SaveChangesAsync(cancellationToken);
+        var number = base.SaveChangesAsync(cancellationToken);
+        return number;
     }
 }

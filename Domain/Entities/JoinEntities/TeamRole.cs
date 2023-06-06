@@ -1,6 +1,4 @@
-﻿using Domain.Shared;
-
-namespace Domain.Entities.JoinEntities;
+﻿namespace Domain.Entities.JoinEntities;
 
 public class TeamRole
 {
@@ -8,7 +6,7 @@ public class TeamRole
     {
         
     }
-    private TeamRole(Guid teamId, Guid roleId, Option<Team> team, Option<Role> role)
+    private TeamRole(Guid teamId, Guid roleId, Team team, Role role)
     {
         TeamId = teamId;
         RoleId = roleId;
@@ -20,10 +18,10 @@ public class TeamRole
     public Guid RoleId { get; set; } = Guid.Empty;
 
     // Navigation Properties
-    public virtual Option<Team> Team { get; set; }
-    public virtual Option<Role> Role { get; set; }
+    public virtual Team Team { get; set; }
+    public virtual Role Role { get; set; }
 
-    public static TeamRole Create(Guid teamId, Guid roleId, Option<Team> team,
-        Option<Role> role) 
+    public static TeamRole Create(Guid teamId, Guid roleId, Team team,
+        Role role) 
             => new(teamId, roleId, team, role);
 }

@@ -1,7 +1,7 @@
 ﻿using Domain.Entities.JoinEntities;
 using Domain.Primitives;
-using Domain.Shared;
 using Domain.ValueObjects;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Entities;
 
@@ -12,20 +12,21 @@ public class TeamCategory : Entity
     {
         
     }
-    private TeamCategory(string createdBy, Option<Description> description, 
-        Option<ICollection<CategoryPerTeam>> categoriesPerTeam)
+    private TeamCategory(string createdBy, Description description, 
+        ICollection<CategoryPerTeam> categoriesPerTeam)
         : base(createdBy)
     {
         Description = description;
         CategoriesPerTeam = categoriesPerTeam;
     }
 
-    public Option<Description> Description { get; set; }
+    [NotMapped]
+    public Description Description { get; set; }
 
     // Navigation Properties
-    public virtual Option<ICollection<CategoryPerTeam>> CategoriesPerTeam { get; set; }
+    public virtual ICollection<CategoryPerTeam> CategoriesPerTeam { get; set; }
 
-    public static TeamCategory Create(string createdBy, Option<Description> description,
-        Option<ICollection<CategoryPerTeam>> categoriesPerTeam)
+    public static TeamCategory Create(string createdBy, Description description,
+        ICollection<CategoryPerTeam> categoriesPerTeam)
         => new(createdBy, description, categoriesPerTeam);
 }

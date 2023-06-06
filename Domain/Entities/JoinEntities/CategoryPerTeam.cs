@@ -1,6 +1,4 @@
-﻿using Domain.Shared;
-
-namespace Domain.Entities.JoinEntities;
+﻿namespace Domain.Entities.JoinEntities;
 
 public class CategoryPerTeam
 {
@@ -9,7 +7,7 @@ public class CategoryPerTeam
         
     }
     private CategoryPerTeam(Guid teamId, Guid teamCategoryId, 
-        Option<Team> team, Option<TeamCategory> teamCategory)
+        Team team, TeamCategory teamCategory)
     {
         TeamId = teamId;
         TeamCategoryId = teamCategoryId;
@@ -21,10 +19,10 @@ public class CategoryPerTeam
     public Guid TeamCategoryId { get; set; } = Guid.Empty;
 
     // Navigation Properties
-    public virtual Option<Team> Team { get; set; }
-    public virtual Option<TeamCategory> TeamCategory { get; set; }
+    public virtual Team Team { get; set; }
+    public virtual TeamCategory TeamCategory { get; set; }
 
     public static CategoryPerTeam Create(Guid teamId, Guid teamCategoryId,
-        Option<Team> team, Option<TeamCategory> teamCategory)
+        Team team, TeamCategory teamCategory)
             => new(teamId, teamCategoryId, team, teamCategory);
 }

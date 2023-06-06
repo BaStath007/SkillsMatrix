@@ -48,7 +48,7 @@ public sealed class SkillsController : ApiController
     [HttpPost("register")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesErrorResponseType(typeof(Error))]
-    public async Task<IActionResult> Post( CreateSkillCommand Command, CancellationToken cancellationToken)
+    public async Task<IActionResult> Post([FromBody] CreateSkillCommand command, CancellationToken cancellationToken)
     {
         //var createSkillCommand = new CreateSkillCommand
         //    (
@@ -63,7 +63,7 @@ public sealed class SkillsController : ApiController
         //        request.CategoriesPerSkill
         //    );
 
-        var result = await _sender.Send(Command, cancellationToken);
+        var result = await _sender.Send(command, cancellationToken);
 
         return result.IsSuccess ? Ok() : BadRequest(result.Error);
     }
@@ -78,8 +78,6 @@ public sealed class SkillsController : ApiController
                 id,
                 request.Id,
                 request.CreatedAt,
-                request.UpdatedAt,
-                request.DeletedAt,
                 request.CreatedBy,
                 request.UpdatedBy,
                 request.DeletedBy,

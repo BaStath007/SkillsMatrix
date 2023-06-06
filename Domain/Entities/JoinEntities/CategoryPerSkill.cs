@@ -1,6 +1,4 @@
-﻿using Domain.Shared;
-
-namespace Domain.Entities.JoinEntities;
+﻿namespace Domain.Entities.JoinEntities;
 
 /// <summary>
 /// 
@@ -14,7 +12,7 @@ public class CategoryPerSkill
         
     }
     private CategoryPerSkill(Guid skillId, Guid skillCategoryId, 
-        Option<Skill> skill, Option<SkillCategory> skillCategory)
+        Skill skill, SkillCategory skillCategory)
     {
         SkillId = skillId;
         SkillCategoryId = skillCategoryId;
@@ -26,10 +24,10 @@ public class CategoryPerSkill
     public Guid SkillCategoryId { get; set; } = Guid.Empty;
 
     // Navigation Properties
-    public virtual Option<Skill> Skill { get; set; }
-    public virtual Option<SkillCategory> SkillCategory { get; set; }
+    public virtual Skill Skill { get; set; }
+    public virtual SkillCategory SkillCategory { get; set; }
 
     public static CategoryPerSkill Create(Guid skillId, Guid skillCategoryId,
-        Option<Skill> skill, Option<SkillCategory> skillCategory)
+        Skill skill, SkillCategory skillCategory)
             => new(skillId, skillCategoryId, skill, skillCategory);
 }

@@ -1,6 +1,4 @@
-﻿using Domain.Shared;
-
-namespace Domain.Entities.JoinEntities;
+﻿namespace Domain.Entities.JoinEntities;
 
 public class EmployeeSkill
 {
@@ -9,7 +7,7 @@ public class EmployeeSkill
         
     }
     private EmployeeSkill(Guid employeeId, Guid skillId, 
-        Option<Employee> employee, Option<Skill> skill)
+         Employee employee, Skill skill)
     {
         EmployeeId = employeeId;
         SkillId = skillId;
@@ -20,10 +18,10 @@ public class EmployeeSkill
     public Guid SkillId { get; set; } = Guid.Empty;
 
     // Navigation Properties
-    public virtual Option<Employee> Employee { get; set; }
-    public virtual Option<Skill> Skill { get; set; }
+    public virtual Employee Employee { get; set; }
+    public virtual Skill Skill { get; set; }
 
     public static EmployeeSkill Create(Guid employeeId, Guid skillId,
-        Option<Employee> employee, Option<Skill> skill) 
+        Employee employee, Skill skill) 
             => new(employeeId, skillId, employee, skill);
 }

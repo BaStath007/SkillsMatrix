@@ -18,7 +18,10 @@ public static class AssemblyReference
         if (configuration.GetValue<bool>("UseInMemoryDatabase"))
         {
             services.AddDbContext<BaseSkillsMatrixDbContext>(options =>
-                options.UseInMemoryDatabase("SkillsMatrixDb"));
+                {
+                    options.UseInMemoryDatabase("SkillsMatrixDb");
+                    options.EnableSensitiveDataLogging();
+                });
 
             services.AddDbContext<SkillsMatrixDbContext>(options =>
                 options.UseInMemoryDatabase("SkillsMatrixDb"));

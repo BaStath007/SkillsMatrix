@@ -1,6 +1,4 @@
-﻿using Domain.Shared;
-
-namespace Domain.Entities.JoinEntities;
+﻿namespace Domain.Entities.JoinEntities;
 
 public class RoleSkill
 {
@@ -8,7 +6,7 @@ public class RoleSkill
     {
         
     }
-    private RoleSkill(Guid roleId, Guid skillId, Option<Role> role, Option<Skill> skill)
+    private RoleSkill(Guid roleId, Guid skillId, Role role, Skill skill)
     {
         RoleId = roleId;
         SkillId = skillId;
@@ -20,10 +18,10 @@ public class RoleSkill
     public Guid SkillId { get; set; } = Guid.Empty;
 
     // Navigation Properties
-    public virtual Option<Role> Role { get; set; }
-    public virtual Option<Skill> Skill { get; set; }
+    public virtual Role Role { get; set; }
+    public virtual Skill Skill { get; set; }
 
-    public static RoleSkill Create(Guid roleId, Guid skillId, Option<Role> role,
-        Option<Skill> skill)
+    public static RoleSkill Create(Guid roleId, Guid skillId, Role role,
+        Skill skill)
             => new(roleId, skillId, role, skill);
 }

@@ -1,9 +1,7 @@
 ﻿using Domain.Entities;
 using Domain.Entities.JoinEntities;
 using Domain.Enums;
-using Domain.Shared;
 using Domain.ValueObjects;
-using System.Collections.Generic;
 
 namespace Application.DTOs;
 
@@ -11,25 +9,25 @@ public sealed class SkillGetDTO
 {
     public Guid Id { get; set; } 
     public DateTime CreatedAt { get; set; } 
-    public DateTime UpdatedAt { get; set; } 
-    public DateTime DeletedAt { get; set; } 
-    public Option<string> CreatedBy { get; set; }
-    public Option<string> UpdatedBy { get; set; } 
-    public Option<string> DeletedBy { get; set; } 
+    public DateTime? UpdatedAt { get; set; } 
+    public DateTime? DeletedAt { get; set; } 
+    public string CreatedBy { get; set; }
+    public string? UpdatedBy { get; set; } 
+    public string? DeletedBy { get; set; } 
     public bool IsActive { get; set; } 
     public bool IsDeleted { get; set; } 
     public Guid ParentSkillId { get; set; } 
-    public Option<Description> Description { get; set; }
+    public Description Description { get; set; }
     public SkillType SkillType { get; set; } 
-    public Option<Skill> ParentSkill { get; set; }
-    public Option<ICollection<Skill>> ChildrenSkills { get; set; }
-    public Option<ICollection<EmployeeSkill>> EmployeeSkills { get; set; }
-    public Option<ICollection<RoleSkill>> RoleSkills { get; set; }
-    public Option<ICollection<CategoryPerSkill>> CategoriesPerSkill { get; set; }
+    public Skill ParentSkill { get; set; }
+    public ICollection<Skill> ChildrenSkills { get; set; }
+    public ICollection<EmployeeSkill> EmployeeSkills { get; set; }
+    public ICollection<RoleSkill> RoleSkills { get; set; }
+    public ICollection<CategoryPerSkill> CategoriesPerSkill { get; set; }
 
-    public SkillGetDTO(Guid id, DateTime createdAt, DateTime updatedAt,
-        DateTime deletedAt, string createdBy, string updatedBy,
-        string deletedBy, bool isActive, bool isDeleted, Guid parentSkillId,
+    public SkillGetDTO(Guid id, DateTime createdAt, DateTime? updatedAt,
+        DateTime? deletedAt, string createdBy, string? updatedBy,
+        string? deletedBy, bool isActive, bool isDeleted, Guid parentSkillId,
         Description description, SkillType skillType, Skill parentSkill,
         ICollection<Skill> childrenSkills, ICollection<EmployeeSkill> employeeSkills,
         ICollection<RoleSkill> roleSkills, ICollection<CategoryPerSkill> categoriesPerSkill)
@@ -38,18 +36,18 @@ public sealed class SkillGetDTO
         CreatedAt = createdAt;
         UpdatedAt = updatedAt;
         DeletedAt = deletedAt;
-        CreatedBy = Option<string>.Some(createdBy);
-        UpdatedBy = Option<string>.Some(updatedBy);
-        DeletedBy = Option<string>.Some(deletedBy);
+        CreatedBy = createdBy;
+        UpdatedBy = updatedBy;
+        DeletedBy = deletedBy;
         IsActive = isActive;
         IsDeleted = isDeleted;
         ParentSkillId = parentSkillId;
-        Description = Option<Description>.Some(description);
+        Description = description;
         SkillType = skillType;
-        ParentSkill = Option<Skill>.Some(parentSkill);
-        ChildrenSkills = Option<ICollection<Skill>>.Some(childrenSkills);
-        EmployeeSkills = Option<ICollection<EmployeeSkill>>.Some(employeeSkills);
-        RoleSkills = Option<ICollection<RoleSkill>>.Some(roleSkills);
-        CategoriesPerSkill = Option<ICollection<CategoryPerSkill>>.Some(categoriesPerSkill);
+        ParentSkill = parentSkill;
+        ChildrenSkills = childrenSkills;
+        EmployeeSkills = employeeSkills;
+        RoleSkills = roleSkills;
+        CategoriesPerSkill = categoriesPerSkill;
     }
 }

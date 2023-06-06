@@ -23,8 +23,6 @@ public sealed class UpdateSkillCommandHandler : ICommandHandler<UpdateSkillComma
                 (
                     request.OriginalId,
                     request.CreatedAt,
-                    request.UpdatedAt,
-                    request.DeletedAt,
                     request.CreatedBy,
                     request.UpdatedBy,
                     request.DeletedBy,

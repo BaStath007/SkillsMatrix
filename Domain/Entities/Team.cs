@@ -1,8 +1,8 @@
 ﻿using Domain.Entities.JoinEntities;
 using Domain.Enums;
 using Domain.Primitives;
-using Domain.Shared;
 using Domain.ValueObjects;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Entities;
 
@@ -14,10 +14,10 @@ public class Team : Entity
         
     }
     private Team(string createdBy, Guid parentTeamId,
-        Option<Description> description, TeamType teamType,
-        Option<Team> parentTeam, Option<ICollection<Team>> childrenTeams,
-        Option<ICollection<Employee>> employees, Option<ICollection<TeamRole>> teamRoles,
-        Option<ICollection<CategoryPerTeam>> categoriesPerTeam)
+        Description description, TeamType teamType,
+        Team parentTeam, ICollection<Team> childrenTeams,
+        ICollection<Employee> employees, ICollection<TeamRole> teamRoles,
+        ICollection<CategoryPerTeam> categoriesPerTeam)
         : base(createdBy)
     {
         ParentTeamId = parentTeamId;
@@ -31,21 +31,22 @@ public class Team : Entity
     }
 
     public Guid ParentTeamId { get; set; } = Guid.Empty;
-    public Option<Description> Description { get; set; }
+    [NotMapped]
+    public Description Description { get; set; }
     public TeamType TeamType { get; set; } = TeamType.None;
 
     // Navigation Properties
-    public Option<Team> ParentTeam { get; set; }
-    public Option<ICollection<Team>> ChildrenTeams { get; set; }
-    public Option<ICollection<Employee>> Employees { get; set; }
-    public Option<ICollection<TeamRole>> TeamRoles { get; set; }
-    public Option<ICollection<CategoryPerTeam>> CategoriesPerTeam { get; set; }
+    public Team ParentTeam { get; set; }
+    public ICollection<Team> ChildrenTeams { get; set; }
+    public ICollection<Employee> Employees { get; set; }
+    public ICollection<TeamRole> TeamRoles { get; set; }
+    public ICollection<CategoryPerTeam> CategoriesPerTeam { get; set; }
 
     public static Team Create(
-        string createdBy, Guid parentTeamId, Option<Description> description,
-        TeamType teamType, Option<Team> ParentTeam, Option<ICollection<Team>> childrenTeams,
-        Option<ICollection<Employee>> employees, Option<ICollection<TeamRole>> teamRole,
-        Option<ICollection<CategoryPerTeam>> categoriesPerTeam)
+        string createdBy, Guid parentTeamId, Description description,
+        TeamType teamType, Team ParentTeam, ICollection<Team> childrenTeams,
+        ICollection<Employee> employees, ICollection<TeamRole> teamRole,
+        ICollection<CategoryPerTeam> categoriesPerTeam)
             => new(
                 createdBy, parentTeamId,
             description, teamType, ParentTeam,

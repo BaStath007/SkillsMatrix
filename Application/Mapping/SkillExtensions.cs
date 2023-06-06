@@ -3,38 +3,39 @@ using Domain.Entities;
 
 namespace Application.Mapping;
 
-public static class HardSkillExtensions
+public static class SkillExtensions
 {
     public static Skill CreateToDomain(SkillCreateDTO skill)
     {
-        var skillDTO = Skill.Create(skill.CreatedBy.Map(s => s).Reduce(string.Empty),
-            skill.ParentSkillId, skill.Description.Map(s => s).Reduce(null!),
-            skill.SkillType, skill.ParentSkill.Map(s => s).Reduce(null!),
-            skill.ChildrenSkills.Map(s => s).Reduce(null!),
-            skill.EmployeeSkills.Map(s => s).Reduce(null!),
-            skill.RoleSkills.Map(s => s).Reduce(null!),
-            skill.CategoriesPerSkill.Map(s => s).Reduce(null!));
+        Skill skillDTO = Skill.Create(skill.CreatedBy,
+            skill.ParentSkillId, skill.Description,
+            skill.SkillType, skill.ParentSkill,
+            skill.ChildrenSkills,
+            skill.EmployeeSkills,
+            skill.RoleSkills,
+            skill.CategoriesPerSkill);
         return skillDTO;
     }
 
     public static Skill UpdateToDomain(SkillUpdateDTO skill)
     {
         return Skill.Update(skill.UpdatedAt, skill.DeletedAt,
-            skill.CreatedBy.Map(s => s).Reduce(string.Empty),
-            skill.UpdatedBy.Map(s => s).Reduce(string.Empty),
-            skill.DeletedBy.Map(s => s).Reduce(string.Empty),
+            skill.CreatedBy,
+            skill.UpdatedBy,
+            skill.DeletedBy,
             skill.IsActive, skill.IsDeleted, skill.ParentSkillId,
-        skill.Description.Map(s => s).Reduce(null!), skill.SkillType,
-        skill.ParentSkill.Map(s => s).Reduce(null!),
-        skill.ChildrenSkills.Map(s => s).Reduce(null!),
-        skill.EmployeeSkills.Map(s => s).Reduce(null!),
-        skill.RoleSkills.Map(s => s).Reduce(null!),
-        skill.CategoriesPerSkill.Map(s => s).Reduce(null!));
+        skill.Description, skill.SkillType,
+        skill.ParentSkill,
+        skill.ChildrenSkills,
+        skill.EmployeeSkills,
+        skill.RoleSkills,
+        skill.CategoriesPerSkill);
     }
 
     public static SkillGetDTO? GetSkillToApplication(Skill? skill)
     {
-        if (skill == null) return null;
+        if (skill is null) return null;
+
         return new SkillGetDTO(skill.Id, skill.CreatedAt, skill.UpdatedAt,
             skill.DeletedAt, skill.CreatedBy, skill.UpdatedBy,
             skill.DeletedBy, skill.IsActive, skill.IsDeleted,
