@@ -8,38 +8,28 @@ namespace Application.DTOs;
 public sealed class SkillUpdateDTO
 {
     public Guid Id { get; set; } 
-    public DateTime CreatedAt { get; set; } 
-    public DateTime? UpdatedAt { get; set; } 
-    public DateTime? DeletedAt { get; set; } 
-    public string CreatedBy { get; set; }
+    public string CreatedBy { get; set; } 
     public string? UpdatedBy { get; set; } 
-    public string? DeletedBy { get; set; }
-    public bool IsActive { get; set; }
-    public bool IsDeleted { get; set; } 
-    public Guid ParentSkillId { get; set; } 
+    public bool? IsActive { get; set; }
+    public Guid? ParentSkillId { get; set; } 
     public Description Description { get; set; }
     public SkillType SkillType { get; set; } 
-    public Skill ParentSkill { get; set; }
-    public ICollection<Skill> ChildrenSkills { get; set; }
-    public ICollection<EmployeeSkill> EmployeeSkills { get; set; }
-    public ICollection<RoleSkill> RoleSkills { get; set; }
-    public ICollection<CategoryPerSkill> CategoriesPerSkill { get; set; }
+    public Skill? ParentSkill { get; set; }
+    public ICollection<Skill>? ChildrenSkills { get; set; }
+    public ICollection<EmployeeSkill>? EmployeeSkills { get; set; }
+    public ICollection<RoleSkill>? RoleSkills { get; set; }
+    public ICollection<CategoryPerSkill>? CategoriesPerSkill { get; set; }
 
-    public SkillUpdateDTO(Guid id, DateTime createdAt, string createdBy,
-        string? updatedBy, string? deletedBy, bool isActive, bool isDeleted,
-        Guid parentSkillId, Description description, SkillType skillType, Skill parentSkill, 
-        ICollection<Skill> childrenSkills, ICollection<EmployeeSkill> employeeSkills, 
-        ICollection<RoleSkill> roleSkills, ICollection<CategoryPerSkill> categoriesPerSkill)
+    public SkillUpdateDTO(Guid id, string createdBy, string? updatedBy,
+        bool? isActive, Guid? parentSkillId, Description description,
+        SkillType skillType, Skill? parentSkill, 
+        ICollection<Skill>? childrenSkills, ICollection<EmployeeSkill>? employeeSkills, 
+        ICollection<RoleSkill>? roleSkills, ICollection<CategoryPerSkill>? categoriesPerSkill)
     {
         Id = id;
-        CreatedAt = createdAt;
-        UpdatedAt = DateTime.UtcNow;
-        DeletedAt = DateTime.UtcNow;
         CreatedBy = createdBy;
         UpdatedBy = updatedBy;
-        DeletedBy = deletedBy;
         IsActive = isActive;
-        IsDeleted = isDeleted;
         ParentSkillId = parentSkillId;
         Description = description;
         SkillType = skillType;

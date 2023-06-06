@@ -7,7 +7,7 @@
 /// </summary>
 public class CategoryPerSkill
 {
-    public CategoryPerSkill()
+    private CategoryPerSkill()
     {
         
     }
@@ -24,8 +24,8 @@ public class CategoryPerSkill
     public Guid SkillCategoryId { get; set; } = Guid.Empty;
 
     // Navigation Properties
-    public virtual Skill Skill { get; set; }
-    public virtual SkillCategory SkillCategory { get; set; }
+    public virtual Skill Skill { get; set; } = default!;
+    public virtual SkillCategory SkillCategory { get; set; } = default!;
 
     public static CategoryPerSkill Create(Guid skillId, Guid skillCategoryId,
         Skill skill, SkillCategory skillCategory)

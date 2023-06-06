@@ -2,7 +2,7 @@
 
 public class CategoryPerTeam
 {
-    public CategoryPerTeam()
+    private CategoryPerTeam()
     {
         
     }
@@ -19,8 +19,8 @@ public class CategoryPerTeam
     public Guid TeamCategoryId { get; set; } = Guid.Empty;
 
     // Navigation Properties
-    public virtual Team Team { get; set; }
-    public virtual TeamCategory TeamCategory { get; set; }
+    public virtual Team Team { get; set; } = default!;
+    public virtual TeamCategory TeamCategory { get; set; } = default!; 
 
     public static CategoryPerTeam Create(Guid teamId, Guid teamCategoryId,
         Team team, TeamCategory teamCategory)

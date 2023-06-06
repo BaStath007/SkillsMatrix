@@ -1,6 +1,4 @@
-﻿using Domain.Shared;
-
-namespace Domain.Primitives;
+﻿namespace Domain.Primitives;
 
 public abstract class Entity : IEquatable<Entity>
 {
@@ -11,8 +9,8 @@ public abstract class Entity : IEquatable<Entity>
     public string CreatedBy { get; private init; }
     public string? UpdatedBy { get; protected set; } = null;
     public string? DeletedBy { get; protected set; } = null;
-    public bool IsActive { get; protected set; } = false;
-    public bool IsDeleted { get; protected set; } = false;
+    public bool? IsActive { get; protected set; } = false;
+    public bool? IsDeleted { get; protected set; } = false;
 
     protected Entity(string createdBy)
     {

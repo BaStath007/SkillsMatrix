@@ -2,7 +2,7 @@
 
 public class RoleSkill
 {
-    public RoleSkill()
+    private RoleSkill()
     {
         
     }
@@ -18,8 +18,8 @@ public class RoleSkill
     public Guid SkillId { get; set; } = Guid.Empty;
 
     // Navigation Properties
-    public virtual Role Role { get; set; }
-    public virtual Skill Skill { get; set; }
+    public virtual Role Role { get; set; } = default!;  
+    public virtual Skill Skill { get; set; } = default!;
 
     public static RoleSkill Create(Guid roleId, Guid skillId, Role role,
         Skill skill)

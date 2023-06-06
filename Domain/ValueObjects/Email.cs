@@ -6,12 +6,8 @@ namespace Domain.ValueObjects;
 
 public sealed class Email : ValueObject
 {
-    public Email()
-    {
-        
-    }
     private const int MaxLength = 30;
-    public string Value;
+    public string Value { get; } = string.Empty;
 
     private Email(string value)
     {

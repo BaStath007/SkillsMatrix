@@ -2,7 +2,7 @@
 
 public class TeamRole
 {
-    public TeamRole()
+    private TeamRole()
     {
         
     }
@@ -18,8 +18,8 @@ public class TeamRole
     public Guid RoleId { get; set; } = Guid.Empty;
 
     // Navigation Properties
-    public virtual Team Team { get; set; }
-    public virtual Role Role { get; set; }
+    public virtual Team Team { get; set; } = default!;
+    public virtual Role Role { get; set; } = default!;
 
     public static TeamRole Create(Guid teamId, Guid roleId, Team team,
         Role role) 

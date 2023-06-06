@@ -16,7 +16,10 @@ namespace Infrastructure.Persistence.Repositories
 
         public async Task<SkillGetDTO?> GetById(Guid id, CancellationToken cancellationToken)
         {
-            var skill = await _context.Skills.AsNoTracking()
+            var skill = await _context.Skills.AsNoTracking().Include(s => s.Description)
+                .Include(s => s.ParentSkill).Include(s => s.ChildrenSkills)
+                .Include(s => s.EmployeeSkills).Include(s => s.RoleSkills)
+                .Include(s => s.CategoriesPerSkill)
                 .FirstOrDefaultAsync(hs => hs.Id == id, cancellationToken);
             return SkillExtensions.GetSkillToApplication(skill);
         }
@@ -35,6 +38,11 @@ namespace Infrastructure.Persistence.Repositories
         public void Update(SkillUpdateDTO entity)
         {
             _context.Skills.Update(SkillExtensions.UpdateToDomain(entity));
+        }
+
+        public void SoftDelete(SkillDeleteDTO entity)
+        {
+            _context.Skills.Update(SkillExtensions.DeleteToDomain(entity));
         }
 
         public async Task<int> SaveChangesAsync(CancellationToken cancellationToken)

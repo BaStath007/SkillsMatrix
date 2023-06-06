@@ -4,6 +4,7 @@ using Domain.Entities.JoinEntities;
 using Domain.Shared;
 using Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
 
 namespace Application.Data;
 
@@ -38,13 +39,93 @@ public class BaseSkillsMatrixDbContext : DbContext, ISkillsMatrixDbContext
         //modelBuilder.Entity<Description>().HasNoKey();
         //modelBuilder.Entity<Email>().HasNoKey();
         //modelBuilder.Entity<FirstName>().HasNoKey();
-        //modelBuilder.Entity<LastName>().HasNoKey();
+        //modelBuilder.Entity<Option<MiddleName>>().HasNoKey();
+        modelBuilder.Entity<Skill>
+            (
+                b => b.OwnsOne
+                (
+                    s => s.Description,
+                    d => d.Property(x => x.Value)
+                )
+            );
 
-        modelBuilder.Owned<Age>();
-        modelBuilder.Owned<Description>();
-        modelBuilder.Owned<Email>();
-        modelBuilder.Owned<FirstName>();
-        modelBuilder.Owned<LastName>();
+        modelBuilder.Entity<Role>
+            (
+                b => b.OwnsOne
+                (
+                    s => s.Description,
+                    d => d.Property(x => x.Value)
+                )
+            );
+
+        modelBuilder.Entity<Team>
+            (
+                b => b.OwnsOne
+                (
+                    s => s.Description,
+                    d => d.Property(x => x.Value)
+                )
+            );
+
+        modelBuilder.Entity<SkillCategory>
+            (
+                b => b.OwnsOne
+                (
+                    s => s.Description,
+                    d => d.Property(x => x.Value)
+                )
+            );
+
+        modelBuilder.Entity<TeamCategory>
+            (
+                b => b.OwnsOne
+                (
+                    s => s.Description,
+                    d => d.Property(x => x.Value)
+                )
+            );
+
+        modelBuilder.Entity<Employee>
+            (
+                b =>
+                {
+                    b.OwnsOne
+                    (
+                        e => e.Age,
+                        a => a.Property(x => x.Value)
+                    );
+                    b.OwnsOne
+                    (
+                        e => e.FirstName,
+                        fn => fn.Property(x => x.Value)
+                    );
+                    b.OwnsOne
+                    (
+                        e => e.LastName,
+                        ln => ln.Property(x => x.Value)
+                    );
+                    b.OwnsOne
+                    (
+                        e => e.Email,
+                        em => em.Property(x => x.Value)
+                    );
+                }
+            );
+        
+        //(
+        //    b =>
+        //    {
+        //        b.OwnsOne(e => e.Age, a =>
+        //        a.Property(x => x.Value));
+        //    }
+        //);
+
+        //modelBuilder.Owned<Age>();
+        //modelBuilder.Owned<Description>();
+        //modelBuilder.Owned<Email>();
+        //modelBuilder.Owned<FirstName>();
+        modelBuilder.Owned<Option<MiddleName>>();
+        //modelBuilder.Owned<LastName>();
 
         base.OnModelCreating(modelBuilder);
     }

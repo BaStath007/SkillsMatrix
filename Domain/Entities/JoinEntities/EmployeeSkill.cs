@@ -2,7 +2,7 @@
 
 public class EmployeeSkill
 {
-    public EmployeeSkill()
+    private EmployeeSkill()
     {
         
     }
@@ -18,8 +18,8 @@ public class EmployeeSkill
     public Guid SkillId { get; set; } = Guid.Empty;
 
     // Navigation Properties
-    public virtual Employee Employee { get; set; }
-    public virtual Skill Skill { get; set; }
+    public virtual Employee Employee { get; set; } = default!;
+    public virtual Skill Skill { get; set; } = default!;   
 
     public static EmployeeSkill Create(Guid employeeId, Guid skillId,
         Employee employee, Skill skill) 

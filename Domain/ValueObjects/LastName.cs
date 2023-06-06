@@ -5,12 +5,8 @@ namespace Domain.ValueObjects;
 
 public sealed class LastName : ValueObject
 {
-    public LastName()
-    {
-        
-    }
     private const int MaxLength = 25;
-    public string Value { get; }
+    public string Value { get; } = string.Empty;
 
     private LastName(string value)
     {
@@ -22,7 +18,7 @@ public sealed class LastName : ValueObject
         yield return Value;
     }
 
-    public Result<LastName> Create(string lastName)
+    public static Result<LastName> Create(string lastName)
     {
         if (string.IsNullOrWhiteSpace(lastName))
         {

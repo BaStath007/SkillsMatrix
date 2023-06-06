@@ -19,17 +19,22 @@ public static class SkillExtensions
 
     public static Skill UpdateToDomain(SkillUpdateDTO skill)
     {
-        return Skill.Update(skill.UpdatedAt, skill.DeletedAt,
-            skill.CreatedBy,
-            skill.UpdatedBy,
-            skill.DeletedBy,
-            skill.IsActive, skill.IsDeleted, skill.ParentSkillId,
-        skill.Description, skill.SkillType,
-        skill.ParentSkill,
-        skill.ChildrenSkills,
-        skill.EmployeeSkills,
-        skill.RoleSkills,
-        skill.CategoriesPerSkill);
+        return Skill.Update
+            (
+                skill.CreatedBy, skill.UpdatedBy,
+                skill.IsActive, skill.ParentSkillId,
+                skill.Description, skill.SkillType,
+                skill.ParentSkill,
+                skill.ChildrenSkills,
+                skill.EmployeeSkills,
+                skill.RoleSkills,
+                skill.CategoriesPerSkill
+            );
+    }
+
+    public static Skill DeleteToDomain(SkillDeleteDTO skill)
+    {
+        return null;
     }
 
     public static SkillGetDTO? GetSkillToApplication(Skill? skill)

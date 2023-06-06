@@ -30,25 +30,9 @@ public sealed class DeleteSkillCommandHandler : ICommandHandler<DeleteSkillComma
                 );
             }
 
-            var skillToDelete = new SkillUpdateDTO(
-                    dbSkill.Id,
-                    dbSkill.CreatedAt,
-                    dbSkill.CreatedBy,
-                    dbSkill.UpdatedBy,
-                    dbSkill.DeletedBy,
-                    false,
-                    true,
-                    dbSkill.ParentSkillId,
-                    dbSkill.Description,
-                    dbSkill.SkillType,
-                    dbSkill.ParentSkill,
-                    dbSkill.ChildrenSkills,
-                    dbSkill.EmployeeSkills,
-                    dbSkill.RoleSkills,
-                    dbSkill.CategoriesPerSkill
-                    );
+            var skillToDelete = new SkillDeleteDTO(dbSkill.Id, dbSkill.DeletedBy);
 
-            _repository.Update(skillToDelete);
+            _repository.SoftDelete(skillToDelete);
             await _repository.SaveChangesAsync(cancellationToken);
 
             return Result.Success();
