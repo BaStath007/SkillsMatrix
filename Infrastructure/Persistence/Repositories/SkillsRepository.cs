@@ -44,11 +44,5 @@ namespace Infrastructure.Persistence.Repositories
         {
             _context.Skills.Update(SkillExtensions.DeleteToDomain(entity));
         }
-
-        public async Task<int> SaveChangesAsync(CancellationToken cancellationToken)
-        {
-            var number = await _context.SaveChangesAsync(cancellationToken); 
-            return number;
-        }
     }
 }

@@ -8,8 +8,8 @@ namespace Application.Commands.Skills.UpdateSkill;
 
 public sealed record UpdateSkillCommand
     (
-        Guid Id, string CreatedBy, string? UpdatedBy, bool? IsActive,
-        Guid? ParentSkillId, Description Description, SkillType SkillType, Skill? ParentSkill,
-        ICollection<Skill>? ChildrenSkills, ICollection<EmployeeSkill>? EmployeeSkills,
-        ICollection<RoleSkill>? RoleSkills, ICollection<CategoryPerSkill>? CategoriesPerSkill
+        Guid Id, string UpdatedBy, bool IsActive,
+        Guid ParentSkillId, string Description, SkillType SkillType,
+        ICollection<Skill> ChildrenSkills, ICollection<EmployeeSkill> EmployeeSkills,
+        ICollection<RoleSkill> RoleSkills, ICollection<CategoryPerSkill> CategoriesPerSkill
     ) : ICommand;

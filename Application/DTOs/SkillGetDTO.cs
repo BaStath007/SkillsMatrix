@@ -14,8 +14,8 @@ public sealed class SkillGetDTO
     public string CreatedBy { get; set; }
     public string? UpdatedBy { get; set; } 
     public string? DeletedBy { get; set; } 
-    public bool? IsActive { get; set; } 
-    public bool? IsDeleted { get; set; } 
+    public bool IsActive { get; set; } 
+    public bool IsDeleted { get; set; } 
     public Guid? ParentSkillId { get; set; } 
     public Description Description { get; set; }
     public SkillType SkillType { get; set; } 
@@ -27,7 +27,7 @@ public sealed class SkillGetDTO
 
     public SkillGetDTO(Guid id, DateTime createdAt, DateTime? updatedAt,
         DateTime? deletedAt, string createdBy, string? updatedBy,
-        string? deletedBy, bool? isActive, bool? isDeleted, Guid? parentSkillId,
+        string? deletedBy, bool isActive, bool isDeleted, Guid? parentSkillId,
         Description description, SkillType skillType, Skill? parentSkill,
         ICollection<Skill>? childrenSkills, ICollection<EmployeeSkill>? employeeSkills,
         ICollection<RoleSkill>? roleSkills, ICollection<CategoryPerSkill>? categoriesPerSkill)

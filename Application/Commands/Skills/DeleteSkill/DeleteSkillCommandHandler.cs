@@ -1,4 +1,5 @@
 ﻿using Application.Commands.Common;
+using Application.Data;
 using Application.Data.IRepositories;
 using Application.DTOs;
 using Application.Exceptions;
@@ -9,10 +10,12 @@ namespace Application.Commands.Skills.DeleteSkill;
 public sealed class DeleteSkillCommandHandler : ICommandHandler<DeleteSkillCommand>
 {
     private readonly ISkillsRepository _repository;
+    private readonly IUnitOfWork _unit;
 
-    public DeleteSkillCommandHandler(ISkillsRepository repository)
+    public DeleteSkillCommandHandler(ISkillsRepository repository, IUnitOfWork unit)
     {
         _repository = repository;
+        _unit = unit;
     }
 
     public async Task<Result> Handle(DeleteSkillCommand request, CancellationToken cancellationToken)
@@ -30,10 +33,25 @@ public sealed class DeleteSkillCommandHandler : ICommandHandler<DeleteSkillComma
                 );
             }
 
-            var skillToDelete = new SkillDeleteDTO(dbSkill.Id, dbSkill.DeletedBy);
+            var skillToDelete = new SkillDeleteDTO
+                (
+                    dbSkill.Id,
+                    dbSkill.CreatedAt,
+                    dbSkill.UpdatedAt,
+                    dbSkill.CreatedBy,
+                    dbSkill.UpdatedBy,
+                    request.DeletedBy,
+                    dbSkill.ParentSkillId,
+                    dbSkill.Description,
+                    dbSkill.SkillType,
+                    dbSkill.ChildrenSkills,
+                    dbSkill.EmployeeSkills,
+                    dbSkill.RoleSkills,
+                    dbSkill.CategoriesPerSkill
+                 );
 
             _repository.SoftDelete(skillToDelete);
-            await _repository.SaveChangesAsync(cancellationToken);
+            await _unit.SaveChangesAsync(cancellationToken);
 
             return Result.Success();
         }

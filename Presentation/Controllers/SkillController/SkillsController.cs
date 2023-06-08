@@ -35,11 +35,9 @@ public sealed class SkillsController : ApiController
     [HttpGet("find")]
     [ProducesResponseType(typeof(SkillGetDTO), StatusCodes.Status200OK)]
     [ProducesErrorResponseType(typeof(Error))]
-    public async Task<IActionResult> Get([FromQuery] Guid id, CancellationToken cancellationToken)
+    public async Task<IActionResult> Get([FromQuery] GetSkillByIdQuery query, CancellationToken cancellationToken)
     {
-        var getHSByIdQuery = new GetSkillByIdQuery(id);
-
-        var result = await _sender.Send(getHSByIdQuery, cancellationToken);
+        var result = await _sender.Send(query, cancellationToken);
 
         return result.IsSuccess ? Ok(result.Data) : NotFound(result.Error);
     }
@@ -50,20 +48,7 @@ public sealed class SkillsController : ApiController
     [ProducesErrorResponseType(typeof(Error))]
     public async Task<IActionResult> Post([FromBody] CreateSkillCommand command, CancellationToken cancellationToken)
     {
-        //var createSkillCommand = new CreateSkillCommand
-        //    (
-        //        request.CreatedBy,
-        //        request.ParentSkillId,
-        //        request.Description,
-        //        request.SkillType,
-        //        request.ParentSkill,
-        //        request.ChildrenSkills,
-        //        request.EmployeeSkills,
-        //        request.RoleSkills,
-        //        request.CategoriesPerSkill
-        //    );
-
-        var result = await _sender.Send(command, cancellationToken);
+         var result = await _sender.Send(command, cancellationToken);
 
         return result.IsSuccess ? Ok() : BadRequest(result.Error);
     }
@@ -73,25 +58,6 @@ public sealed class SkillsController : ApiController
     [ProducesErrorResponseType(typeof(Error))]
     public async Task<IActionResult> Put([FromBody] UpdateSkillCommand command, CancellationToken cancellationToken)
     {
-        //var updateSkillCommand = new UpdateSkillCommand
-        //    (
-        //        id,
-        //        request.Id,
-        //        request.CreatedAt,
-        //        request.CreatedBy,
-        //        request.UpdatedBy,
-        //        request.DeletedBy,
-        //        request.IsActive,
-        //        request.IsDeleted,
-        //        request.ParentSkillId,
-        //        request.Description,
-        //        request.SkillType,
-        //        request.ParentSkill,
-        //        request.ChildrenSkills,
-        //        request.EmployeeSkills,
-        //        request.RoleSkills,
-        //        request.CategoriesPerSkill
-        //    );
         var result = await _sender.Send(command, cancellationToken);
 
         return result.IsSuccess ? Ok() : NotFound(result.Error);
@@ -100,11 +66,9 @@ public sealed class SkillsController : ApiController
     [HttpDelete("delete")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesErrorResponseType(typeof(Error))]
-    public async Task<IActionResult> Delete([FromQuery] Guid id, CancellationToken cancellationToken)
+    public async Task<IActionResult> Delete([FromBody] DeleteSkillCommand command, CancellationToken cancellationToken)
     {
-        var deleteSkillCommand = new DeleteSkillCommand(id);
-
-        var result = await _sender.Send(deleteSkillCommand, cancellationToken);
+        var result = await _sender.Send(command, cancellationToken);
 
         return result.IsSuccess ? Ok() : NotFound(result.Error);
     }

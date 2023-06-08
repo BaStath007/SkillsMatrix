@@ -7,33 +7,42 @@ namespace Application.DTOs;
 
 public sealed class SkillUpdateDTO
 {
-    public Guid Id { get; set; } 
-    public string CreatedBy { get; set; } 
-    public string? UpdatedBy { get; set; } 
-    public bool? IsActive { get; set; }
-    public Guid? ParentSkillId { get; set; } 
-    public Description Description { get; set; }
-    public SkillType SkillType { get; set; } 
-    public Skill? ParentSkill { get; set; }
-    public ICollection<Skill>? ChildrenSkills { get; set; }
-    public ICollection<EmployeeSkill>? EmployeeSkills { get; set; }
-    public ICollection<RoleSkill>? RoleSkills { get; set; }
-    public ICollection<CategoryPerSkill>? CategoriesPerSkill { get; set; }
+    public Guid Id { get; private init; }
+    public DateTime CreatedAt { get; private init; }
+    public DateTime? UpdatedAt { get; private init; }
+    public DateTime? DeletedAt { get; private init; }
+    public string CreatedBy { get; private init; } 
+    public string? UpdatedBy { get; private init; } 
+    public string? DeletedBy { get; private init; } 
+    public bool IsActive { get; private init; }
+    public bool IsDeleted { get; private init; }
+    public Guid? ParentSkillId { get; private init; } 
+    public Description Description { get; private init; }
+    public SkillType SkillType { get; private init; } 
+    public ICollection<Skill>? ChildrenSkills { get; private init; }
+    public ICollection<EmployeeSkill>? EmployeeSkills { get; private init; }
+    public ICollection<RoleSkill>? RoleSkills { get; private init; }
+    public ICollection<CategoryPerSkill>? CategoriesPerSkill { get; private init; }
 
-    public SkillUpdateDTO(Guid id, string createdBy, string? updatedBy,
-        bool? isActive, Guid? parentSkillId, Description description,
-        SkillType skillType, Skill? parentSkill, 
+    public SkillUpdateDTO(Guid id, DateTime createdAt, DateTime? updatedAt, DateTime? deletedAt,
+        string createdBy, string? updatedBy, string? deletedBy,
+        bool isActive, bool isDeleted, Guid? parentSkillId, Description description,
+        SkillType skillType, 
         ICollection<Skill>? childrenSkills, ICollection<EmployeeSkill>? employeeSkills, 
         ICollection<RoleSkill>? roleSkills, ICollection<CategoryPerSkill>? categoriesPerSkill)
     {
         Id = id;
+        CreatedAt = createdAt;
+        UpdatedAt = updatedAt;
+        DeletedAt = deletedAt;
         CreatedBy = createdBy;
         UpdatedBy = updatedBy;
+        DeletedBy = deletedBy;
         IsActive = isActive;
+        IsDeleted = isDeleted;
         ParentSkillId = parentSkillId;
         Description = description;
         SkillType = skillType;
-        ParentSkill = parentSkill;
         ChildrenSkills = childrenSkills;
         EmployeeSkills = employeeSkills;
         RoleSkills = roleSkills;

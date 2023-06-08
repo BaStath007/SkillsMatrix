@@ -9,5 +9,4 @@ public interface ISkillsRepository
     void Add(SkillCreateDTO entity);
     void Update(SkillUpdateDTO entity);
     void SoftDelete(SkillDeleteDTO entity);
-    Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

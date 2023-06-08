@@ -2,4 +2,4 @@
 
 namespace Application.Commands.Skills.DeleteSkill;
 
-public sealed record DeleteSkillCommand(Guid Id) : ICommand;
+public sealed record DeleteSkillCommand(Guid Id, string DeletedBy) : ICommand;

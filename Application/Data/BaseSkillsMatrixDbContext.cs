@@ -35,11 +35,6 @@ public class BaseSkillsMatrixDbContext : DbContext, ISkillsMatrixDbContext
         modelBuilder.Entity<RoleSkill>().HasKey(c => new { c.SkillId, c.RoleId });
         modelBuilder.Entity<TeamRole>().HasKey(c => new { c.TeamId, c.RoleId });
 
-        //modelBuilder.Entity<Age>().HasNoKey();
-        //modelBuilder.Entity<Description>().HasNoKey();
-        //modelBuilder.Entity<Email>().HasNoKey();
-        //modelBuilder.Entity<FirstName>().HasNoKey();
-        //modelBuilder.Entity<Option<MiddleName>>().HasNoKey();
         modelBuilder.Entity<Skill>
             (
                 b => b.OwnsOne
@@ -101,6 +96,11 @@ public class BaseSkillsMatrixDbContext : DbContext, ISkillsMatrixDbContext
                     );
                     b.OwnsOne
                     (
+                        e => e.EmployeeMiddleName,
+                        mn => mn.Property(x => x.Map(s => s))
+                    );
+                    b.OwnsOne
+                    (
                         e => e.LastName,
                         ln => ln.Property(x => x.Value)
                     );
@@ -111,28 +111,14 @@ public class BaseSkillsMatrixDbContext : DbContext, ISkillsMatrixDbContext
                     );
                 }
             );
-        
-        //(
-        //    b =>
-        //    {
-        //        b.OwnsOne(e => e.Age, a =>
-        //        a.Property(x => x.Value));
-        //    }
-        //);
-
-        //modelBuilder.Owned<Age>();
-        //modelBuilder.Owned<Description>();
-        //modelBuilder.Owned<Email>();
-        //modelBuilder.Owned<FirstName>();
-        modelBuilder.Owned<Option<MiddleName>>();
-        //modelBuilder.Owned<LastName>();
 
         base.OnModelCreating(modelBuilder);
     }
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
-        var number = base.SaveChangesAsync(cancellationToken);
+        var k = base.ChangeTracker.Entries().Where(e => e.State == EntityState.Modified || e.State == EntityState.Added).Select(e => e.Entity);
+        var number = base.SaveChangesAsync();
         return number;
     }
 }

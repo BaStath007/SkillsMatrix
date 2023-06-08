@@ -8,6 +8,5 @@ public interface ISkillCategoryRepository
     Task<List<SkillCategory>> GetAll(CancellationToken cancellationToken);
     void Add(SkillCategory entity);
     void Update(SkillCategory entity);
-    void Delete(SkillCategory entity);
-    Task<int> SaveChangesAsync(CancellationToken cancellationToken);
+    void SoftDelete(SkillCategory entity);
 }

@@ -1,6 +1,5 @@
 ﻿using Application.Data;
 using Application.Data.IRepositories;
-using Domain;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,14 +13,12 @@ public class SkillCategoryRepository : ISkillCategoryRepository
     {
         _context = context;
     }
-    public void Add(SkillCategory entity)
-    {
-        _context.SkillCategories.Add(entity);
-    }
 
-    public void Delete(SkillCategory entity)
+    public async Task<SkillCategory?> GetById(Guid id, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var category = await _context.SkillCategories.AsNoTracking()
+            .FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
+        return category;
     }
 
     public Task<List<SkillCategory>> GetAll(CancellationToken cancellationToken)
@@ -29,19 +26,17 @@ public class SkillCategoryRepository : ISkillCategoryRepository
         throw new NotImplementedException();
     }
 
-    public async Task<SkillCategory?> GetById(Guid id, CancellationToken cancellationToken)
+    public void Add(SkillCategory entity)
     {
-        var hsCategory = await _context.SkillCategories.AsNoTracking()
-            .FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
-        return hsCategory;
+        _context.SkillCategories.Add(entity);
     }
 
-    public Task<int> SaveChangesAsync(CancellationToken cancellationToken)
+    public void Update(SkillCategory entity)
     {
         throw new NotImplementedException();
     }
 
-    public void Update(SkillCategory entity)
+    public void SoftDelete(SkillCategory entity)
     {
         throw new NotImplementedException();
     }

@@ -1,37 +1,26 @@
 ﻿using Application.Commands.Common;
+using Application.Data;
 using Application.Data.IRepositories;
 using Application.DTOs;
 using Application.Exceptions;
 using Domain.Shared;
+using Domain.ValueObjects;
 
 namespace Application.Commands.Skills.UpdateSkill;
 
 public sealed class UpdateSkillCommandHandler : ICommandHandler<UpdateSkillCommand>
 {
     private readonly ISkillsRepository _repository;
+    private readonly IUnitOfWork _unit;
 
-    public UpdateSkillCommandHandler(ISkillsRepository repository)
+    public UpdateSkillCommandHandler(ISkillsRepository repository, IUnitOfWork unit)
     {
         _repository = repository;
+        _unit = unit;
     }
 
     public async Task<Result> Handle(UpdateSkillCommand request, CancellationToken cancellationToken)
     {
-        var newSkill = new SkillUpdateDTO
-            (
-                request.Id,
-                request.CreatedBy,
-                request.UpdatedBy,
-                request.IsActive,
-                request.ParentSkillId,
-                request.Description,
-                request.SkillType,
-                request.ParentSkill,
-                request.ChildrenSkills,
-                request.EmployeeSkills,
-                request.RoleSkills,
-                request.CategoriesPerSkill
-            );
         try
         {
             var oldSkill = await _repository.GetById(request.Id, cancellationToken);
@@ -44,8 +33,39 @@ public sealed class UpdateSkillCommandHandler : ICommandHandler<UpdateSkillComma
                             )
                 );
             }
+
+            if (oldSkill.Description.Value != request.Description)
+            {
+                var descriptionResult = Description.Create(request.Description);
+                if (descriptionResult.IsFailure)
+                {
+                    return descriptionResult;
+                }
+                oldSkill.Description = descriptionResult.Data;
+            }
+            
+            var newSkill = new SkillUpdateDTO
+            (
+                oldSkill.Id,
+                oldSkill.CreatedAt,
+                DateTime.UtcNow,
+                oldSkill.DeletedAt,
+                oldSkill.CreatedBy,
+                request.UpdatedBy,
+                oldSkill.DeletedBy,
+                request.IsActive,
+                oldSkill.IsDeleted,
+                request.ParentSkillId,
+                oldSkill.Description,
+                request.SkillType,
+                request.ChildrenSkills,
+                request.EmployeeSkills,
+                request.RoleSkills,
+                request.CategoriesPerSkill
+            );
+
             _repository.Update(newSkill);
-            await _repository.SaveChangesAsync(cancellationToken);
+            await _unit.SaveChangesAsync(cancellationToken);
 
             return Result.Success();
         }

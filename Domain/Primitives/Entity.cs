@@ -2,15 +2,15 @@
 
 public abstract class Entity : IEquatable<Entity>
 {
-    public Guid Id { get; private init; } = Guid.NewGuid();
-    public DateTime CreatedAt { get; private init; } = DateTime.UtcNow;
+    public Guid Id { get; protected init; } = Guid.NewGuid();
+    public DateTime CreatedAt { get; protected init; } = DateTime.UtcNow;
     public DateTime? UpdatedAt { get; protected set; } = null;
     public DateTime? DeletedAt { get; protected set; } = null;
     public string CreatedBy { get; private init; }
     public string? UpdatedBy { get; protected set; } = null;
     public string? DeletedBy { get; protected set; } = null;
-    public bool? IsActive { get; protected set; } = false;
-    public bool? IsDeleted { get; protected set; } = false;
+    public bool IsActive { get; protected set; } = false;
+    public bool IsDeleted { get; protected set; } = false;
 
     protected Entity(string createdBy)
     {

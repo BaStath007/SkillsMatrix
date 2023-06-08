@@ -7,9 +7,10 @@ public static class SkillExtensions
 {
     public static Skill CreateToDomain(SkillCreateDTO skill)
     {
-        Skill skillDTO = Skill.Create(skill.CreatedBy,
+        Skill skillDTO = Skill.Create(
+            skill.CreatedBy,
             skill.ParentSkillId, skill.Description,
-            skill.SkillType, skill.ParentSkill,
+            skill.SkillType,
             skill.ChildrenSkills,
             skill.EmployeeSkills,
             skill.RoleSkills,
@@ -20,11 +21,11 @@ public static class SkillExtensions
     public static Skill UpdateToDomain(SkillUpdateDTO skill)
     {
         return Skill.Update
-            (
-                skill.CreatedBy, skill.UpdatedBy,
-                skill.IsActive, skill.ParentSkillId,
+            ( 
+                skill.Id, skill.CreatedAt, skill.UpdatedAt, skill.DeletedAt,
+                skill.CreatedBy, skill.UpdatedBy, skill.DeletedBy,
+                skill.IsActive, skill.IsDeleted, skill.ParentSkillId,
                 skill.Description, skill.SkillType,
-                skill.ParentSkill,
                 skill.ChildrenSkills,
                 skill.EmployeeSkills,
                 skill.RoleSkills,
@@ -34,7 +35,17 @@ public static class SkillExtensions
 
     public static Skill DeleteToDomain(SkillDeleteDTO skill)
     {
-        return null;
+        return Skill.Update
+            (
+                skill.Id, skill.CreatedAt, skill.UpdatedAt, skill.DeletedAt,
+                skill.CreatedBy, skill.UpdatedBy, skill.DeletedBy,
+                skill.IsActive, skill.IsDeleted, skill.ParentSkillId,
+                skill.Description, skill.SkillType,
+                skill.ChildrenSkills,
+                skill.EmployeeSkills,
+                skill.RoleSkills,
+                skill.CategoriesPerSkill
+            );
     }
 
     public static SkillGetDTO? GetSkillToApplication(Skill? skill)
@@ -64,5 +75,22 @@ public static class SkillExtensions
             skillDTOs.Add(skillDTO);
         }
         return skillDTOs;
+    }
+
+    public static Skill? GetToDomain(SkillGetDTO? skillGetDTO)
+    {
+        if (skillGetDTO == null) return null;
+        return Skill.Update
+                (
+                    skillGetDTO.Id, skillGetDTO.CreatedAt, skillGetDTO.UpdatedAt, skillGetDTO.DeletedAt,
+                    skillGetDTO.CreatedBy, skillGetDTO.UpdatedBy, skillGetDTO.DeletedBy,
+                    skillGetDTO.IsActive, skillGetDTO.IsDeleted, skillGetDTO.ParentSkillId,
+                    skillGetDTO.Description, skillGetDTO.SkillType,
+                    skillGetDTO.ChildrenSkills,
+                    skillGetDTO.EmployeeSkills,
+                    skillGetDTO.RoleSkills,
+                    skillGetDTO.CategoriesPerSkill
+                );
+        
     }
 }

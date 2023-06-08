@@ -1,4 +1,5 @@
 ﻿using Application.Commands.Common;
+using Application.Data;
 using Application.Data.IRepositories;
 using Application.DTOs;
 using Application.Exceptions;
@@ -10,36 +11,37 @@ namespace Application.Commands.Skills.CreateSkill;
 internal sealed class CreateSkillCommandHandler : ICommandHandler<CreateSkillCommand>
 {
     private readonly ISkillsRepository _repository;
+    private readonly IUnitOfWork _unit;
 
-    public CreateSkillCommandHandler(ISkillsRepository repository)
+    public CreateSkillCommandHandler(ISkillsRepository repository, IUnitOfWork unit)
     {
         _repository = repository;
+        _unit = unit;
     }
 
     public async Task<Result> Handle(CreateSkillCommand request, CancellationToken cancellationToken)
     {
-        var description = Description.Create(request.Description);
-        if(description.IsFailure)
-        {
-            return description;
-        }
-        var skill = SkillCreateDTO.Create
-            (
-                request.CreatedBy,
-                request.ParentSkillId,
-                description.Data,
-                request.SkillType,
-                request.ParentSkill,
-                request.ChildrenSkills,
-                request.EmployeeSkills,
-                request.RoleSkills,
-                request.CategoriesPerSkill
-            );
 
         try
         {
+            var descriptionResult = Description.Create(request.Description);
+            if(descriptionResult.IsFailure)
+            {
+                return descriptionResult;
+            }
+            var skill = SkillCreateDTO.Create
+                (
+                    request.CreatedBy,
+                    request.ParentSkillId,
+                    descriptionResult.Data,
+                    request.SkillType,
+                    request.ChildrenSkills,
+                    request.EmployeeSkills,
+                    request.RoleSkills,
+                    request.CategoriesPerSkill
+                );
             _repository.Add(skill);
-            await _repository.SaveChangesAsync(cancellationToken);
+            await _unit.SaveChangesAsync(cancellationToken);
         }
         catch (BadRequestException ex)
         {
