@@ -42,6 +42,7 @@ public static class AssemblyReference
         services.AddScoped<ISkillsMatrixDbContext, SkillsMatrixDbContext>();
         services.AddScoped<ISkillsRepository, SkillsRepository>();
         services.AddScoped<SkillCategoryRepository>();
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
         
         return services;
         
