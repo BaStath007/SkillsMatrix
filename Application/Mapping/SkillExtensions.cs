@@ -1,4 +1,4 @@
-﻿using Application.DTOs;
+﻿using Application.DTOs.SkillDTOs;
 using Domain.Entities;
 
 namespace Application.Mapping;

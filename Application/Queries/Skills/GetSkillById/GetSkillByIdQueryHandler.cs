@@ -7,9 +7,9 @@ namespace Application.Queries.Skills.GetSkillById;
 
 public sealed class GetSkillByIdQueryHandler : IQueryHandler<GetSkillByIdQuery, GetSkillByIdResponse>
 {
-    private readonly ISkillsRepository _repository;
+    private readonly ISkillRepository _repository;
 
-    public GetSkillByIdQueryHandler(ISkillsRepository repository)
+    public GetSkillByIdQueryHandler(ISkillRepository repository)
     {
         _repository = repository;
     }

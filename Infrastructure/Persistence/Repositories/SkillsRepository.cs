@@ -1,12 +1,12 @@
 ﻿using Application.Data;
 using Application.Data.IRepositories;
-using Application.DTOs;
+using Application.DTOs.SkillDTOs;
 using Application.Mapping;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistence.Repositories
 {
-    public class SkillsRepository : ISkillsRepository
+    public class SkillsRepository : ISkillRepository
     {
         private readonly ISkillsMatrixDbContext _context;
         public SkillsRepository(SkillsMatrixDbContext context)

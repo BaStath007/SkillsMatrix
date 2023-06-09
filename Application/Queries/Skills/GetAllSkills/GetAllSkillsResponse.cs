@@ -1,4 +1,4 @@
-﻿using Application.DTOs;
+﻿using Application.DTOs.SkillDTOs;
 
 namespace Application.Queries.Skills.GetAllSkills
 {

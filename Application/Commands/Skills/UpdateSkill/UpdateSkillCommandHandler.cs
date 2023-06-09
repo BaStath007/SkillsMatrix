@@ -10,10 +10,10 @@ namespace Application.Commands.Skills.UpdateSkill;
 
 public sealed class UpdateSkillCommandHandler : ICommandHandler<UpdateSkillCommand>
 {
-    private readonly ISkillsRepository _repository;
+    private readonly ISkillRepository _repository;
     private readonly IUnitOfWork _unit;
 
-    public UpdateSkillCommandHandler(ISkillsRepository repository, IUnitOfWork unit)
+    public UpdateSkillCommandHandler(ISkillRepository repository, IUnitOfWork unit)
     {
         _repository = repository;
         _unit = unit;

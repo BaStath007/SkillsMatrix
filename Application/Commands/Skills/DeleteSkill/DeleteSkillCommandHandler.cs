@@ -9,10 +9,10 @@ namespace Application.Commands.Skills.DeleteSkill;
 
 public sealed class DeleteSkillCommandHandler : ICommandHandler<DeleteSkillCommand>
 {
-    private readonly ISkillsRepository _repository;
+    private readonly ISkillRepository _repository;
     private readonly IUnitOfWork _unit;
 
-    public DeleteSkillCommandHandler(ISkillsRepository repository, IUnitOfWork unit)
+    public DeleteSkillCommandHandler(ISkillRepository repository, IUnitOfWork unit)
     {
         _repository = repository;
         _unit = unit;

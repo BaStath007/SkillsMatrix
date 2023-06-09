@@ -13,23 +13,53 @@ public class Employee : Entity
     {
         
     }
-    private Employee(string createdBy, Guid? roleId, Guid? teamId,
-        FirstName firstName, Option<MiddleName> middleName, LastName lastName, Email email,
-        Age age, Role? role, Team? team, ICollection<EmployeeSkill>? employeeSkills)
-        : base(createdBy)
+    private Employee
+        (
+            string createdBy, Guid? roleId, Guid? teamId, FirstName firstName,
+            Option<MiddleName> employeeMiddleName, LastName lastName, Email email,
+            Age age, ICollection<EmployeeSkill>? employeeSkills
+        ) : base(createdBy)
     {
         RoleId = roleId;
         TeamId = teamId;
         FirstName = firstName;
-        EmployeeMiddleName = middleName;
+        EmployeeMiddleName = employeeMiddleName;
         LastName = lastName;
         FullName = $"{firstName.Value} " +
-                   $"{MiddleName.Create(middleName.Map(name => name.Value).Reduce(string.Empty))} " +
+                   $"{MiddleName.Create(employeeMiddleName.Map(name => name.Value).Reduce(string.Empty))} " +
                    $"{lastName.Value}";
         Email = email;
         Age = age;
-        Role = role;
-        Team = team;
+        EmployeeSkills = employeeSkills;
+    }
+
+    private Employee
+        (
+            Guid id, DateTime createdAt, DateTime? updatedAt, DateTime? deletedAt, string createdBy,
+            string? updatedBy, string? deletedBy, bool isActive, bool isDeleted, Guid? roleId, Guid? teamId,
+            FirstName firstName, Option<MiddleName> employeeMiddleName, LastName lastName, Email email,
+            Age age, ICollection<EmployeeSkill>? employeeSkills
+
+        ) :base(createdBy)
+    {
+        Id = id;
+        CreatedAt = createdAt;
+        UpdatedAt = updatedAt;
+        DeletedAt = deletedAt;
+        UpdatedBy = updatedBy;
+        DeletedBy = deletedBy;
+        IsActive = isActive;
+        IsDeleted = isDeleted;
+        RoleId = roleId;
+        TeamId = teamId;
+        FirstName = firstName;
+        EmployeeMiddleName = employeeMiddleName;
+        LastName = lastName;
+        FullName = $"{firstName.Value} " +
+                   $"{MiddleName.Create(employeeMiddleName.Map(name => name.Value).Reduce(string.Empty))} " +
+                   $"{lastName.Value}";
+        Email = email;
+        Age = age;
         EmployeeSkills = employeeSkills;
     }
     public Guid? RoleId { get; private set; }
@@ -46,13 +76,31 @@ public class Employee : Entity
     public virtual Role? Role { get; private set; }
     public virtual Team? Team { get; private set; }
     public virtual ICollection<EmployeeSkill>? EmployeeSkills { get; private set; }
-
-    public static Employee Create(string createdBy, Guid? roleId, Guid? teamId, 
-        FirstName firstName, Option<MiddleName> middleName, LastName lastName,
-        Email email, Age age, Role? role, Team? team,
-        ICollection<EmployeeSkill>? employeeSkills)
-        => new(
+    
+    public static Employee Create
+        (
+            string createdBy, Guid? roleId, Guid? teamId, 
+            FirstName firstName, Option<MiddleName> employeeMiddleName, LastName lastName,
+            Email email, Age age, ICollection<EmployeeSkill>? employeeSkills)
+        => new
+        (
             createdBy, roleId, teamId, 
-            firstName, middleName, lastName, email, age, 
-            role, team, employeeSkills);
+            firstName, employeeMiddleName, lastName, email,
+            age, employeeSkills
+        );
+
+    public static Employee Update
+        (
+            Guid id, DateTime createdAt, DateTime? updatedAt, DateTime? deletedAt,
+            string createdBy, string? updatedBy, string? deletedBy, bool isActive,
+            bool isDeleted, Guid? roleId, Guid? teamId, FirstName firstName, Option<MiddleName> employeeMiddleName,
+            LastName lastName, Email email, Age age, ICollection<EmployeeSkill> employeeSkills
+        )
+        => new Employee
+        (
+            id, createdAt, updatedAt, deletedAt,
+            createdBy, updatedBy, deletedBy, isActive, isDeleted,
+            roleId, teamId, firstName, employeeMiddleName,
+            lastName, email, age, employeeSkills
+        );
 }

@@ -1,7 +1,7 @@
 ﻿using Application.Commands.Common;
 using Application.Data;
 using Application.Data.IRepositories;
-using Application.DTOs;
+using Application.DTOs.Skill;
 using Application.Exceptions;
 using Domain.Shared;
 using Domain.ValueObjects;
@@ -10,10 +10,10 @@ namespace Application.Commands.Skills.CreateSkill;
 
 internal sealed class CreateSkillCommandHandler : ICommandHandler<CreateSkillCommand>
 {
-    private readonly ISkillsRepository _repository;
+    private readonly ISkillRepository _repository;
     private readonly IUnitOfWork _unit;
 
-    public CreateSkillCommandHandler(ISkillsRepository repository, IUnitOfWork unit)
+    public CreateSkillCommandHandler(ISkillRepository repository, IUnitOfWork unit)
     {
         _repository = repository;
         _unit = unit;

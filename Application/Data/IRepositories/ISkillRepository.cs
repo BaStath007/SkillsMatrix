@@ -1,8 +1,8 @@
-﻿using Application.DTOs;
+﻿using Application.DTOs.SkillDTOs;
 
 namespace Application.Data.IRepositories;
 
-public interface ISkillsRepository
+public interface ISkillRepository
 {
     Task<SkillGetDTO?> GetById(Guid id, CancellationToken cancelationToken);
     Task<List<SkillGetDTO>> GetAll(CancellationToken cancellationToken);

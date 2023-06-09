@@ -1,7 +1,7 @@
 ﻿using Application.Commands.Skills.CreateSkill;
 using Application.Commands.Skills.DeleteSkill;
 using Application.Commands.Skills.UpdateSkill;
-using Application.DTOs;
+using Application.DTOs.SkillDTOs;
 using Application.Queries.Skills.GetAllSkills;
 using Application.Queries.Skills.GetSkillById;
 using Application.Shared;

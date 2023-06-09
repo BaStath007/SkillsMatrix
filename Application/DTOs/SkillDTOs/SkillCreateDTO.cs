@@ -1,9 +1,9 @@
-﻿using Domain.Entities;
-using Domain.Entities.JoinEntities;
+﻿using Domain.Entities.JoinEntities;
 using Domain.Enums;
 using Domain.ValueObjects;
+using Domain.Entities;
 
-namespace Application.DTOs;
+namespace Application.DTOs.SkillDTOs;
 
 public sealed class SkillCreateDTO
 {
@@ -34,7 +34,7 @@ public sealed class SkillCreateDTO
         ChildrenSkills = childrenSkills;
         EmployeeSkills = employeeSkills;
         RoleSkills = roleSkills;
-        CategoriesPerSkill = categoriesPerSkill; 
+        CategoriesPerSkill = categoriesPerSkill;
     }
 
     public static SkillCreateDTO Create(string createdBy, Guid parentSkillId,

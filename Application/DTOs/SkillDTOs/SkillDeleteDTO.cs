@@ -3,7 +3,7 @@ using Domain.Entities;
 using Domain.Enums;
 using Domain.ValueObjects;
 
-namespace Application.DTOs;
+namespace Application.DTOs.SkillDTOs;
 
 public sealed class SkillDeleteDTO
 {
@@ -24,11 +24,14 @@ public sealed class SkillDeleteDTO
     public ICollection<RoleSkill>? RoleSkills { get; private init; }
     public ICollection<CategoryPerSkill>? CategoriesPerSkill { get; private init; }
 
-    public SkillDeleteDTO(Guid id, DateTime createdAt, DateTime? updatedAt,
-        string createdBy, string? updatedBy, string? deletedBy, Guid? parentSkillId,
-        Description description, SkillType skillType,
-        ICollection<Skill>? childrenSkills, ICollection<EmployeeSkill>? employeeSkills,
-        ICollection<RoleSkill>? roleSkills, ICollection<CategoryPerSkill>? categoriesPerSkill)
+    public SkillDeleteDTO
+        (
+            Guid id, DateTime createdAt, DateTime? updatedAt,
+            string createdBy, string? updatedBy, string? deletedBy, Guid? parentSkillId,
+            Description description, SkillType skillType,
+            ICollection<Skill>? childrenSkills, ICollection<EmployeeSkill>? employeeSkills,
+            ICollection<RoleSkill>? roleSkills, ICollection<CategoryPerSkill>? categoriesPerSkill
+        )
     {
         Id = id;
         CreatedAt = createdAt;

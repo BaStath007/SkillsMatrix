@@ -7,9 +7,9 @@ namespace Application.Queries.Skills.GetAllSkills;
 
 public sealed class GetAllSkillsQueryHandler : IQueryHandler<GetAllSkillsQuery, GetAllSkillsResponse>
 {
-    private readonly ISkillsRepository _repository;
+    private readonly ISkillRepository _repository;
 
-    public GetAllSkillsQueryHandler(ISkillsRepository repository)
+    public GetAllSkillsQueryHandler(ISkillRepository repository)
     {
         _repository = repository;
     }
