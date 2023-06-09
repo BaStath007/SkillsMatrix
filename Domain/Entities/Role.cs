@@ -11,10 +11,12 @@ public class Role : Entity
     {
         
     }
-    private Role(string createdBy, Description description, 
-        ICollection<Employee>? employees, ICollection<TeamRole>? teamRoles,
-        ICollection<RoleSkill>? roleSkills)
-        : base(createdBy)
+    private Role
+        (
+            string createdBy, Description description, 
+            ICollection<Employee>? employees, ICollection<TeamRole>? teamRoles,
+            ICollection<RoleSkill>? roleSkills
+        ) : base(createdBy)
     {
         Description = description;
         Employees = employees;
@@ -29,10 +31,14 @@ public class Role : Entity
     public virtual ICollection<TeamRole>? TeamRoles { get; private set; }
     public virtual ICollection<RoleSkill>? RoleSkills { get; private set; }
 
-    public static Role Create(
-        string createdBy, Description description, ICollection<Employee>? employees,
-        ICollection<TeamRole>? teamRoles, ICollection<RoleSkill>? roleSkills)
-        => new(
+    public static Role Creat
+        (
+            string createdBy, Description description, ICollection<Employee>? employees,
+            ICollection<TeamRole>? teamRoles, ICollection<RoleSkill>? roleSkills
+        )
+        => new Role
+        (
             createdBy, description,
-            employees, teamRoles, roleSkills);
+            employees, teamRoles, roleSkills
+        );
 }

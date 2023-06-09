@@ -1,7 +1,7 @@
 ﻿using Application.Commands.Common;
 using Application.Data;
 using Application.Data.IRepositories;
-using Application.DTOs.Skill;
+using Application.DTOs.SkillDTOs;
 using Application.Exceptions;
 using Domain.Shared;
 using Domain.ValueObjects;

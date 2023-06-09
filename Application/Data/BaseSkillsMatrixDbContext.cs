@@ -1,10 +1,6 @@
-﻿using Application.Shared;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Domain.Entities.JoinEntities;
-using Domain.Shared;
-using Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
-using System.Text.Json;
 
 namespace Application.Data;
 

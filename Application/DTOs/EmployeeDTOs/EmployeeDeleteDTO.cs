@@ -26,7 +26,7 @@ public sealed class EmployeeDeleteDTO
     public Guid? TeamId { get; private init; }
     public ICollection<EmployeeSkill>? EmployeeSkills { get; private init; }
 
-    public EmployeeDeleteDTO
+    private EmployeeDeleteDTO
         (
             Guid id, DateTime createdAt, DateTime? updatedAt, DateTime? deletedAt,
             string createdBy, string? updatedBy, string? deletedBy,
@@ -54,4 +54,19 @@ public sealed class EmployeeDeleteDTO
         TeamId = teamId;
         EmployeeSkills = employeeSkills;
     }
+
+    public static EmployeeDeleteDTO Create
+        (
+            Guid id, DateTime createdAt, DateTime? updatedAt, DateTime? deletedAt,
+            string createdBy, string? updatedBy, string? deletedBy, bool isActive,
+            bool isDeleted, Guid? roleId, Guid? teamId, FirstName firstName, Option<MiddleName> employeeMiddleName,
+            LastName lastName, Email email, Age age, ICollection<EmployeeSkill> employeeSkills
+        )
+        => new EmployeeDeleteDTO
+        (
+            id, createdAt, updatedAt, deletedAt,
+            createdBy, updatedBy, deletedBy, isActive, isDeleted,
+            roleId, teamId, firstName, employeeMiddleName,
+            lastName, email, age, employeeSkills
+        );
 }

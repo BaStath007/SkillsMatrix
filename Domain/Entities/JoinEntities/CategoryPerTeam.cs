@@ -6,8 +6,11 @@ public class CategoryPerTeam
     {
         
     }
-    private CategoryPerTeam(Guid teamId, Guid teamCategoryId, 
-        Team team, TeamCategory teamCategory)
+    private CategoryPerTeam
+        (
+            Guid teamId, Guid teamCategoryId, 
+            Team team, TeamCategory teamCategory
+        )
     {
         TeamId = teamId;
         TeamCategoryId = teamCategoryId;
@@ -22,7 +25,13 @@ public class CategoryPerTeam
     public virtual Team Team { get; set; } = default!;
     public virtual TeamCategory TeamCategory { get; set; } = default!; 
 
-    public static CategoryPerTeam Create(Guid teamId, Guid teamCategoryId,
-        Team team, TeamCategory teamCategory)
-            => new(teamId, teamCategoryId, team, teamCategory);
+    public static CategoryPerTeam Create
+        (
+            Guid teamId, Guid teamCategoryId,
+            Team team, TeamCategory teamCategory
+        )
+        => new CategoryPerTeam
+        (
+            teamId, teamCategoryId, team, teamCategory
+        );
 }

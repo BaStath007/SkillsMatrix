@@ -7,7 +7,7 @@ namespace Application.DTOs.EmployeeDTOs;
 
 public sealed class EmployeeUpdateDTO
 {
-    public EmployeeUpdateDTO
+    private EmployeeUpdateDTO
         (
             Guid id, DateTime createdAt, DateTime? updatedAt, DateTime? deletedAt,
             string createdBy, string? updatedBy, string? deletedBy,

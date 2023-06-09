@@ -20,14 +20,14 @@ namespace Infrastructure.Persistence.Repositories
                 .Include(s => s.ParentSkill).Include(s => s.ChildrenSkills)
                 .Include(s => s.EmployeeSkills).Include(s => s.RoleSkills)
                 .Include(s => s.CategoriesPerSkill)
-                .FirstOrDefaultAsync(hs => hs.Id == id, cancellationToken);
+                .FirstOrDefaultAsync(s => s.Id == id, cancellationToken);
             return SkillExtensions.GetSkillToApplication(skill);
         }
 
         public async Task<List<SkillGetDTO>> GetAll(CancellationToken cancellationToken)
         {
-            var hardSkills = await _context.Skills.ToListAsync(cancellationToken);
-            return SkillExtensions.GetAllSkillsToApplication(hardSkills);
+            var skills = await _context.Skills.ToListAsync(cancellationToken);
+            return SkillExtensions.GetAllSkillsToApplication(skills);
         }
 
         public void Add(SkillCreateDTO entity)

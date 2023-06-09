@@ -29,8 +29,12 @@ public class SkillCategory : Entity
     // Navigation Properties
     public virtual ICollection<CategoryPerSkill>? CategoriesPerSkill { get; private set; }
 
-    public static SkillCategory Create(string createdBy, Description description, 
-        ICollection<CategoryPerSkill>? categoriesPerSkill) 
-        => new(
-            createdBy, description, categoriesPerSkill);
+    public static SkillCategory Create
+        (
+            string createdBy, Description description, 
+            ICollection<CategoryPerSkill>? categoriesPerSkill) 
+        => new SkillCategory
+        (
+            createdBy, description, categoriesPerSkill
+        );
 }

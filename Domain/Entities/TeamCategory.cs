@@ -11,9 +11,11 @@ public class TeamCategory : Entity
     {
         
     }
-    private TeamCategory(string createdBy, Description description, 
-        ICollection<CategoryPerTeam>? categoriesPerTeam)
-        : base(createdBy)
+    private TeamCategory
+        (
+            string createdBy, Description description, 
+            ICollection<CategoryPerTeam>? categoriesPerTeam
+        ) : base(createdBy)
     {
         Description = description;
         CategoriesPerTeam = categoriesPerTeam;
@@ -24,7 +26,13 @@ public class TeamCategory : Entity
     // Navigation Properties
     public virtual ICollection<CategoryPerTeam>? CategoriesPerTeam { get; private set; }
 
-    public static TeamCategory Create(string createdBy, Description description,
-        ICollection<CategoryPerTeam>? categoriesPerTeam)
-        => new(createdBy, description, categoriesPerTeam);
+    public static TeamCategory Create
+        (
+            string createdBy, Description description,
+            ICollection<CategoryPerTeam>? categoriesPerTeam
+        )
+        => new TeamCategory
+        (
+            createdBy, description, categoriesPerTeam
+        );
 }

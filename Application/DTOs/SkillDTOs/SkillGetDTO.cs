@@ -25,7 +25,7 @@ public sealed class SkillGetDTO
     public ICollection<RoleSkill>? RoleSkills { get; set; }
     public ICollection<CategoryPerSkill>? CategoriesPerSkill { get; set; }
 
-    public SkillGetDTO
+    private SkillGetDTO
         (
             Guid id, DateTime createdAt, DateTime? updatedAt,
             DateTime? deletedAt, string createdBy, string? updatedBy,
@@ -53,4 +53,22 @@ public sealed class SkillGetDTO
         RoleSkills = roleSkills;
         CategoriesPerSkill = categoriesPerSkill;
     }
+
+    public static SkillGetDTO Create
+        (
+            Guid id, DateTime createdAt, DateTime? updatedAt, DateTime? deletedAt,
+            string createdBy, string? updatedBy, string? deletedBy, bool isActive,
+            bool isDeleted, Guid? parentSkillId,
+            Description description, SkillType skillType, Skill? parentSkill,
+            ICollection<Skill>? childrenSkills, ICollection<EmployeeSkill>? employeeSkills,
+            ICollection<RoleSkill>? roleSkills, ICollection<CategoryPerSkill>? categoriesPerSkill
+        )
+        => new SkillGetDTO
+        (
+            id, createdAt, updatedAt, deletedAt,
+            createdBy, updatedBy, deletedBy, isActive, isDeleted,
+            parentSkillId, description, skillType,
+            parentSkill, childrenSkills,
+            employeeSkills, roleSkills, categoriesPerSkill
+        );
 }

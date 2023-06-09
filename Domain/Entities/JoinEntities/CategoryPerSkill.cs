@@ -11,8 +11,11 @@ public class CategoryPerSkill
     {
         
     }
-    private CategoryPerSkill(Guid skillId, Guid skillCategoryId, 
-        Skill skill, SkillCategory skillCategory)
+    private CategoryPerSkill
+        (
+            Guid skillId, Guid skillCategoryId, 
+            Skill skill, SkillCategory skillCategory
+        )
     {
         SkillId = skillId;
         SkillCategoryId = skillCategoryId;
@@ -27,7 +30,13 @@ public class CategoryPerSkill
     public virtual Skill Skill { get; set; } = default!;
     public virtual SkillCategory SkillCategory { get; set; } = default!;
 
-    public static CategoryPerSkill Create(Guid skillId, Guid skillCategoryId,
-        Skill skill, SkillCategory skillCategory)
-            => new(skillId, skillCategoryId, skill, skillCategory);
+    public static CategoryPerSkill Create
+        (
+            Guid skillId, Guid skillCategoryId,
+            Skill skill, SkillCategory skillCategory
+        )
+        => new CategoryPerSkill
+        (
+            skillId, skillCategoryId, skill, skillCategory
+        );
 }

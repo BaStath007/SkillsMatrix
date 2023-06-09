@@ -6,7 +6,11 @@ public class TeamRole
     {
         
     }
-    private TeamRole(Guid teamId, Guid roleId, Team team, Role role)
+    private TeamRole
+        (
+            Guid teamId, Guid roleId,
+            Team team, Role role
+        )
     {
         TeamId = teamId;
         RoleId = roleId;
@@ -21,7 +25,13 @@ public class TeamRole
     public virtual Team Team { get; set; } = default!;
     public virtual Role Role { get; set; } = default!;
 
-    public static TeamRole Create(Guid teamId, Guid roleId, Team team,
-        Role role) 
-            => new(teamId, roleId, team, role);
+    public static TeamRole Create
+        (
+            Guid teamId, Guid roleId,
+            Team team, Role role
+        ) 
+        => new TeamRole
+        (
+            teamId, roleId, team, role
+        );
 }

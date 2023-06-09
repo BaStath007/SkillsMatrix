@@ -30,7 +30,7 @@ public sealed class EmployeeGetDTO
     public  Team? Team { get;  set; }
     public  ICollection<EmployeeSkill>? EmployeeSkills { get;  set; }
 
-    public EmployeeGetDTO
+    private EmployeeGetDTO
         (
             Guid id, DateTime createdAt, DateTime? updatedAt, DateTime? deletedAt, string createdBy,
             string? updatedBy, string? deletedBy, bool isActive, bool isDeleted, Guid? roleId, Guid? teamId,
@@ -59,4 +59,19 @@ public sealed class EmployeeGetDTO
         Age = age;
         EmployeeSkills = employeeSkills;
     }
+
+    public static EmployeeGetDTO Create
+        (
+            Guid id, DateTime createdAt, DateTime? updatedAt, DateTime? deletedAt,
+            string createdBy, string? updatedBy, string? deletedBy, bool isActive,
+            bool isDeleted, Guid? roleId, Guid? teamId, FirstName firstName, Option<MiddleName> employeeMiddleName,
+            LastName lastName, Email email, Age age, ICollection<EmployeeSkill> employeeSkills
+        )
+        => new EmployeeGetDTO
+        (
+            id, createdAt, updatedAt, deletedAt,
+            createdBy, updatedBy, deletedBy, isActive, isDeleted,
+            roleId, teamId, firstName, employeeMiddleName,
+            lastName, email, age, employeeSkills
+        );
 }

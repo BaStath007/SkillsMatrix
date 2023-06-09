@@ -40,14 +40,18 @@ public class Team : Entity
     public ICollection<TeamRole>? TeamRoles { get; private set; }
     public ICollection<CategoryPerTeam>? CategoriesPerTeam { get; private set; }
 
-    public static Team Create(
-        string createdBy, Guid? parentTeamId, Description description,
-        TeamType teamType, Team? ParentTeam, ICollection<Team>? childrenTeams,
-        ICollection<Employee>? employees, ICollection<TeamRole>? teamRole,
-        ICollection<CategoryPerTeam>? categoriesPerTeam)
-            => new(
+    public static Team Create
+        (
+            string createdBy, Guid? parentTeamId, Description description,
+            TeamType teamType, Team? ParentTeam, ICollection<Team>? childrenTeams,
+            ICollection<Employee>? employees, ICollection<TeamRole>? teamRole,
+            ICollection<CategoryPerTeam>? categoriesPerTeam
+        )
+        => new Team
+            (
                 createdBy, parentTeamId,
-            description, teamType, ParentTeam,
-            childrenTeams, employees, teamRole,
-            categoriesPerTeam);
+                description, teamType, ParentTeam,
+                childrenTeams, employees, teamRole,
+                categoriesPerTeam
+            );
 }

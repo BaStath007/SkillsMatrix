@@ -37,17 +37,22 @@ public sealed class SkillCreateDTO
         CategoriesPerSkill = categoriesPerSkill;
     }
 
-    public static SkillCreateDTO Create(string createdBy, Guid parentSkillId,
-        Description description,
-        SkillType skillType,
-        ICollection<Skill> childrenSkills,
-        ICollection<EmployeeSkill> employeeSkills,
-        ICollection<RoleSkill> roleSkills,
-        ICollection<CategoryPerSkill> categoriesPerSkill)
-            => new(
-                createdBy, parentSkillId,
-                description, skillType,
-                childrenSkills, employeeSkills,
-                roleSkills,
-                categoriesPerSkill);
+    public static SkillCreateDTO Create
+        (
+            string createdBy, Guid parentSkillId,
+            Description description,
+            SkillType skillType,
+            ICollection<Skill> childrenSkills,
+            ICollection<EmployeeSkill> employeeSkills,
+            ICollection<RoleSkill> roleSkills,
+            ICollection<CategoryPerSkill> categoriesPerSkill
+        )
+        => new
+        (
+            createdBy, parentSkillId,
+            description, skillType,
+            childrenSkills, employeeSkills,
+            roleSkills,
+            categoriesPerSkill
+        );
 }

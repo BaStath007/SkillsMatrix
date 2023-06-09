@@ -6,8 +6,11 @@ public class EmployeeSkill
     {
         
     }
-    private EmployeeSkill(Guid employeeId, Guid skillId, 
-         Employee employee, Skill skill)
+    private EmployeeSkill
+        (
+            Guid employeeId, Guid skillId, 
+            Employee employee, Skill skill
+        )
     {
         EmployeeId = employeeId;
         SkillId = skillId;
@@ -21,7 +24,13 @@ public class EmployeeSkill
     public virtual Employee Employee { get; set; } = default!;
     public virtual Skill Skill { get; set; } = default!;   
 
-    public static EmployeeSkill Create(Guid employeeId, Guid skillId,
-        Employee employee, Skill skill) 
-            => new(employeeId, skillId, employee, skill);
+    public static EmployeeSkill Create
+        (
+            Guid employeeId, Guid skillId,
+            Employee employee, Skill skill
+        ) 
+        => new EmployeeSkill
+        (
+            employeeId, skillId, employee, skill
+        );
 }

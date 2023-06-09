@@ -1,7 +1,7 @@
 ﻿using Application.Commands.Common;
 using Application.Data;
 using Application.Data.IRepositories;
-using Application.DTOs;
+using Application.DTOs.SkillDTOs;
 using Application.Exceptions;
 using Domain.Shared;
 using Domain.ValueObjects;
@@ -44,7 +44,7 @@ public sealed class UpdateSkillCommandHandler : ICommandHandler<UpdateSkillComma
                 oldSkill.Description = descriptionResult.Data;
             }
             
-            var newSkill = new SkillUpdateDTO
+            var newSkill = SkillUpdateDTO.Create
             (
                 oldSkill.Id,
                 oldSkill.CreatedAt,

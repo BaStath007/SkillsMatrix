@@ -1,7 +1,7 @@
 ﻿using Application.Commands.Common;
 using Application.Data;
 using Application.Data.IRepositories;
-using Application.DTOs;
+using Application.DTOs.SkillDTOs;
 using Application.Exceptions;
 using Domain.Shared;
 
@@ -33,7 +33,7 @@ public sealed class DeleteSkillCommandHandler : ICommandHandler<DeleteSkillComma
                 );
             }
 
-            var skillToDelete = new SkillDeleteDTO
+            var skillToDelete = SkillDeleteDTO.Create
                 (
                     dbSkill.Id,
                     dbSkill.CreatedAt,

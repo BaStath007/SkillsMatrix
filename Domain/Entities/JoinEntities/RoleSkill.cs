@@ -6,7 +6,11 @@ public class RoleSkill
     {
         
     }
-    private RoleSkill(Guid roleId, Guid skillId, Role role, Skill skill)
+    private RoleSkill
+        (
+            Guid roleId, Guid skillId,
+            Role role, Skill skill
+        )
     {
         RoleId = roleId;
         SkillId = skillId;
@@ -21,7 +25,13 @@ public class RoleSkill
     public virtual Role Role { get; set; } = default!;  
     public virtual Skill Skill { get; set; } = default!;
 
-    public static RoleSkill Create(Guid roleId, Guid skillId, Role role,
-        Skill skill)
-            => new(roleId, skillId, role, skill);
+    public static RoleSkill Create
+        (
+            Guid roleId, Guid skillId,
+            Role role, Skill skill
+        )
+        => new RoleSkill
+        (
+            roleId, skillId, role, skill
+        );
 }
