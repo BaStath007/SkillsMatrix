@@ -5,48 +5,48 @@ namespace Application.Mapping;
 
 public static class SkillExtensions
 {
-    public static Skill CreateToDomain(SkillCreateDTO skill)
+    public static Skill CreateToDomain(SkillCreateDTO skillDTO)
     {
-        Skill skillDTO = Skill.Create
+        Skill skill = Skill.Create
             (
-                skill.CreatedBy,
-                skill.ParentSkillId, skill.Description,
-                skill.SkillType,
-                skill.ChildrenSkills,
-                skill.EmployeeSkills,
-                skill.RoleSkills,
-                skill.CategoriesPerSkill
+                skillDTO.CreatedBy,
+                skillDTO.ParentSkillId, skillDTO.Description,
+                skillDTO.SkillType,
+                skillDTO.ChildrenSkills,
+                skillDTO.EmployeeSkills,
+                skillDTO.RoleSkills,
+                skillDTO.CategoriesPerSkill
             );
-        return skillDTO;
+        return skill;
     }
 
-    public static Skill UpdateToDomain(SkillUpdateDTO skill)
+    public static Skill UpdateToDomain(SkillUpdateDTO skillDTO)
     {
         return Skill.Update
             ( 
-                skill.Id, skill.CreatedAt, skill.UpdatedAt, skill.DeletedAt,
-                skill.CreatedBy, skill.UpdatedBy, skill.DeletedBy,
-                skill.IsActive, skill.IsDeleted, skill.ParentSkillId,
-                skill.Description, skill.SkillType,
-                skill.ChildrenSkills,
-                skill.EmployeeSkills,
-                skill.RoleSkills,
-                skill.CategoriesPerSkill
+                skillDTO.Id, skillDTO.CreatedAt, skillDTO.UpdatedAt, skillDTO.DeletedAt,
+                skillDTO.CreatedBy, skillDTO.UpdatedBy, skillDTO.DeletedBy,
+                skillDTO.IsActive, skillDTO.IsDeleted, skillDTO.ParentSkillId,
+                skillDTO.Description, skillDTO.SkillType,
+                skillDTO.ChildrenSkills,
+                skillDTO.EmployeeSkills,
+                skillDTO.RoleSkills,
+                skillDTO.CategoriesPerSkill
             );
     }
 
-    public static Skill DeleteToDomain(SkillDeleteDTO skill)
+    public static Skill DeleteToDomain(SkillDeleteDTO skillDTO)
     {
         return Skill.Update
             (
-                skill.Id, skill.CreatedAt, skill.UpdatedAt, skill.DeletedAt,
-                skill.CreatedBy, skill.UpdatedBy, skill.DeletedBy,
-                skill.IsActive, skill.IsDeleted, skill.ParentSkillId,
-                skill.Description, skill.SkillType,
-                skill.ChildrenSkills,
-                skill.EmployeeSkills,
-                skill.RoleSkills,
-                skill.CategoriesPerSkill
+                skillDTO.Id, skillDTO.CreatedAt, skillDTO.UpdatedAt, skillDTO.DeletedAt,
+                skillDTO.CreatedBy, skillDTO.UpdatedBy, skillDTO.DeletedBy,
+                skillDTO.IsActive, skillDTO.IsDeleted, skillDTO.ParentSkillId,
+                skillDTO.Description, skillDTO.SkillType,
+                skillDTO.ChildrenSkills,
+                skillDTO.EmployeeSkills,
+                skillDTO.RoleSkills,
+                skillDTO.CategoriesPerSkill
             );
     }
 

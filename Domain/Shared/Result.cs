@@ -63,4 +63,6 @@ public class Result<TResponse> : Result
     }
 
     public static implicit operator Result<TResponse>(TResponse value) => Create(value);
+
+    public static implicit operator Result<TResponse>(Error error) => Failure(error);
 }

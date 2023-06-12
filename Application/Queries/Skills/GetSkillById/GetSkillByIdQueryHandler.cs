@@ -22,21 +22,18 @@ public sealed class GetSkillByIdQueryHandler : IQueryHandler<GetSkillByIdQuery, 
 
             if (skill == null)
             {
-                return Result<GetSkillByIdResponse>.Failure(new Error
-                    (
+                return new Error(
                             "Skill.NotFound",
-                            $"The requested skill with Id: {request.Id} was not found."
-                        )
-                );
+                            $"The requested skill with Id: {request.Id} was not found.");
             }
 
             var response = new GetSkillByIdResponse(skill);
 
-            return Result<GetSkillByIdResponse>.Success((GetSkillByIdResponse)response);
+            return response;
         }
         catch (BadRequestException ex)
         {
-            return Result<GetSkillByIdResponse>.Failure(ex.Error);
+            return ex.Error;
         }
     }
 }

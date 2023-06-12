@@ -22,21 +22,18 @@ public sealed class GetAllSkillsQueryHandler : IQueryHandler<GetAllSkillsQuery, 
 
             if (skills == null)
             {
-                return Result<GetAllSkillsResponse>.Failure(new Error
-                (
+                return new Error(
                             "Skills.NullReference",
-                            $"Currently, there are not any skills to retrieve from the database." +
-                            $"\nPlease try again later."
-                        )
-                );
+                            $"A error occured while trying to retrieve the skills from the database." +
+                            $"\nPlease try again later.");
             }
             var response = new GetAllSkillsResponse(skills);
 
-            return Result<GetAllSkillsResponse>.Success(response);
+            return response;
         }
         catch (BadRequestException ex)
         {
-            return Result<GetAllSkillsResponse>.Failure(ex.Error);
+            return ex.Error;
         }
     }
 }

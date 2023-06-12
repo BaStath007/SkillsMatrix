@@ -31,16 +31,16 @@ public class EmployeeRepository : IEmployeeRepository
 
     public void Add(EmployeeCreateDTO entity)
     {
-        throw new NotImplementedException();
+        _context.Employees.Add(EmployeeExtensions.CreateToDomain(entity));
     }
 
     public void Update(EmployeeUpdateDTO entity)
     {
-        throw new NotImplementedException();
+        _context.Employees.Update(EmployeeExtensions.UpdateToDomain(entity));
     }
 
     public void SoftDelete(EmployeeDeleteDTO entity)
     {
-        throw new NotImplementedException();
+        _context.Employees.Update(EmployeeExtensions.DeleteToDomain(entity));
     }
 }
