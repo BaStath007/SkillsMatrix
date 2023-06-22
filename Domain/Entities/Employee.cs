@@ -15,11 +15,12 @@ public class Employee : Entity
     }
     private Employee
         (
-            string createdBy, Guid? roleId, Guid? teamId, FirstName firstName,
+            string createdBy, bool isActive, Guid? roleId, Guid? teamId, FirstName firstName,
             Option<MiddleName> employeeMiddleName, LastName lastName, Email email,
             Age age, ICollection<EmployeeSkill>? employeeSkills
         ) : base(createdBy)
     {
+        IsActive = isActive;
         RoleId = roleId;
         TeamId = teamId;
         FirstName = firstName;
@@ -80,12 +81,12 @@ public class Employee : Entity
     
     public static Employee Create
         (
-            string createdBy, Guid? roleId, Guid? teamId, 
+            string createdBy, bool isActive, Guid? roleId, Guid? teamId, 
             FirstName firstName, Option<MiddleName> employeeMiddleName, LastName lastName,
             Email email, Age age, ICollection<EmployeeSkill>? employeeSkills)
         => new
         (
-            createdBy, roleId, teamId, 
+            createdBy, isActive, roleId, teamId, 
             firstName, employeeMiddleName, lastName, email,
             age, employeeSkills
         );

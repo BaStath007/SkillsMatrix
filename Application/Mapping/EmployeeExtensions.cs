@@ -36,7 +36,7 @@ public static class EmployeeExtensions
 
     public static Employee CreateToDomain(EmployeeCreateDTO employeeCreateDTO)
     {
-        Employee employee = Employee.Create(employeeCreateDTO.CreatedBy, employeeCreateDTO.RoleId,
+        Employee employee = Employee.Create(employeeCreateDTO.CreatedBy, employeeCreateDTO.IsActive, employeeCreateDTO.RoleId,
             employeeCreateDTO.TeamId, employeeCreateDTO.FirstName, employeeCreateDTO.EmployeeMiddleName,
             employeeCreateDTO.LastName, employeeCreateDTO.Email, employeeCreateDTO.Age,
             employeeCreateDTO.EmployeeSkills);

@@ -76,7 +76,7 @@ public sealed class CreateEmployeeCommandHandler : ICommandHandler<CreateEmploye
             optionalMiddleName = Option<MiddleName>.None();
         }
         var employee = EmployeeCreateDTO.Create(
-                request.CreatedBy, request.RoleId, request.TeamId,
+                request.CreatedBy, request.IsActive, request.RoleId, request.TeamId,
                 firstNameResult.Data, optionalMiddleName, lastNameResult.Data,
                 emailResult.Data, ageResult.Data, request.EmployeeSkills
                 );

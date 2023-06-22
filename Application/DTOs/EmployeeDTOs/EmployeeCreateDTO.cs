@@ -8,13 +8,14 @@ public  class EmployeeCreateDTO
 {
     private EmployeeCreateDTO
         (
-            string createdBy,
+            string createdBy, bool isActive,
             Guid? roleId, Guid? teamId, FirstName firstName,
             Option<MiddleName> employeeMiddleName, LastName lastName,
             Email email, Age age, ICollection<EmployeeSkill>? employeeSkills
         )
     {
         CreatedBy = createdBy;
+        IsActive = isActive;
         FirstName = firstName;
         EmployeeMiddleName = employeeMiddleName;
         LastName = lastName;
@@ -26,6 +27,7 @@ public  class EmployeeCreateDTO
     }
 
     public string CreatedBy { get; private init; }
+    public bool IsActive { get; private set; }
     public FirstName FirstName { get; private init; } = default!;
     public Option<MiddleName> EmployeeMiddleName { get; private init; } = default!;
     public LastName LastName { get; private init; } = default!;
@@ -38,12 +40,12 @@ public  class EmployeeCreateDTO
 
     public static EmployeeCreateDTO Create
         (
-            string createdBy, Guid? roleId, Guid? teamId,
+            string createdBy, bool isActive, Guid? roleId, Guid? teamId,
             FirstName firstName, Option<MiddleName> middleName, LastName lastName,
             Email email, Age age, ICollection<EmployeeSkill>? employeeSkills
         )
         => new(
-            createdBy, roleId, teamId,
+            createdBy, isActive, roleId, teamId,
             firstName, middleName, lastName, email,
             age, employeeSkills);
 }

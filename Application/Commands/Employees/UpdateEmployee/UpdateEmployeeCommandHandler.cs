@@ -47,16 +47,16 @@ public sealed class UpdateEmployeeCommandHandler : ICommandHandler<UpdateEmploye
                 oldEmployee.CreatedBy,
                 request.UpdatedBy,
                 oldEmployee.DeletedBy,
-                oldEmployee.IsActive,
+                request.IsActive,
                 oldEmployee.IsDeleted,
-                oldEmployee.RoleId,
-                oldEmployee.TeamId,
+                request.RoleId,
+                request.TeamId,
                 oldEmployee.FirstName,
                 Option<MiddleName>.Some(oldEmployee.EmployeeMiddleName),
                 oldEmployee.LastName,
                 oldEmployee.Email,
                 oldEmployee.Age,
-                oldEmployee.EmployeeSkills);
+                request.EmployeeSkills);
 
             _repository.Update(newEmployee);
             await _unit.SaveChangesAsync(cancellationToken);
