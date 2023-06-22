@@ -53,7 +53,7 @@ public sealed class EmployeeGetDTO
         EmployeeMiddleName = employeeMiddleName;
         LastName = lastName;
         FullName = $"{firstName.Value} " +
-                   $"{MiddleName.Create(employeeMiddleName.Map(name => name.Value).Reduce(string.Empty))} " +
+                   $"{MiddleName.Create(employeeMiddleName.Map(name => name.Value).Reduce(string.Empty))?.Data.Value}" +
                    $"{lastName.Value}";
         Email = email;
         Age = age;

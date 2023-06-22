@@ -1,4 +1,7 @@
-﻿namespace Domain.Shared;
+﻿using Microsoft.AspNetCore.Mvc;
+//using Microsoft.AspNetCore.Mvc.Core;
+
+namespace Domain.Shared;
 
 public class Result
 {
@@ -31,6 +34,8 @@ public class Result
     {
         return new(false, error);
     }
+
+    public static implicit operator Result(Error error) => Failure(error);
 }
 
 

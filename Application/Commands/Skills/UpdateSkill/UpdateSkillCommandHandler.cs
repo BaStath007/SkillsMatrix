@@ -26,24 +26,17 @@ public sealed class UpdateSkillCommandHandler : ICommandHandler<UpdateSkillComma
             var oldSkill = await _repository.GetById(request.Id, cancellationToken);
             if (oldSkill == null)
             {
-                return Result.Failure(new Error
-                            (
-                               "Skill.NotFound",
-                               $"The requested skill with Id: {request.Id} was not found."
-                            )
-                );
+                return new Error(
+                    "Skill.NotFound",
+                    $"The requested skill with Id: {request.Id} was not found.");
             }
 
-            if (oldSkill.Description.Value != request.Description)
+            var result = TryUpdateValueObjects(request, oldSkill);
+            if (result.IsFailure)
             {
-                var descriptionResult = Description.Create(request.Description);
-                if (descriptionResult.IsFailure)
-                {
-                    return descriptionResult;
-                }
-                oldSkill.Description = descriptionResult.Data;
+                return result;
             }
-            
+
             var newSkill = SkillUpdateDTO.Create
             (
                 oldSkill.Id,
@@ -71,7 +64,26 @@ public sealed class UpdateSkillCommandHandler : ICommandHandler<UpdateSkillComma
         }
         catch (BadRequestException ex)
         {
-            return Result.Failure(ex.Error);
+            return ex.Error;
         }
+    }
+
+    private static Result TryUpdateValueObjects(UpdateSkillCommand request, SkillGetDTO oldSkill)
+    {
+        if (!DescriptionsMatch(request, oldSkill))
+        {
+            var descriptionResult = Description.Create(request.Description);
+            if (descriptionResult.IsFailure)
+            {
+                return descriptionResult;
+            }
+            oldSkill.Description = descriptionResult.Data;
+        }
+        return Result.Success();
+    }
+
+    private static bool DescriptionsMatch(UpdateSkillCommand request, SkillGetDTO oldSkill)
+    {
+        return oldSkill.Description.Value == request.Description;
     }
 }

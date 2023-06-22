@@ -24,16 +24,16 @@ public sealed class Age : ValueObject
     {
         if (age <= 0)
         {
-            return Result<Age>.Failure(new Error(
+            return new Error(
                 "Age.NotPositive",
-                "The Age is not a positive number."));
+                "The Age is not a positive number.");
         }
 
         if (age < MinAge || age > MaxAge)
         {
-            return Result<Age>.Failure(new Error(
+            return new Error(
                 "Age.OutOfBounds",
-                "The Age's value is outside the predefined range."));
+                "The Age's value is outside the predefined range.");
         }
 
         return new Age(age);

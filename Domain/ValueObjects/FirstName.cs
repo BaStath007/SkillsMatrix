@@ -22,19 +22,19 @@ public sealed class FirstName : ValueObject
     {
         if (string.IsNullOrWhiteSpace(firstName))
         {
-            return Result<FirstName>.Failure(new Error(
+            return new Error(
                 "FirstName.Empty",
-                "The FirstName field is empty."));
+                "The FirstName field is empty.");
         }
 
         if (firstName.Length > MaxLength)
         {
-            return Result<FirstName>.Failure(new Error(
+            return new Error(
                 "FirstName.InvalidLength",
-                "The FirstName field's length exceeded the specified max length."));
+                "The FirstName field's length exceeded the specified max length.");
         }
 
         string capitalizedFirstName = char.ToUpperInvariant(firstName[0]) + firstName.Substring(1).ToLowerInvariant();
-        return new FirstName(firstName);
+        return new FirstName(capitalizedFirstName);
     }
 }

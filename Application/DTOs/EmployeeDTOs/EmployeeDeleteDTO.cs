@@ -60,7 +60,7 @@ public sealed class EmployeeDeleteDTO
             Guid id, DateTime createdAt, DateTime? updatedAt, DateTime? deletedAt,
             string createdBy, string? updatedBy, string? deletedBy, bool isActive,
             bool isDeleted, Guid? roleId, Guid? teamId, FirstName firstName, Option<MiddleName> employeeMiddleName,
-            LastName lastName, Email email, Age age, ICollection<EmployeeSkill> employeeSkills
+            LastName lastName, Email email, Age age, ICollection<EmployeeSkill>? employeeSkills
         )
         => new EmployeeDeleteDTO
         (

@@ -19,7 +19,11 @@ public class Program
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
-            app.UseSwaggerUI();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My Skill Matrix");
+                c.RoutePrefix = string.Empty; // Makes Swagger the default landing page
+            });
         }
         app.UseHttpsRedirection();
 

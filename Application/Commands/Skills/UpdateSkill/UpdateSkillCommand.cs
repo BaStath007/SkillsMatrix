@@ -2,7 +2,6 @@
 using Domain.Entities;
 using Domain.Entities.JoinEntities;
 using Domain.Enums;
-using Domain.ValueObjects;
 
 namespace Application.Commands.Skills.UpdateSkill;
 

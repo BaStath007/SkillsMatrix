@@ -23,16 +23,16 @@ public sealed class Email : ValueObject
     {
         if (string.IsNullOrWhiteSpace(email))
         {
-            return Result<Email>.Failure(new Error(
+            return new Error(
                 "Email.Empty",
-                "The Email field is empty."));
+                "The Email field is empty.");
         }
 
         if (email.Length > MaxLength)
         {
-            return Result<Email>.Failure(new Error(
+            return new Error(
                 "Email.InvalidLength",
-                "The Email's length exceeded the specified max length."));
+                "The Email's length exceeded the specified max length.");
         }
 
         return new Email(email);

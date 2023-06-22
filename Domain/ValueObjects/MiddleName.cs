@@ -6,7 +6,7 @@ namespace Domain.ValueObjects;
 public sealed class MiddleName : ValueObject
 {
     private const int MaxLength = 25;
-    public string Value { get; } = string.Empty;
+    public string Value { get; }
 
     private MiddleName(string value)
     {
@@ -18,23 +18,23 @@ public sealed class MiddleName : ValueObject
         yield return Value;
     }
 
-    public static Result<MiddleName> Create(string middleName)
+    public static Result<MiddleName>? Create(string middleName)
     {
         if (string.IsNullOrWhiteSpace(middleName))
         {
-            return Result<MiddleName>.Failure(new Error(
-                "MiddleName.Empty",
-                "The MiddleName field is empty."));
+            return new MiddleName(string.Empty);
         }
-
-        if (middleName.Length > MaxLength)
+        if (middleName?.Length > MaxLength)
         {
-            return Result<MiddleName>.Failure(new Error(
+            return new Error(
                 "MiddleName.InvalidLength",
-                "The MiddleName field's length exceeded the specified max length."));
+                "The MiddleName field's length exceeded the specified max length.");
         }
-
-        string capitalizedMiddleName = char.ToUpperInvariant(middleName[0]) + middleName.Substring(1).ToLowerInvariant();
-        return new MiddleName(middleName);
+        if (middleName is not null && middleName != string.Empty)
+        {
+            string capitalizedMiddleName = char.ToUpperInvariant(middleName[0]) + middleName.Substring(1).ToLowerInvariant() + " ";
+            return new MiddleName(capitalizedMiddleName);
+        }
+        return new MiddleName(string.Empty);
     }
 }

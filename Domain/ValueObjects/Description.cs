@@ -23,16 +23,16 @@ public sealed class Description : ValueObject
     {
         if (string.IsNullOrWhiteSpace(description))
         {
-            return Result<Description>.Failure(new Error(
+            return new Error(
                 "Description.Empty",
-                "The Description field is empty."));
+                "The Description field is empty.");
         }
 
         if (description.Length > MaxLength)
         {
-            return Result<Description>.Failure(new Error(
+            return new Error(
                 "Description.InvalidLength",
-                "The Description's length exceeded the specified max length."));
+                "The Description's length exceeded the specified max length.");
         }
 
         return new Description(description);

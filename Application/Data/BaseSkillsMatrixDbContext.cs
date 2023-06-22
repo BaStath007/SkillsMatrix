@@ -1,5 +1,7 @@
 ﻿using Domain.Entities;
 using Domain.Entities.JoinEntities;
+using Domain.Shared;
+using Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Data;
@@ -90,10 +92,12 @@ public class BaseSkillsMatrixDbContext : DbContext, ISkillsMatrixDbContext
                         e => e.FirstName,
                         fn => fn.Property(x => x.Value)
                     );
-                    b.OwnsOne
-                    (
-                        e => e.EmployeeMiddleName,
-                        mn => mn.Property(x => x.Map(s => s))
+                    b.OwnsOne(e => e.EmployeeMiddleName);
+
+                    b.Property(e => e.EmployeeMiddleName)
+                        .HasConversion(
+                            o => o.Map(mn => mn.Value).Reduce(MiddleName.Create(string.Empty)!.Data.Value),
+                            o => Option<MiddleName>.Some(MiddleName.Create(o)!.Data).Map(mn => mn)
                     );
                     b.OwnsOne
                     (
@@ -107,6 +111,7 @@ public class BaseSkillsMatrixDbContext : DbContext, ISkillsMatrixDbContext
                     );
                 }
             );
+        //modelBuilder.Owned<Option<MiddleName>>();
 
         base.OnModelCreating(modelBuilder);
     }

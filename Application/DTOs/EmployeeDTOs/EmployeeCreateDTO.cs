@@ -4,7 +4,7 @@ using Domain.ValueObjects;
 using System.ComponentModel.DataAnnotations;
 
 namespace Application.DTOs.EmployeeDTOs;
-public sealed class EmployeeCreateDTO
+public  class EmployeeCreateDTO
 {
     private EmployeeCreateDTO
         (

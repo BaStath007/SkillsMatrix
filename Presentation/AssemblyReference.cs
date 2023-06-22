@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System.Text.Json.Serialization;
 
@@ -8,7 +9,7 @@ public static class AssemblyReference
 {
     public static IServiceCollection AddPresentation(this IServiceCollection services)
     {
-        //services.AddScoped<HardSkillsController>();
+        //services.AddScoped<SkillsController>();
 
         //var mvcBuilder = services.AddMvcCore();
         //mvcBuilder.AddApiExplorer();
@@ -23,7 +24,10 @@ public static class AssemblyReference
             .AddApplicationPart(assembly);
 
         services.AddEndpointsApiExplorer();
-        services.AddSwaggerGen();
+        services.AddSwaggerGen(c =>
+        {
+            c.SwaggerDoc("v1", new OpenApiInfo { Title = "My Skill Matrix", Version = "v1" });
+        });
 
 
         return services;

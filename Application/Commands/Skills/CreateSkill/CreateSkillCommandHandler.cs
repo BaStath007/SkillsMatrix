@@ -45,7 +45,7 @@ internal sealed class CreateSkillCommandHandler : ICommandHandler<CreateSkillCom
         }
         catch (BadRequestException ex)
         {
-            return Result.Failure(ex.Error);
+            return ex.Error;
         }
 
         return Result.Success();
