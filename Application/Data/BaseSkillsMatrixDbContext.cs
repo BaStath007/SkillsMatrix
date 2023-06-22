@@ -92,7 +92,7 @@ public class BaseSkillsMatrixDbContext : DbContext, ISkillsMatrixDbContext
                         e => e.FirstName,
                         fn => fn.Property(x => x.Value)
                     );
-                    b.OwnsOne(e => e.EmployeeMiddleName);
+                    //b.OwnsOne(e => e.EmployeeMiddleName);
 
                     b.Property(e => e.EmployeeMiddleName)
                         .HasConversion(
