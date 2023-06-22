@@ -92,8 +92,6 @@ public class BaseSkillsMatrixDbContext : DbContext, ISkillsMatrixDbContext
                         e => e.FirstName,
                         fn => fn.Property(x => x.Value)
                     );
-                    //b.OwnsOne(e => e.EmployeeMiddleName);
-
                     b.Property(e => e.EmployeeMiddleName)
                         .HasConversion(
                             o => o.Map(mn => mn.Value).Reduce(MiddleName.Create(string.Empty)!.Data.Value),
@@ -111,7 +109,6 @@ public class BaseSkillsMatrixDbContext : DbContext, ISkillsMatrixDbContext
                     );
                 }
             );
-        //modelBuilder.Owned<Option<MiddleName>>();
 
         base.OnModelCreating(modelBuilder);
     }

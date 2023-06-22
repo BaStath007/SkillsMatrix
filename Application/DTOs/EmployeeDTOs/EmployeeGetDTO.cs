@@ -20,7 +20,7 @@ public sealed class EmployeeGetDTO
     public Guid? RoleId { get;  set; }
     public Guid? TeamId { get;  set; }
     public FirstName FirstName { get;  set; }
-    public Option<MiddleName> EmployeeMiddleName { get;  set; }
+    public MiddleName EmployeeMiddleName { get;  set; }
     public LastName LastName { get;  set; }
     public string FullName { get;  set; }
     [EmailAddress]
@@ -34,7 +34,7 @@ public sealed class EmployeeGetDTO
         (
             Guid id, DateTime createdAt, DateTime? updatedAt, DateTime? deletedAt, string createdBy,
             string? updatedBy, string? deletedBy, bool isActive, bool isDeleted, Guid? roleId, Guid? teamId,
-            FirstName firstName, Option<MiddleName> employeeMiddleName, LastName lastName, Email email,
+            FirstName firstName, MiddleName employeeMiddleName, LastName lastName, Email email,
             Age age, ICollection<EmployeeSkill>? employeeSkills
         )
     {
@@ -53,7 +53,7 @@ public sealed class EmployeeGetDTO
         EmployeeMiddleName = employeeMiddleName;
         LastName = lastName;
         FullName = $"{firstName.Value} " +
-                   $"{MiddleName.Create(employeeMiddleName.Map(name => name.Value).Reduce(string.Empty))?.Data.Value}" +
+                   StringExtensions.CreateMiddleName(Option<MiddleName>.Some(employeeMiddleName)) +
                    $"{lastName.Value}";
         Email = email;
         Age = age;
@@ -64,7 +64,7 @@ public sealed class EmployeeGetDTO
         (
             Guid id, DateTime createdAt, DateTime? updatedAt, DateTime? deletedAt,
             string createdBy, string? updatedBy, string? deletedBy, bool isActive,
-            bool isDeleted, Guid? roleId, Guid? teamId, FirstName firstName, Option<MiddleName> employeeMiddleName,
+            bool isDeleted, Guid? roleId, Guid? teamId, FirstName firstName, MiddleName employeeMiddleName,
             LastName lastName, Email email, Age age, ICollection<EmployeeSkill>? employeeSkills
         )
         => new EmployeeGetDTO

@@ -32,7 +32,7 @@ public sealed class MiddleName : ValueObject
         }
         if (middleName is not null && middleName != string.Empty)
         {
-            string capitalizedMiddleName = char.ToUpperInvariant(middleName[0]) + middleName.Substring(1).ToLowerInvariant() + " ";
+            string capitalizedMiddleName = char.ToUpperInvariant(middleName[0]) + middleName.Substring(1).ToLowerInvariant();
             return new MiddleName(capitalizedMiddleName);
         }
         return new MiddleName(string.Empty);

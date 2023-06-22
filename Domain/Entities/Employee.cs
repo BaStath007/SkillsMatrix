@@ -26,7 +26,7 @@ public class Employee : Entity
         EmployeeMiddleName = employeeMiddleName;
         LastName = lastName;
         FullName = $"{firstName.Value} " +
-                   $"{MiddleName.Create(employeeMiddleName.Map(name => name.Value).Reduce(string.Empty))?.Data.Value}" +
+                   StringExtensions.CreateMiddleName(employeeMiddleName) +
                    $"{lastName.Value}";
         Email = email;
         Age = age;
@@ -56,12 +56,13 @@ public class Employee : Entity
         EmployeeMiddleName = employeeMiddleName;
         LastName = lastName;
         FullName = $"{firstName.Value} " +
-                   $"{MiddleName.Create(employeeMiddleName.Map(name => name.Value).Reduce(string.Empty))?.Data.Value}" +
+                   StringExtensions.CreateMiddleName(employeeMiddleName) +
                    $"{lastName.Value}";
         Email = email;
         Age = age;
         EmployeeSkills = employeeSkills;
     }
+
     public Guid? RoleId { get; private set; }
     public Guid? TeamId { get; private set; }
     public FirstName FirstName { get; private set; } = default!;

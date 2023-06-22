@@ -52,7 +52,7 @@ public sealed class UpdateEmployeeCommandHandler : ICommandHandler<UpdateEmploye
                 oldEmployee.RoleId,
                 oldEmployee.TeamId,
                 oldEmployee.FirstName,
-                oldEmployee.EmployeeMiddleName,
+                Option<MiddleName>.Some(oldEmployee.EmployeeMiddleName),
                 oldEmployee.LastName,
                 oldEmployee.Email,
                 oldEmployee.Age,
@@ -90,7 +90,7 @@ public sealed class UpdateEmployeeCommandHandler : ICommandHandler<UpdateEmploye
                 {
                     return middleNameResult;
                 }
-                oldEmployee.EmployeeMiddleName = Option<MiddleName>.Some(middleNameResult.Data);
+                oldEmployee.EmployeeMiddleName = middleNameResult.Data;
             }
         }
 
@@ -144,7 +144,7 @@ public sealed class UpdateEmployeeCommandHandler : ICommandHandler<UpdateEmploye
 
     private static bool MiddleNameMatch(UpdateEmployeeCommand request, EmployeeGetDTO oldEmployee)
     {
-        return oldEmployee.EmployeeMiddleName.Map(mn => mn.Value).Reduce(default!) == request.EmployeeMiddleName;
+        return oldEmployee.EmployeeMiddleName.Value == request.EmployeeMiddleName;
     }
 
     private static bool FirstNameMatch(UpdateEmployeeCommand request, EmployeeGetDTO oldEmployee)

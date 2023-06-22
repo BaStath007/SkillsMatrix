@@ -1,9 +1,6 @@
 ﻿using Application.DTOs.EmployeeDTOs;
 using Domain.Entities;
-using Domain.Entities.JoinEntities;
-using Domain.Shared;
 using Domain.ValueObjects;
-using System.Collections.Generic;
 
 namespace Application.Mapping;
 
@@ -16,7 +13,8 @@ public static class EmployeeExtensions
         return EmployeeGetDTO.Create(
             employee.Id, employee.CreatedAt, employee.UpdatedAt, employee.DeletedAt,
             employee.CreatedBy, employee.UpdatedBy, employee.DeletedBy, employee.IsActive,
-            employee.IsDeleted, employee.RoleId, employee.TeamId, employee.FirstName, employee.EmployeeMiddleName,
+            employee.IsDeleted, employee.RoleId, employee.TeamId,
+            employee.FirstName, employee.EmployeeMiddleName.Map(x => x).Reduce(MiddleName.Create(string.Empty)!.Data),
             employee.LastName, employee.Email, employee.Age, employee.EmployeeSkills);
     }
 
@@ -28,7 +26,8 @@ public static class EmployeeExtensions
             var employeeDTO = EmployeeGetDTO.Create(
             employee.Id, employee.CreatedAt, employee.UpdatedAt, employee.DeletedAt,
             employee.CreatedBy, employee.UpdatedBy, employee.DeletedBy, employee.IsActive,
-            employee.IsDeleted, employee.RoleId, employee.TeamId, employee.FirstName, employee.EmployeeMiddleName,
+            employee.IsDeleted, employee.RoleId, employee.TeamId, employee.FirstName,
+            employee.EmployeeMiddleName.Map(x => x).Reduce(MiddleName.Create(string.Empty)!.Data),
             employee.LastName, employee.Email, employee.Age, employee.EmployeeSkills);
             employeeDTOs.Add(employeeDTO);
         }

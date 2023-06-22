@@ -4,6 +4,7 @@ using Application.Data.IRepositories;
 using Application.DTOs.EmployeeDTOs;
 using Application.Exceptions;
 using Domain.Shared;
+using Domain.ValueObjects;
 
 namespace Application.Commands.Employees.DeleteEmployee;
 
@@ -38,7 +39,7 @@ public sealed class DeleteEmployeeCommandHandler : ICommandHandler<DeleteEmploye
                     dbEmployee.Id,
                     dbEmployee.CreatedAt,
                     dbEmployee.UpdatedAt,
-                    dbEmployee.DeletedAt,
+                    DateTime.UtcNow,
                     dbEmployee.CreatedBy,
                     dbEmployee.UpdatedBy,
                     request.DeletedBy,
@@ -47,7 +48,7 @@ public sealed class DeleteEmployeeCommandHandler : ICommandHandler<DeleteEmploye
                     dbEmployee.RoleId,
                     dbEmployee.TeamId,
                     dbEmployee.FirstName,
-                    dbEmployee.EmployeeMiddleName,
+                    Option<MiddleName>.Some(dbEmployee.EmployeeMiddleName),
                     dbEmployee.LastName,
                     dbEmployee.Email,
                     dbEmployee.Age,
