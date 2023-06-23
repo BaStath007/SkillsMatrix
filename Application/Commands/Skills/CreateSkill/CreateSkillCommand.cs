@@ -7,7 +7,8 @@ namespace Application.Commands.Skills.CreateSkill;
 
 public sealed record CreateSkillCommand
     (
-        string CreatedBy, Guid ParentSkillId,
+        string CreatedBy, bool IsActive,
+        Guid ParentSkillId,
         string Description,
         SkillType SkillType,
         ICollection<Skill> ChildrenSkills,

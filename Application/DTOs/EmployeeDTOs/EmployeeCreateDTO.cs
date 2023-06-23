@@ -27,7 +27,7 @@ public  class EmployeeCreateDTO
     }
 
     public string CreatedBy { get; private init; }
-    public bool IsActive { get; private set; }
+    public bool IsActive { get; private init; }
     public FirstName FirstName { get; private init; } = default!;
     public Option<MiddleName> EmployeeMiddleName { get; private init; } = default!;
     public LastName LastName { get; private init; } = default!;

@@ -32,6 +32,7 @@ internal sealed class CreateSkillCommandHandler : ICommandHandler<CreateSkillCom
             var skill = SkillCreateDTO.Create
                 (
                     request.CreatedBy,
+                    request.IsActive,
                     request.ParentSkillId,
                     descriptionResult.Data,
                     request.SkillType,

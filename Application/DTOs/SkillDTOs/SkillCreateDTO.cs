@@ -8,6 +8,7 @@ namespace Application.DTOs.SkillDTOs;
 public sealed class SkillCreateDTO
 {
     public string CreatedBy { get; private init; }
+    public bool IsActive { get; private init; }
     public Guid ParentSkillId { get; private init; }
     public Description Description { get; private init; }
     public SkillType SkillType { get; private init; }
@@ -18,7 +19,8 @@ public sealed class SkillCreateDTO
 
     private SkillCreateDTO
         (
-            string createdBy, Guid parentSkillId,
+            string createdBy, bool isActive,
+            Guid parentSkillId,
             Description description,
             SkillType skillType,
             ICollection<Skill> childrenSkills,
@@ -28,6 +30,7 @@ public sealed class SkillCreateDTO
         )
     {
         CreatedBy = createdBy;
+        IsActive = isActive;
         ParentSkillId = parentSkillId;
         Description = description;
         SkillType = skillType;
@@ -39,7 +42,8 @@ public sealed class SkillCreateDTO
 
     public static SkillCreateDTO Create
         (
-            string createdBy, Guid parentSkillId,
+            string createdBy, bool isActive,
+            Guid parentSkillId,
             Description description,
             SkillType skillType,
             ICollection<Skill> childrenSkills,
@@ -49,7 +53,7 @@ public sealed class SkillCreateDTO
         )
         => new
         (
-            createdBy, parentSkillId,
+            createdBy, isActive, parentSkillId,
             description, skillType,
             childrenSkills, employeeSkills,
             roleSkills,
