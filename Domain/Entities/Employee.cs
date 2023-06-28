@@ -16,8 +16,7 @@ public class Employee : Entity
     private Employee
         (
             string createdBy, bool isActive, Guid? roleId, Guid? teamId, FirstName firstName,
-            Option<MiddleName> employeeMiddleName, LastName lastName, Email email,
-            Age age, ICollection<EmployeeSkill>? employeeSkills
+            Option<MiddleName> employeeMiddleName, LastName lastName, Email email, Age age
         ) : base(createdBy)
     {
         IsActive = isActive;
@@ -31,7 +30,6 @@ public class Employee : Entity
                    $"{lastName.Value}";
         Email = email;
         Age = age;
-        EmployeeSkills = employeeSkills;
     }
 
     private Employee
@@ -83,12 +81,11 @@ public class Employee : Entity
         (
             string createdBy, bool isActive, Guid? roleId, Guid? teamId, 
             FirstName firstName, Option<MiddleName> employeeMiddleName, LastName lastName,
-            Email email, Age age, ICollection<EmployeeSkill>? employeeSkills)
+            Email email, Age age)
         => new
         (
             createdBy, isActive, roleId, teamId, 
-            firstName, employeeMiddleName, lastName, email,
-            age, employeeSkills
+            firstName, employeeMiddleName, lastName, email, age
         );
 
     public static Employee Update
@@ -105,4 +102,10 @@ public class Employee : Entity
             roleId, teamId, firstName, employeeMiddleName,
             lastName, email, age, employeeSkills
         );
+
+    public static Employee AddSkillsToEmployee(Employee employee, ICollection<EmployeeSkill> skills)
+    {
+        employee.EmployeeSkills = skills;
+        return employee;
+    }
 }

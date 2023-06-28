@@ -8,14 +8,11 @@ public class EmployeeSkill
     }
     private EmployeeSkill
         (
-            Guid employeeId, Guid skillId, 
-            Employee employee, Skill skill
+            Guid employeeId, Guid skillId
         )
     {
         EmployeeId = employeeId;
         SkillId = skillId;
-        Employee = employee;
-        Skill = skill;
     }
     public Guid EmployeeId { get; set; } = Guid.Empty;
     public Guid SkillId { get; set; } = Guid.Empty;
@@ -26,11 +23,10 @@ public class EmployeeSkill
 
     public static EmployeeSkill Create
         (
-            Guid employeeId, Guid skillId,
-            Employee employee, Skill skill
+            Guid employeeId, Guid skillId
         ) 
         => new EmployeeSkill
         (
-            employeeId, skillId, employee, skill
+            employeeId, skillId
         );
 }

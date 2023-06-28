@@ -28,7 +28,12 @@ public sealed class CreateEmployeeCommandHandler : ICommandHandler<CreateEmploye
             {
                 return result;
             }
-            _repository.Add(result.Data);
+            var employeeDTO = result.Data;
+            var employeeId = _repository.Add(employeeDTO);
+            if (employeeDTO.SkillIds is not null)
+            {
+                _repository.AddEmployeeSkills(employeeId, employeeDTO.SkillIds);
+            }
             await _unit.SaveChangesAsync(cancellationToken);
         }
         catch (BadRequestException ex)
@@ -78,7 +83,7 @@ public sealed class CreateEmployeeCommandHandler : ICommandHandler<CreateEmploye
         var employee = EmployeeCreateDTO.Create(
                 request.CreatedBy, request.IsActive, request.RoleId, request.TeamId,
                 firstNameResult.Data, optionalMiddleName, lastNameResult.Data,
-                emailResult.Data, ageResult.Data, request.EmployeeSkills
+                emailResult.Data, ageResult.Data, request.SkillIds
                 );
 
         return employee;

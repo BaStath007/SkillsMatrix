@@ -115,8 +115,6 @@ public class BaseSkillsMatrixDbContext : DbContext, ISkillsMatrixDbContext
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
-        var k = base.ChangeTracker.Entries().Where(e => e.State == EntityState.Modified || e.State == EntityState.Added).Select(e => e.Entity);
-        var number = base.SaveChangesAsync();
-        return number;
+        return base.SaveChangesAsync();
     }
 }

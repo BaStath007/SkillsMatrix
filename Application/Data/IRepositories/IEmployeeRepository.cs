@@ -6,7 +6,8 @@ public interface IEmployeeRepository
 {
     Task<EmployeeGetDTO?> GetById(Guid id, CancellationToken cancelationToken);
     Task<List<EmployeeGetDTO>> GetAll(CancellationToken cancellationToken);
-    void Add(EmployeeCreateDTO entity);
-    void Update(EmployeeUpdateDTO entity);
-    void SoftDelete(EmployeeDeleteDTO entity);
+    Guid Add(EmployeeCreateDTO employeeDTO);
+    void AddEmployeeSkills(Guid employeeId, ICollection<Guid> skillIds);
+    void Update(EmployeeUpdateDTO employeeDTO);
+    void SoftDelete(EmployeeDeleteDTO employeeDTO);
 }

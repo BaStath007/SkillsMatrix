@@ -9,7 +9,7 @@ public static class SkillExtensions
     {
         Skill skill = Skill.Create
             (
-                skillDTO.CreatedBy,
+                skillDTO.CreatedBy, skillDTO.IsActive,
                 skillDTO.ParentSkillId, skillDTO.Description,
                 skillDTO.SkillType,
                 skillDTO.ChildrenSkills,

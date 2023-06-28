@@ -1,4 +1,5 @@
-﻿using Domain.Entities.JoinEntities;
+﻿using Domain.Entities;
+using Domain.Entities.JoinEntities;
 using Domain.Shared;
 using Domain.ValueObjects;
 using System.ComponentModel.DataAnnotations;
@@ -11,7 +12,7 @@ public  class EmployeeCreateDTO
             string createdBy, bool isActive,
             Guid? roleId, Guid? teamId, FirstName firstName,
             Option<MiddleName> employeeMiddleName, LastName lastName,
-            Email email, Age age, ICollection<EmployeeSkill>? employeeSkills
+            Email email, Age age, ICollection<Guid>? skillIds
         )
     {
         CreatedBy = createdBy;
@@ -23,7 +24,7 @@ public  class EmployeeCreateDTO
         Age = age;
         RoleId = roleId;
         TeamId = teamId;
-        EmployeeSkills = employeeSkills;
+        SkillIds = skillIds;
     }
 
     public string CreatedBy { get; private init; }
@@ -36,16 +37,16 @@ public  class EmployeeCreateDTO
     public Age Age { get; private init; } = default!;
     public Guid? RoleId { get; private init; }
     public Guid? TeamId { get; private init; }
-    public ICollection<EmployeeSkill>? EmployeeSkills { get; private init; }
+    public ICollection<Guid>? SkillIds { get; private init; }
 
     public static EmployeeCreateDTO Create
         (
             string createdBy, bool isActive, Guid? roleId, Guid? teamId,
             FirstName firstName, Option<MiddleName> middleName, LastName lastName,
-            Email email, Age age, ICollection<EmployeeSkill>? employeeSkills
+            Email email, Age age, ICollection<Guid>? skillIds
         )
         => new(
             createdBy, isActive, roleId, teamId,
             firstName, middleName, lastName, email,
-            age, employeeSkills);
+            age, skillIds);
 }

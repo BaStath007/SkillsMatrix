@@ -12,7 +12,7 @@ public class Skill : Entity
     {
     }
     private Skill(
-        string createdBy, Guid? parentSkillId, 
+        string createdBy, bool isActive, Guid? parentSkillId, 
         Description description, SkillType skillType, 
         ICollection<Skill>? childrenSkills, 
         ICollection<EmployeeSkill>? employeeSkills, 
@@ -20,6 +20,7 @@ public class Skill : Entity
         ICollection<CategoryPerSkill>? categoriesPerSkill)  
         : base(createdBy)
     {
+        IsActive = isActive;
         ParentSkillId = parentSkillId;
         Description = description;
         SkillType = skillType;
@@ -68,7 +69,8 @@ public class Skill : Entity
 
     public static Skill Create
         (
-            string createdBy, Guid? parentSkillId, 
+            string createdBy, bool isActive,
+            Guid? parentSkillId, 
             Description description,
             SkillType skillType,
             ICollection<Skill>? childrenSkills,
@@ -78,7 +80,8 @@ public class Skill : Entity
         )
         =>new Skill
         (
-            createdBy, parentSkillId, 
+            createdBy, isActive,
+            parentSkillId, 
             description, skillType,
             childrenSkills, employeeSkills, roleSkills,
             categoriesPerSkill

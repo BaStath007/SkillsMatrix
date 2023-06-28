@@ -25,22 +25,33 @@ public class EmployeeRepository : IEmployeeRepository
 
     public async Task<List<EmployeeGetDTO>> GetAll(CancellationToken cancellationToken)
     {
-        var employees = await _context.Employees.ToListAsync(cancellationToken);
+        var employees = await _context.Employees.Include(e => e.EmployeeSkills).ToListAsync(cancellationToken);
         return EmployeeExtensions.GetAllEmployeesToApplication(employees);
     }
 
-    public void Add(EmployeeCreateDTO entity)
+    public Guid Add(EmployeeCreateDTO employeeDTO)
     {
-        _context.Employees.Add(EmployeeExtensions.CreateToDomain(entity));
+        var employee = EmployeeExtensions.CreateToDomain(employeeDTO);
+        _context.Employees.Add(employee);
+        return employee.Id;
     }
 
-    public void Update(EmployeeUpdateDTO entity)
+    public void AddEmployeeSkills(Guid employeeId, ICollection<Guid> skillIds)
     {
-        _context.Employees.Update(EmployeeExtensions.UpdateToDomain(entity));
+        var employeeSkills = EmployeeExtensions.CreateEmployeeSkillsToDomain(employeeId, skillIds);
+        foreach (var employeeSkill in employeeSkills)
+        {
+            _context.EmployeeSkills.Add(employeeSkill);
+        }
     }
 
-    public void SoftDelete(EmployeeDeleteDTO entity)
+    public void Update(EmployeeUpdateDTO employeeDTO)
     {
-        _context.Employees.Update(EmployeeExtensions.DeleteToDomain(entity));
+        _context.Employees.Update(EmployeeExtensions.UpdateToDomain(employeeDTO));
+    }
+
+    public void SoftDelete(EmployeeDeleteDTO employeeDTO)
+    {
+        _context.Employees.Update(EmployeeExtensions.DeleteToDomain(employeeDTO));
     }
 }

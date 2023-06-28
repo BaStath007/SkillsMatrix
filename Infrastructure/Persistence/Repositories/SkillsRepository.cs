@@ -26,7 +26,7 @@ namespace Infrastructure.Persistence.Repositories
 
         public async Task<List<SkillGetDTO>> GetAll(CancellationToken cancellationToken)
         {
-            var skills = await _context.Skills.ToListAsync(cancellationToken);
+            var skills = await _context.Skills.Include(s => s.EmployeeSkills).ToListAsync(cancellationToken);
             return SkillExtensions.GetAllSkillsToApplication(skills);
         }
 
