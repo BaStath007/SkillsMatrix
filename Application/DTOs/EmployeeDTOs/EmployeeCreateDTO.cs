@@ -1,6 +1,4 @@
-﻿using Domain.Entities;
-using Domain.Entities.JoinEntities;
-using Domain.Shared;
+﻿using Domain.Shared;
 using Domain.ValueObjects;
 using System.ComponentModel.DataAnnotations;
 

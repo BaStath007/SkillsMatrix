@@ -62,12 +62,12 @@ public static class EmployeeExtensions
             employeeUpdateDTO.DeletedBy, employeeUpdateDTO.IsActive, employeeUpdateDTO.IsDeleted,
             employeeUpdateDTO.RoleId, employeeUpdateDTO.TeamId, employeeUpdateDTO.FirstName,
             employeeUpdateDTO.EmployeeMiddleName, employeeUpdateDTO.LastName, employeeUpdateDTO.Email,
-            employeeUpdateDTO.Age, employeeUpdateDTO.EmployeeSkills);
+            employeeUpdateDTO.Age);
     }
 
     public static Employee DeleteToDomain(EmployeeDeleteDTO employeeDeleteDTO)
     {
-        return Employee.Update(employeeDeleteDTO.Id, employeeDeleteDTO.CreatedAt, employeeDeleteDTO.UpdatedAt,
+        return Employee.Delete(employeeDeleteDTO.Id, employeeDeleteDTO.CreatedAt, employeeDeleteDTO.UpdatedAt,
             employeeDeleteDTO.DeletedAt, employeeDeleteDTO.CreatedBy, employeeDeleteDTO.UpdatedBy,
             employeeDeleteDTO.DeletedBy, employeeDeleteDTO.IsActive, employeeDeleteDTO.IsDeleted,
             employeeDeleteDTO.RoleId, employeeDeleteDTO.TeamId, employeeDeleteDTO.FirstName,

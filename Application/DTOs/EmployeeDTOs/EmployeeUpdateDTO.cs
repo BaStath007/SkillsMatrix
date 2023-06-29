@@ -1,4 +1,4 @@
-﻿using Domain.Entities.JoinEntities;
+﻿using Domain.Entities;
 using Domain.Shared;
 using Domain.ValueObjects;
 using System.ComponentModel.DataAnnotations;
@@ -14,7 +14,7 @@ public sealed class EmployeeUpdateDTO
             bool isActive, bool isDeleted, Guid? roleId, Guid? teamId,
             FirstName firstName, Option<MiddleName> employeeMiddleName,
             LastName lastName, Email email, Age age,
-            ICollection<EmployeeSkill>? employeeSkills
+            ICollection<Skill>? skills
         )
     {
         Id = id;
@@ -33,7 +33,7 @@ public sealed class EmployeeUpdateDTO
         Age = age;
         RoleId = roleId;
         TeamId = teamId;
-        EmployeeSkills = employeeSkills;
+        Skills = skills;
     }
 
     public Guid Id { get; private init; }
@@ -53,20 +53,20 @@ public sealed class EmployeeUpdateDTO
     public Age Age { get; private init; }
     public Guid? RoleId { get; private init; }
     public Guid? TeamId { get; private init; }
-    public ICollection<EmployeeSkill>? EmployeeSkills { get; private init; }
+    public ICollection<Skill>? Skills { get; private init; }
 
     public static EmployeeUpdateDTO Create
         (
             Guid id, DateTime createdAt, DateTime? updatedAt, DateTime? deletedAt,
             string createdBy, string? updatedBy, string? deletedBy, bool isActive,
             bool isDeleted, Guid? roleId, Guid? teamId, FirstName firstName, Option<MiddleName> employeeMiddleName,
-            LastName lastName, Email email, Age age, ICollection<EmployeeSkill>? employeeSkills
+            LastName lastName, Email email, Age age, ICollection<Skill>? skills
         )
         => new
         (
             id, createdAt, updatedAt, deletedAt,
             createdBy, updatedBy, deletedBy, isActive, isDeleted,
             roleId, teamId, firstName, employeeMiddleName,
-            lastName, email, age, employeeSkills
+            lastName, email, age, skills
         );
 }

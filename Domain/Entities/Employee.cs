@@ -13,6 +13,8 @@ public class Employee : Entity
     {
         
     }
+
+    // This is called from static method Create
     private Employee
         (
             string createdBy, bool isActive, Guid? roleId, Guid? teamId, FirstName firstName,
@@ -32,14 +34,45 @@ public class Employee : Entity
         Age = age;
     }
 
+    // This is called from static method Update
+    private Employee
+        (
+            Guid id, DateTime createdAt, DateTime? updatedAt, DateTime? deletedAt, string createdBy,
+            string? updatedBy, string? deletedBy, bool isActive, bool isDeleted, Guid? roleId, Guid? teamId,
+            FirstName firstName, Option<MiddleName> employeeMiddleName, LastName lastName, Email email, Age age
+
+        ) :base(createdBy)
+    {
+        Id = id;
+        CreatedAt = createdAt;
+        UpdatedAt = updatedAt;
+        DeletedAt = deletedAt;
+        UpdatedBy = updatedBy;
+        DeletedBy = deletedBy;
+        IsActive = isActive;
+        IsDeleted = isDeleted;
+        RoleId = roleId;
+        TeamId = teamId;
+        FirstName = firstName;
+        EmployeeMiddleName = employeeMiddleName;
+        LastName = lastName;
+        FullName = $"{firstName.Value} " +
+                   StringExtensions.CreateMiddleName(employeeMiddleName) +
+                   $"{lastName.Value}";
+        Email = email;
+        Age = age;
+    }
+
+
+    // This is called from static method Delete
     private Employee
         (
             Guid id, DateTime createdAt, DateTime? updatedAt, DateTime? deletedAt, string createdBy,
             string? updatedBy, string? deletedBy, bool isActive, bool isDeleted, Guid? roleId, Guid? teamId,
             FirstName firstName, Option<MiddleName> employeeMiddleName, LastName lastName, Email email,
-            Age age, ICollection<EmployeeSkill>? employeeSkills
+            Age age, ICollection<EmployeeSkill> employeeSkills
 
-        ) :base(createdBy)
+        ) : base(createdBy)
     {
         Id = id;
         CreatedAt = createdAt;
@@ -93,7 +126,22 @@ public class Employee : Entity
             Guid id, DateTime createdAt, DateTime? updatedAt, DateTime? deletedAt,
             string createdBy, string? updatedBy, string? deletedBy, bool isActive,
             bool isDeleted, Guid? roleId, Guid? teamId, FirstName firstName, Option<MiddleName> employeeMiddleName,
-            LastName lastName, Email email, Age age, ICollection<EmployeeSkill>? employeeSkills
+            LastName lastName, Email email, Age age
+        )
+        => new Employee
+        (
+            id, createdAt, updatedAt, deletedAt,
+            createdBy, updatedBy, deletedBy, isActive, isDeleted,
+            roleId, teamId, firstName, employeeMiddleName,
+            lastName, email, age
+        );
+
+    public static Employee Delete
+        (
+            Guid id, DateTime createdAt, DateTime? updatedAt, DateTime? deletedAt,
+            string createdBy, string? updatedBy, string? deletedBy, bool isActive,
+            bool isDeleted, Guid? roleId, Guid? teamId, FirstName firstName, Option<MiddleName> employeeMiddleName,
+            LastName lastName, Email email, Age age, ICollection<EmployeeSkill> employeeSkills
         )
         => new Employee
         (

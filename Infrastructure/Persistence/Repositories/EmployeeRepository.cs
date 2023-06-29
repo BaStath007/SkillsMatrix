@@ -36,15 +36,6 @@ public class EmployeeRepository : IEmployeeRepository
         return employee.Id;
     }
 
-    public void AddEmployeeSkills(Guid employeeId, ICollection<Guid> skillIds)
-    {
-        var employeeSkills = EmployeeExtensions.CreateEmployeeSkillsToDomain(employeeId, skillIds);
-        foreach (var employeeSkill in employeeSkills)
-        {
-            _context.EmployeeSkills.Add(employeeSkill);
-        }
-    }
-
     public void Update(EmployeeUpdateDTO employeeDTO)
     {
         _context.Employees.Update(EmployeeExtensions.UpdateToDomain(employeeDTO));
@@ -54,4 +45,15 @@ public class EmployeeRepository : IEmployeeRepository
     {
         _context.Employees.Update(EmployeeExtensions.DeleteToDomain(employeeDTO));
     }
+
+    public void AddEmployeeSkills(Guid employeeId, ICollection<Guid> skillIds)
+    {
+        var employeeSkills = EmployeeExtensions.CreateEmployeeSkillsToDomain(employeeId, skillIds);
+        foreach (var employeeSkill in employeeSkills)
+        {
+            _context.EmployeeSkills.Add(employeeSkill);
+        }
+    }
+
+    public void 
 }

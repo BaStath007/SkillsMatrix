@@ -56,7 +56,7 @@ public sealed class UpdateEmployeeCommandHandler : ICommandHandler<UpdateEmploye
                 oldEmployee.LastName,
                 oldEmployee.Email,
                 oldEmployee.Age,
-                request.EmployeeSkills);
+                request.Skills);
 
             _repository.Update(newEmployee);
             await _unit.SaveChangesAsync(cancellationToken);
