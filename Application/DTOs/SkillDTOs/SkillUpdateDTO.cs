@@ -26,17 +26,17 @@ public sealed class SkillUpdateDTO
 
     private SkillUpdateDTO
         (
-            Guid id, DateTime createdAt, DateTime? updatedAt, DateTime? deletedAt,
+            Guid id, DateTime createdAt, DateTime? deletedAt,
             string createdBy, string? updatedBy, string? deletedBy,
-            bool isActive, bool isDeleted, Guid? parentSkillId, Description description,
-            SkillType skillType,
+            bool isActive, bool isDeleted, Guid? parentSkillId,
+            Description description, SkillType skillType,
             ICollection<Skill>? childrenSkills, ICollection<EmployeeSkill>? employeeSkills,
             ICollection<RoleSkill>? roleSkills, ICollection<CategoryPerSkill>? categoriesPerSkill
         )
     {
         Id = id;
         CreatedAt = createdAt;
-        UpdatedAt = updatedAt;
+        UpdatedAt = DateTime.UtcNow;
         DeletedAt = deletedAt;
         CreatedBy = createdBy;
         UpdatedBy = updatedBy;
@@ -54,19 +54,19 @@ public sealed class SkillUpdateDTO
 
     public static SkillUpdateDTO Create
         (
-            Guid id, DateTime createdAt, DateTime? updatedAt, DateTime? deletedAt,
-            string createdBy, string? updatedBy, string? deletedBy, bool isActive,
-            bool isDeleted, Guid? parentSkillId,
+            Guid id, DateTime createdAt, DateTime? deletedAt,
+            string createdBy, string? updatedBy, string? deletedBy,
+            bool isActive, bool isDeleted, Guid? parentSkillId,
             Description description, SkillType skillType,
             ICollection<Skill>? childrenSkills, ICollection<EmployeeSkill>? employeeSkills,
             ICollection<RoleSkill>? roleSkills, ICollection<CategoryPerSkill>? categoriesPerSkill
         )
         => new SkillUpdateDTO
         (
-            id, createdAt, updatedAt, deletedAt,
-            createdBy, updatedBy, deletedBy, isActive, isDeleted,
-            parentSkillId, description,
-            skillType, childrenSkills,
-            employeeSkills, roleSkills, categoriesPerSkill
+            id, createdAt, deletedAt, createdBy,
+            updatedBy, deletedBy, isActive,
+            isDeleted, parentSkillId, description,
+            skillType, childrenSkills, employeeSkills,
+            roleSkills, categoriesPerSkill
         );
 }

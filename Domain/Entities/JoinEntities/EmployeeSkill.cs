@@ -15,7 +15,8 @@ public class EmployeeSkill
     // This is called from static method Create
     private EmployeeSkill
         (
-            Guid employeeId, Guid skillId, string accreditedBy, int mastery
+            Guid employeeId, Guid skillId,
+            string accreditedBy, int mastery
         )
     {
         EmployeeId = employeeId;
@@ -28,17 +29,17 @@ public class EmployeeSkill
     // This is called from static method Update
     private EmployeeSkill
         (
-            Guid employeeId, Guid skillId, string accreditedBy,
-            int mastery, string updatedMasteryBy, DateTime updatedMasteryAt
+            Guid employeeId, Guid skillId, DateTime accreditedAt,
+            string accreditedBy, int mastery, string updatedMasteryBy
         )
     {
         EmployeeId = employeeId;
         SkillId = skillId;
-        AccreditedAt = DateTime.UtcNow;
+        AccreditedAt = accreditedAt;
         AccreditedBy = accreditedBy;
         Mastery = mastery;
+        UpdatedMasteryAt = DateTime.UtcNow;
         UpdatedMasteryBy = updatedMasteryBy;
-        UpdatedMasteryAt = updatedMasteryAt;
     }
 
     public Guid EmployeeId { get; private init; } = Guid.Empty;
@@ -47,8 +48,8 @@ public class EmployeeSkill
     public string AccreditedBy { get; private set; } = string.Empty;
     [Range(MinMastery, MaxMastery)]
     public int Mastery { get; private set; }
-    public string? UpdatedMasteryBy { get; private set; }
     public DateTime? UpdatedMasteryAt { get; private set; }
+    public string? UpdatedMasteryBy { get; private set; } = string.Empty;
 
     // Navigation Properties
     public virtual Employee Employee { get; set; } = default!;
@@ -56,7 +57,8 @@ public class EmployeeSkill
 
     public static EmployeeSkill Create
         (
-            Guid employeeId, Guid skillId, string accreditedBy, int mastery
+            Guid employeeId, Guid skillId,
+            string accreditedBy, int mastery
         ) 
         => new EmployeeSkill
         (
@@ -65,12 +67,12 @@ public class EmployeeSkill
 
     public static EmployeeSkill Update
         (
-            Guid employeeId, Guid skillId, string accreditedBy,
-            int mastery, string updatedMasteryBy, DateTime updatedMasteryAt
+            Guid employeeId, Guid skillId, DateTime accreditedAt,
+            string accreditedBy, int mastery, string updatedMasteryBy
         )
         => new EmployeeSkill
         (
-            employeeId, skillId, accreditedBy,
-            mastery, updatedMasteryBy, updatedMasteryAt
+            employeeId, skillId, accreditedAt,
+            accreditedBy, mastery, updatedMasteryBy
         );
 }

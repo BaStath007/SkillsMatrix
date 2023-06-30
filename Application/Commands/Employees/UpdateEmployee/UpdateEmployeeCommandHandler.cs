@@ -2,6 +2,7 @@
 using Application.Data;
 using Application.Data.IRepositories;
 using Application.DTOs.EmployeeDTOs;
+using Application.DTOs.EmployeeSkillDTOs;
 using Application.Exceptions;
 using Domain.Entities;
 using Domain.Entities.JoinEntities;
@@ -12,12 +13,14 @@ namespace Application.Commands.Employees.UpdateEmployee;
 
 public sealed class UpdateEmployeeCommandHandler : ICommandHandler<UpdateEmployeeCommand>
 {
-    private readonly IEmployeeRepository _repository;
+    private readonly IEmployeeRepository _employeeRepo;
+    private readonly IEmployeeSkillRepository _employeeSkillRepo;
     private readonly IUnitOfWork _unit;
 
-    public UpdateEmployeeCommandHandler(IEmployeeRepository repository, IUnitOfWork unit)
+    public UpdateEmployeeCommandHandler(IEmployeeRepository employeeRepo, IEmployeeSkillRepository employeeSkillRepo, IUnitOfWork unit)
     {
-        _repository = repository;
+        _employeeRepo = employeeRepo;
+        _employeeSkillRepo = employeeSkillRepo;
         _unit = unit;
     }
 
@@ -25,7 +28,7 @@ public sealed class UpdateEmployeeCommandHandler : ICommandHandler<UpdateEmploye
     {
         try
         {
-            var oldEmployee = await _repository.GetById(request.Id, cancellationToken);
+            var oldEmployee = await _employeeRepo.GetById(request.Id, cancellationToken);
             if (oldEmployee is null)
             {
                 return new Error(
@@ -42,7 +45,6 @@ public sealed class UpdateEmployeeCommandHandler : ICommandHandler<UpdateEmploye
             var newEmployee = EmployeeUpdateDTO.Create(
                 oldEmployee.Id,
                 oldEmployee.CreatedAt,
-                DateTime.UtcNow,
                 oldEmployee.DeletedAt,
                 oldEmployee.CreatedBy,
                 request.UpdatedBy,
@@ -55,10 +57,14 @@ public sealed class UpdateEmployeeCommandHandler : ICommandHandler<UpdateEmploye
                 Option<MiddleName>.Some(oldEmployee.EmployeeMiddleName),
                 oldEmployee.LastName,
                 oldEmployee.Email,
-                oldEmployee.Age,
-                request.Skills);
+                oldEmployee.Age);
 
-            _repository.Update(newEmployee);
+            var employeeId = _employeeRepo.Update(newEmployee);
+            if (request.EmployeeSkillUpdateDTOs is not null)
+            {
+                var employeeSkills = await _employeeSkillRepo.GetSkillsByEmployeeId(employeeId, cancellationToken);
+                _employeeSkillRepo.UpdateEmployeeSkills(employeeId, employeeSkills, request.EmployeeSkillUpdateDTOs);
+            }
             await _unit.SaveChangesAsync(cancellationToken);
 
             return Result.Success();

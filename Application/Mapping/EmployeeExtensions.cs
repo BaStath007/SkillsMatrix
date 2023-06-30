@@ -1,4 +1,5 @@
 ﻿using Application.DTOs.EmployeeDTOs;
+using Application.DTOs.EmployeeSkillDTOs;
 using Domain.Entities;
 using Domain.Entities.JoinEntities;
 using Domain.ValueObjects;
@@ -40,19 +41,7 @@ public static class EmployeeExtensions
         Employee employee = Employee.Create(employeeCreateDTO.CreatedBy, employeeCreateDTO.IsActive, employeeCreateDTO.RoleId,
             employeeCreateDTO.TeamId, employeeCreateDTO.FirstName, employeeCreateDTO.EmployeeMiddleName,
             employeeCreateDTO.LastName, employeeCreateDTO.Email, employeeCreateDTO.Age);
-
         return employee;
-    }
-
-    public static ICollection<EmployeeSkill> CreateEmployeeSkillsToDomain(Guid employeeId, ICollection<Guid> skillIds)
-    {
-        ICollection<EmployeeSkill> employeeSkills = new List<EmployeeSkill>();
-        foreach (Guid skillId in skillIds)
-        {
-            employeeSkills.Add(EmployeeSkill.Create(employeeId, skillId));
-        }
-
-        return employeeSkills;
     }
 
     public static Employee UpdateToDomain(EmployeeUpdateDTO employeeUpdateDTO)

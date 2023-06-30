@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistence.Repositories;
 
-public class EmployeeRepository : IEmployeeRepository
+public sealed class EmployeeRepository : IEmployeeRepository
 {
     private readonly ISkillsMatrixDbContext _context;
 
@@ -17,15 +17,23 @@ public class EmployeeRepository : IEmployeeRepository
 
     public async Task<EmployeeGetDTO?> GetById(Guid id, CancellationToken cancelationToken)
     {
-        var employee = await _context.Employees.AsNoTracking().Include(e => e.Role)
-            .Include(e => e.Team).Include(e => e.EmployeeSkills)
+        var employee = await _context.Employees.AsNoTracking()
+            .Include(e => e.Role)
+            .Include(e => e.Team)
+            .Include(e => e.EmployeeSkills)!
+            .ThenInclude(es => es.Skill)
             .FirstOrDefaultAsync(e => e.Id == id, cancelationToken);
         return EmployeeExtensions.GetEmployeeToApplication(employee);
     }
 
     public async Task<List<EmployeeGetDTO>> GetAll(CancellationToken cancellationToken)
     {
-        var employees = await _context.Employees.Include(e => e.EmployeeSkills).ToListAsync(cancellationToken);
+        var employees = await _context.Employees.AsNoTracking()
+            .Include(e => e.Role)
+            .Include(e => e.Team)
+            .Include(e => e.EmployeeSkills)!
+            .ThenInclude(es => es.Skill)
+            .ToListAsync(cancellationToken);
         return EmployeeExtensions.GetAllEmployeesToApplication(employees);
     }
 
@@ -36,24 +44,15 @@ public class EmployeeRepository : IEmployeeRepository
         return employee.Id;
     }
 
-    public void Update(EmployeeUpdateDTO employeeDTO)
+    public Guid Update(EmployeeUpdateDTO employeeDTO)
     {
-        _context.Employees.Update(EmployeeExtensions.UpdateToDomain(employeeDTO));
+        var employee = EmployeeExtensions.UpdateToDomain(employeeDTO);
+        _context.Employees.Update(employee);
+        return employee.Id;
     }
 
     public void SoftDelete(EmployeeDeleteDTO employeeDTO)
     {
         _context.Employees.Update(EmployeeExtensions.DeleteToDomain(employeeDTO));
     }
-
-    public void AddEmployeeSkills(Guid employeeId, ICollection<Guid> skillIds)
-    {
-        var employeeSkills = EmployeeExtensions.CreateEmployeeSkillsToDomain(employeeId, skillIds);
-        foreach (var employeeSkill in employeeSkills)
-        {
-            _context.EmployeeSkills.Add(employeeSkill);
-        }
-    }
-
-    public void 
 }

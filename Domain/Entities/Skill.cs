@@ -11,6 +11,8 @@ public class Skill : Entity
         : base(createdBy)
     {
     }
+
+    // This is called from static method Create
     private Skill(
         string createdBy, bool isActive, Guid? parentSkillId, 
         Description description, SkillType skillType, 
@@ -30,6 +32,7 @@ public class Skill : Entity
         CategoriesPerSkill = categoriesPerSkill;
     }
 
+    // This is called from static method Update
     private Skill
         (
             Guid id, DateTime createdAt, DateTime? updatedAt, DateTime? deletedAt, string createdBy,
@@ -78,8 +81,7 @@ public class Skill : Entity
             ICollection<RoleSkill>? roleSkills,
             ICollection<CategoryPerSkill>? categoriesPerSkill
         )
-        =>new Skill
-        (
+        =>new(
             createdBy, isActive,
             parentSkillId, 
             description, skillType,
@@ -96,8 +98,7 @@ public class Skill : Entity
             ICollection<Skill>? childrenSkills, ICollection<EmployeeSkill>? employeeSkills,
             ICollection<RoleSkill>? roleSkills, ICollection<CategoryPerSkill>? categoriesPerSkill
         )
-        => new Skill
-        (
+        => new(
             id, createdAt, updatedAt, deletedAt,
             createdBy, updatedBy, deletedBy,  isActive, isDeleted, 
             parentSkillId, description,

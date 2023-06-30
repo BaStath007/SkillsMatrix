@@ -1,5 +1,4 @@
-﻿using Domain.Entities;
-using Domain.Shared;
+﻿using Domain.Shared;
 using Domain.ValueObjects;
 using System.ComponentModel.DataAnnotations;
 
@@ -9,17 +8,16 @@ public sealed class EmployeeUpdateDTO
 {
     private EmployeeUpdateDTO
         (
-            Guid id, DateTime createdAt, DateTime? updatedAt, DateTime? deletedAt,
+            Guid id, DateTime createdAt, DateTime? deletedAt,
             string createdBy, string? updatedBy, string? deletedBy,
             bool isActive, bool isDeleted, Guid? roleId, Guid? teamId,
             FirstName firstName, Option<MiddleName> employeeMiddleName,
-            LastName lastName, Email email, Age age,
-            ICollection<Skill>? skills
+            LastName lastName, Email email, Age age
         )
     {
         Id = id;
         CreatedAt = createdAt;
-        UpdatedAt = updatedAt;
+        UpdatedAt = DateTime.UtcNow;
         DeletedAt = deletedAt;
         CreatedBy = createdBy;
         UpdatedBy = updatedBy;
@@ -33,7 +31,6 @@ public sealed class EmployeeUpdateDTO
         Age = age;
         RoleId = roleId;
         TeamId = teamId;
-        Skills = skills;
     }
 
     public Guid Id { get; private init; }
@@ -53,20 +50,19 @@ public sealed class EmployeeUpdateDTO
     public Age Age { get; private init; }
     public Guid? RoleId { get; private init; }
     public Guid? TeamId { get; private init; }
-    public ICollection<Skill>? Skills { get; private init; }
 
     public static EmployeeUpdateDTO Create
         (
-            Guid id, DateTime createdAt, DateTime? updatedAt, DateTime? deletedAt,
-            string createdBy, string? updatedBy, string? deletedBy, bool isActive,
-            bool isDeleted, Guid? roleId, Guid? teamId, FirstName firstName, Option<MiddleName> employeeMiddleName,
-            LastName lastName, Email email, Age age, ICollection<Skill>? skills
+            Guid id, DateTime createdAt, DateTime? deletedAt, string createdBy,
+            string? updatedBy, string? deletedBy, bool isActive, bool isDeleted,
+            Guid? roleId, Guid? teamId, FirstName firstName, Option<MiddleName> employeeMiddleName,
+            LastName lastName, Email email, Age age
         )
         => new
         (
-            id, createdAt, updatedAt, deletedAt,
-            createdBy, updatedBy, deletedBy, isActive, isDeleted,
-            roleId, teamId, firstName, employeeMiddleName,
-            lastName, email, age, skills
+            id, createdAt, deletedAt, createdBy, updatedBy,
+            deletedBy, isActive, isDeleted, roleId,
+            teamId, firstName, employeeMiddleName,
+            lastName, email, age
         );
 }

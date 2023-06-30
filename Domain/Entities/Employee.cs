@@ -113,8 +113,8 @@ public class Employee : Entity
     public static Employee Create
         (
             string createdBy, bool isActive, Guid? roleId, Guid? teamId, 
-            FirstName firstName, Option<MiddleName> employeeMiddleName, LastName lastName,
-            Email email, Age age)
+            FirstName firstName, Option<MiddleName> employeeMiddleName,
+            LastName lastName, Email email, Age age)
         => new
         (
             createdBy, isActive, roleId, teamId, 

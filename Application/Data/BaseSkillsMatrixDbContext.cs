@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Application.DTOs.EmployeeSkillDTOs;
+using Domain.Entities;
 using Domain.Entities.JoinEntities;
 using Domain.Shared;
 using Domain.ValueObjects;
@@ -109,7 +110,6 @@ public class BaseSkillsMatrixDbContext : DbContext, ISkillsMatrixDbContext
                     );
                 }
             );
-
         base.OnModelCreating(modelBuilder);
     }
 

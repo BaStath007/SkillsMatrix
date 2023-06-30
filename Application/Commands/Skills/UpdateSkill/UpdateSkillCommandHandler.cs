@@ -41,7 +41,6 @@ public sealed class UpdateSkillCommandHandler : ICommandHandler<UpdateSkillComma
             (
                 oldSkill.Id,
                 oldSkill.CreatedAt,
-                DateTime.UtcNow,
                 oldSkill.DeletedAt,
                 oldSkill.CreatedBy,
                 request.UpdatedBy,

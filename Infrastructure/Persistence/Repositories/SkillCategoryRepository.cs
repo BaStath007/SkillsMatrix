@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistence.Repositories;
 
-public class SkillCategoryRepository : ISkillCategoryRepository
+public sealed class SkillCategoryRepository : ISkillCategoryRepository
 {
     private readonly ISkillsMatrixDbContext _context;
 

@@ -10,12 +10,15 @@ namespace Application.Commands.Employees.CreateEmployee;
 
 public sealed class CreateEmployeeCommandHandler : ICommandHandler<CreateEmployeeCommand>
 {
-    private readonly IEmployeeRepository _repository;
+    private readonly IEmployeeRepository _employeeRepo;
+    private readonly IEmployeeSkillRepository _employeeSkillRepo;
     private readonly IUnitOfWork _unit;
 
-    public CreateEmployeeCommandHandler(IEmployeeRepository repository, IUnitOfWork unit)
+    public CreateEmployeeCommandHandler(
+        IEmployeeRepository repository, IEmployeeSkillRepository employeeSkillRepo, IUnitOfWork unit)
     {
-        _repository = repository;
+        _employeeRepo = repository;
+        _employeeSkillRepo = employeeSkillRepo;
         _unit = unit;
     }
 
@@ -29,10 +32,10 @@ public sealed class CreateEmployeeCommandHandler : ICommandHandler<CreateEmploye
                 return result;
             }
             var employeeDTO = result.Data;
-            var employeeId = _repository.Add(employeeDTO);
-            if (employeeDTO.SkillIds is not null)
+            var employeeId = _employeeRepo.Add(employeeDTO);
+            if (request.EmployeeSkillCreateDTOs is not null)
             {
-                _repository.AddEmployeeSkills(employeeId, employeeDTO.SkillIds);
+                _employeeSkillRepo.AddEmployeeSkills(employeeId, request.EmployeeSkillCreateDTOs);
             }
             await _unit.SaveChangesAsync(cancellationToken);
         }
@@ -83,8 +86,7 @@ public sealed class CreateEmployeeCommandHandler : ICommandHandler<CreateEmploye
         var employee = EmployeeCreateDTO.Create(
                 request.CreatedBy, request.IsActive, request.RoleId, request.TeamId,
                 firstNameResult.Data, optionalMiddleName, lastNameResult.Data,
-                emailResult.Data, ageResult.Data, request.SkillIds
-                );
+                emailResult.Data, ageResult.Data);
 
         return employee;
     }
