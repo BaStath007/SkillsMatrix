@@ -1,6 +1,7 @@
-﻿using Application.DTOs.EmployeeSkillDTOs;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Domain.Entities.JoinEntities;
+using Domain.Enums;
+using Domain.Primitives;
 using Domain.Shared;
 using Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
@@ -36,11 +37,19 @@ public class BaseSkillsMatrixDbContext : DbContext, ISkillsMatrixDbContext
 
         modelBuilder.Entity<Skill>
             (
-                b => b.OwnsOne
-                (
-                    s => s.Description,
-                    d => d.Property(x => x.Value)
-                )
+                b =>
+                {
+                    b.OwnsOne
+                    (
+                        s => s.Description,
+                        d => d.Property(x => x.Value)
+                    );
+                    b.Property(s => s.SkillType)
+                        .HasConversion(
+                            st => st.Name,
+                            st => Enumeration<SkillType>.FromName(st)!
+                    );
+                }
             );
 
         modelBuilder.Entity<Role>
@@ -54,11 +63,19 @@ public class BaseSkillsMatrixDbContext : DbContext, ISkillsMatrixDbContext
 
         modelBuilder.Entity<Team>
             (
-                b => b.OwnsOne
-                (
-                    s => s.Description,
-                    d => d.Property(x => x.Value)
-                )
+                b =>
+                {
+                    b.OwnsOne
+                    (
+                        s => s.Description,
+                        d => d.Property(x => x.Value)
+                    );
+                    b.Property(t => t.TeamType)
+                        .HasConversion(
+                            tt => tt.Name,
+                            tt => Enumeration<TeamType>.FromName(tt)!
+                    );
+                }
             );
 
         modelBuilder.Entity<SkillCategory>

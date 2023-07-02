@@ -3,12 +3,13 @@ using Application.Data;
 using Application.Data.IRepositories;
 using Application.DTOs.SkillDTOs;
 using Application.Exceptions;
+using Domain.Enums;
 using Domain.Shared;
 using Domain.ValueObjects;
 
 namespace Application.Commands.Skills.CreateSkill;
 
-internal sealed class CreateSkillCommandHandler : ICommandHandler<CreateSkillCommand>
+internal sealed class CreateSkillCommandHandler : ICommandHandler<CreateSkillCommand, Guid>
 {
     private readonly ISkillRepository _repository;
     private readonly IUnitOfWork _unit;
@@ -19,36 +20,43 @@ internal sealed class CreateSkillCommandHandler : ICommandHandler<CreateSkillCom
         _unit = unit;
     }
 
-    public async Task<Result> Handle(CreateSkillCommand request, CancellationToken cancellationToken)
-    {
-
+    public async Task<Result<Guid>> Handle(CreateSkillCommand request, CancellationToken cancellationToken)
+    {;
         try
         {
-            var descriptionResult = Description.Create(request.Description);
-            if(descriptionResult.IsFailure)
+            var result = TryCreateValueObjects(request);
+            if (result.IsFailure)
             {
-                return descriptionResult;
+                return result.Error;
             }
+            
             var skill = SkillCreateDTO.Create
                 (
                     request.CreatedBy,
                     request.IsActive,
                     request.ParentSkillId,
-                    descriptionResult.Data,
-                    request.SkillType,
+                    result.Data,
+                    SkillType.FromName(request.SkillType)!,
                     request.ChildrenSkills,
                     request.EmployeeSkills,
                     request.RoleSkills,
                     request.CategoriesPerSkill
                 );
-            _repository.Add(skill);
+            var skillId = _repository.Add(skill);
             await _unit.SaveChangesAsync(cancellationToken);
+
+            return skillId;
         }
         catch (BadRequestException ex)
         {
             return ex.Error;
         }
+    }
 
-        return Result.Success();
+    private static Result<Description> TryCreateValueObjects(CreateSkillCommand request)
+    {
+        var descriptionResult = Description.Create(request.Description);
+        
+        return descriptionResult!;
     }
 }

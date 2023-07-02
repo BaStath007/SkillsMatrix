@@ -3,12 +3,13 @@ using Application.Data;
 using Application.Data.IRepositories;
 using Application.DTOs.EmployeeDTOs;
 using Application.Exceptions;
+using Domain.Entities;
 using Domain.Shared;
 using Domain.ValueObjects;
 
 namespace Application.Commands.Employees.CreateEmployee;
 
-public sealed class CreateEmployeeCommandHandler : ICommandHandler<CreateEmployeeCommand>
+public sealed class CreateEmployeeCommandHandler : ICommandHandler<CreateEmployeeCommand, Guid>
 {
     private readonly IEmployeeRepository _employeeRepo;
     private readonly IEmployeeSkillRepository _employeeSkillRepo;
@@ -22,14 +23,14 @@ public sealed class CreateEmployeeCommandHandler : ICommandHandler<CreateEmploye
         _unit = unit;
     }
 
-    public async Task<Result> Handle(CreateEmployeeCommand request, CancellationToken cancellationToken)
+    public async Task<Result<Guid>> Handle(CreateEmployeeCommand request, CancellationToken cancellationToken)
     {
         try
         {
             var result = TryCreateValueObjects(request);
             if (result.IsFailure)
             {
-                return result;
+                return result.Error;
             }
             var employeeDTO = result.Data;
             var employeeId = _employeeRepo.Add(employeeDTO);
@@ -38,13 +39,13 @@ public sealed class CreateEmployeeCommandHandler : ICommandHandler<CreateEmploye
                 _employeeSkillRepo.AddEmployeeSkills(employeeId, request.EmployeeSkillCreateDTOs);
             }
             await _unit.SaveChangesAsync(cancellationToken);
+
+            return employeeId;
         }
         catch (BadRequestException ex)
         {
             return ex.Error;
-        }
-
-        return Result.Success();
+        } 
     }
 
     private static Result<EmployeeCreateDTO> TryCreateValueObjects(CreateEmployeeCommand request)

@@ -33,7 +33,7 @@ public sealed class SkillCreateDTO
         IsActive = isActive;
         ParentSkillId = parentSkillId;
         Description = description;
-        SkillType = skillType;
+        SkillType = skillType ?? SkillType.None;
         ChildrenSkills = childrenSkills;
         EmployeeSkills = employeeSkills;
         RoleSkills = roleSkills;

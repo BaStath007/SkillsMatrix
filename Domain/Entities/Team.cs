@@ -47,7 +47,7 @@ public class Team : Entity
             ICollection<Employee>? employees, ICollection<TeamRole>? teamRole,
             ICollection<CategoryPerTeam>? categoriesPerTeam
         )
-        => new Team
+        => new
             (
                 createdBy, parentTeamId,
                 description, teamType, ParentTeam,

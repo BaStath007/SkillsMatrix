@@ -45,7 +45,7 @@ public sealed class SkillUpdateDTO
         IsDeleted = isDeleted;
         ParentSkillId = parentSkillId;
         Description = description;
-        SkillType = skillType;
+        SkillType = skillType ?? SkillType.None;
         ChildrenSkills = childrenSkills;
         EmployeeSkills = employeeSkills;
         RoleSkills = roleSkills;

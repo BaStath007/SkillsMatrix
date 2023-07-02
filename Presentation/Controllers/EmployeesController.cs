@@ -1,14 +1,14 @@
-﻿using MediatR;
-using Application.Shared;
+﻿using Application.Commands.Employees.CreateEmployee;
+using Application.Commands.Employees.DeleteEmployee;
+using Application.Commands.Employees.UpdateEmployee;
 using Application.DTOs.EmployeeDTOs;
 using Application.Queries.Employees.GetAllEmployees;
 using Application.Queries.Employees.GetEmployeeById;
-using Application.Commands.Employees.CreateEmployee;
-using Application.Commands.Employees.DeleteEmployee;
-using Application.Commands.Employees.UpdateEmployee;
-using Presentation.Controllers.Common;
+using Application.Shared;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Presentation.Controllers.Common;
 
 namespace Presentation.Controllers;
 
@@ -51,7 +51,7 @@ public sealed class EmployeesController : ApiController
     {
         var result = await _sender.Send(command, cancellationToken);
 
-        return result.IsSuccess ? Ok() : NotFound(result.Error);
+        return result.IsSuccess ? Ok(result.Data) : NotFound(result.Error);
     }
 
     [HttpPut("modify")]

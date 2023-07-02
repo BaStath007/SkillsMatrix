@@ -1,14 +1,13 @@
 ﻿using Application.Commands.Common;
 using Domain.Entities;
 using Domain.Entities.JoinEntities;
-using Domain.Enums;
 
 namespace Application.Commands.Skills.UpdateSkill;
 
 public sealed record UpdateSkillCommand
     (
         Guid Id, string UpdatedBy, bool IsActive,
-        Guid ParentSkillId, string Description, SkillType SkillType,
+        Guid ParentSkillId, string Description, string SkillType,
         ICollection<Skill> ChildrenSkills, ICollection<EmployeeSkill> EmployeeSkills,
         ICollection<RoleSkill> RoleSkills, ICollection<CategoryPerSkill> CategoriesPerSkill
     ) : ICommand;

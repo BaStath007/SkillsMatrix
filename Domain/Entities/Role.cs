@@ -36,7 +36,7 @@ public class Role : Entity
             string createdBy, Description description, ICollection<Employee>? employees,
             ICollection<TeamRole>? teamRoles, ICollection<RoleSkill>? roleSkills
         )
-        => new Role
+        => new
         (
             createdBy, description,
             employees, teamRoles, roleSkills

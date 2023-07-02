@@ -61,6 +61,6 @@ public static class EmployeeExtensions
             employeeDeleteDTO.DeletedBy, employeeDeleteDTO.IsActive, employeeDeleteDTO.IsDeleted,
             employeeDeleteDTO.RoleId, employeeDeleteDTO.TeamId, employeeDeleteDTO.FirstName,
             employeeDeleteDTO.EmployeeMiddleName, employeeDeleteDTO.LastName, employeeDeleteDTO.Email,
-            employeeDeleteDTO.Age, employeeDeleteDTO.EmployeeSkills);
+            employeeDeleteDTO.Age, employeeDeleteDTO.EmployeeSkills!);
     }
 }

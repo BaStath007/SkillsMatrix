@@ -1,14 +1,14 @@
-﻿using MediatR;
-using Application.Shared;
+﻿using Application.Commands.Skills.CreateSkill;
+using Application.Commands.Skills.DeleteSkill;
+using Application.Commands.Skills.UpdateSkill;
 using Application.DTOs.SkillDTOs;
 using Application.Queries.Skills.GetAllSkills;
 using Application.Queries.Skills.GetSkillById;
-using Application.Commands.Skills.CreateSkill;
-using Application.Commands.Skills.UpdateSkill;
-using Application.Commands.Skills.DeleteSkill;
-using Presentation.Controllers.Common;
+using Application.Shared;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Presentation.Controllers.Common;
 
 namespace Presentation.Controllers;
 
@@ -52,7 +52,7 @@ public sealed class SkillsController : ApiController
     {
         var result = await _sender.Send(command, cancellationToken);
 
-        return result.IsSuccess ? Ok() : BadRequest(result.Error);
+        return result.IsSuccess ? Ok(result.Data) : BadRequest(result.Error);
     }
 
     [HttpPut("modify")]

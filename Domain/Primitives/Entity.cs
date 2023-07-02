@@ -7,8 +7,8 @@ public abstract class Entity : IEquatable<Entity>
     public DateTime? UpdatedAt { get; protected set; } = null;
     public DateTime? DeletedAt { get; protected set; } = null;
     public string CreatedBy { get; private init; }
-    public string? UpdatedBy { get; protected set; } = null;
-    public string? DeletedBy { get; protected set; } = null;
+    public string? UpdatedBy { get; protected set; } = string.Empty;
+    public string? DeletedBy { get; protected set; } = string.Empty;
     public bool IsActive { get; protected set; } = false;
     public bool IsDeleted { get; protected set; } = false;
 
@@ -67,19 +67,16 @@ public abstract class Entity : IEquatable<Entity>
 
     public override int GetHashCode()
     {
-        unchecked
-        {
-            int hash = 3;
-            hash = hash * 7 + Id.GetHashCode();
-            hash = hash * 3 + CreatedAt.GetHashCode();
-            hash = hash * 7 + CreatedBy.GetHashCode();
-            hash = hash * 3 + UpdatedAt.GetHashCode();
-            hash = hash * 7 + UpdatedBy.GetHashCode();
-            hash = hash * 3 + DeletedAt.GetHashCode();
-            hash = hash * 7 + DeletedBy.GetHashCode();
-            hash = hash * 3 + IsActive.GetHashCode();
-            hash = hash * 7 + IsDeleted.GetHashCode();
-            return hash;
-        }
+        HashCode hash = new();
+        hash.Add(Id);
+        hash.Add(CreatedAt);
+        hash.Add(CreatedBy);
+        hash.Add(UpdatedAt);
+        hash.Add(UpdatedBy);
+        hash.Add(DeletedAt);
+        hash.Add(DeletedBy);
+        hash.Add(IsActive);
+        hash.Add(IsDeleted);
+        return hash.ToHashCode();
     }
 }

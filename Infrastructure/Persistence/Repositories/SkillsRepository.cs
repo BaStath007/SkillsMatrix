@@ -30,9 +30,11 @@ public sealed class SkillsRepository : ISkillRepository
         return SkillExtensions.GetAllSkillsToApplication(skills);
     }
 
-    public void Add(SkillCreateDTO entity)
+    public Guid Add(SkillCreateDTO entity)
     {
-        _context.Skills.Add(SkillExtensions.CreateToDomain(entity));
+        var skill = SkillExtensions.CreateToDomain(entity);
+        _context.Skills.Add(skill);
+        return skill.Id;
     }
     
     public void Update(SkillUpdateDTO entity)

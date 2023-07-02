@@ -3,6 +3,7 @@ using Application.Data;
 using Application.Data.IRepositories;
 using Application.DTOs.SkillDTOs;
 using Application.Exceptions;
+using Domain.Enums;
 using Domain.Shared;
 using Domain.ValueObjects;
 
@@ -49,7 +50,7 @@ public sealed class UpdateSkillCommandHandler : ICommandHandler<UpdateSkillComma
                 oldSkill.IsDeleted,
                 request.ParentSkillId,
                 oldSkill.Description,
-                request.SkillType,
+                SkillType.FromName(request.SkillType)!,
                 request.ChildrenSkills,
                 request.EmployeeSkills,
                 request.RoleSkills,
