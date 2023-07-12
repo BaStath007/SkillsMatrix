@@ -13,7 +13,8 @@ public class Skill : Entity
     }
 
     // This is called from static method Create
-    private Skill(
+    private Skill
+        (
         string createdBy, bool isActive, Guid? parentSkillId, 
         Description description, SkillType skillType, 
         ICollection<Skill>? childrenSkills, 

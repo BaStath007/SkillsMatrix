@@ -8,11 +8,13 @@ public class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
-
+        var config = builder.Configuration;
         // Add Services to the container.
         builder.Services
-            .AddInfrastructure(builder.Configuration)
-            .AddPresentation();
+            .AddInfrastructure(config)
+            .AddPresentation(config);
+
+        //builder.Services.AddAuthorization();
 
         var app = builder.Build();
 
@@ -27,6 +29,7 @@ public class Program
         }
         app.UseHttpsRedirection();
 
+        app.UseAuthentication();
         app.UseAuthorization();
 
         app.MapControllers();

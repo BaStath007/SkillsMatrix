@@ -1,4 +1,4 @@
-﻿using Application.Commands.Common;
+﻿    using Application.Commands.Common;
 using Application.Data;
 using Application.Data.IRepositories;
 using Application.DTOs.EmployeeDTOs;
@@ -27,13 +27,13 @@ public sealed class CreateEmployeeCommandHandler : ICommandHandler<CreateEmploye
     {
         try
         {
-            var result = TryCreateValueObjects(request);
+            Result<EmployeeCreateDTO> result = TryCreateValueObjects(request);
             if (result.IsFailure)
             {
                 return result.Error;
             }
-            var employeeDTO = result.Data;
-            var employeeId = _employeeRepo.Add(employeeDTO);
+            EmployeeCreateDTO employeeDTO = result.Data;
+            Guid employeeId = _employeeRepo.Add(employeeDTO);
             if (request.EmployeeSkillCreateDTOs is not null)
             {
                 _employeeSkillRepo.AddEmployeeSkills(employeeId, request.EmployeeSkillCreateDTOs);
@@ -50,27 +50,27 @@ public sealed class CreateEmployeeCommandHandler : ICommandHandler<CreateEmploye
 
     private static Result<EmployeeCreateDTO> TryCreateValueObjects(CreateEmployeeCommand request)
     {
-        var firstNameResult = FirstName.Create(request.FirstName);
+        Result<FirstName> firstNameResult = FirstName.Create(request.FirstName);
         if (firstNameResult.IsFailure)
         {
             return firstNameResult.Error;
         }
-        var middleNameResult = MiddleName.Create(request.EmployeeMiddleName);
+        Result<MiddleName>? middleNameResult = MiddleName.Create(request.EmployeeMiddleName);
         if (middleNameResult is not null && middleNameResult.IsFailure)
         {
             return middleNameResult.Error;
         }
-        var lastNameResult = LastName.Create(request.LastName);
+        Result<LastName> lastNameResult = LastName.Create(request.LastName);
         if (lastNameResult.IsFailure)
         {
             return lastNameResult.Error;
         }
-        var emailResult = Email.Create(request.Email);
+        Result<Email> emailResult = Email.Create(request.Email);
         if (emailResult.IsFailure)
         {
             return emailResult.Error;
         }
-        var ageResult = Age.Create(request.Age);
+        Result<Age> ageResult = Age.Create(request.Age);
         if (ageResult.IsFailure)
         {
             return ageResult.Error;
@@ -84,7 +84,7 @@ public sealed class CreateEmployeeCommandHandler : ICommandHandler<CreateEmploye
         {
             optionalMiddleName = Option<MiddleName>.None();
         }
-        var employee = EmployeeCreateDTO.Create(
+        EmployeeCreateDTO employee = EmployeeCreateDTO.Create(
                 request.CreatedBy, request.IsActive, request.RoleId, request.TeamId,
                 firstNameResult.Data, optionalMiddleName, lastNameResult.Data,
                 emailResult.Data, ageResult.Data);

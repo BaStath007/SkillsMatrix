@@ -11,7 +11,9 @@ namespace Infrastructure;
 
 public static class AssemblyReference
 {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddInfrastructure(
+        this IServiceCollection services,
+        IConfiguration configuration)
     {
         services.AddApplication();
 

@@ -1,17 +1,21 @@
 ﻿using Application.Commands.Employees.CreateEmployee;
 using Application.Commands.Employees.DeleteEmployee;
 using Application.Commands.Employees.UpdateEmployee;
+using Application.Commands.Login;
 using Application.DTOs.EmployeeDTOs;
 using Application.Queries.Employees.GetAllEmployees;
 using Application.Queries.Employees.GetEmployeeById;
-using Application.Shared;
+using Domain.Shared;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.Controllers.Common;
+using Error = Application.Shared.Error;
 
 namespace Presentation.Controllers;
 
+[Authorize]
 [Route("api/employees")]
 public sealed class EmployeesController : ApiController
 {
@@ -25,9 +29,9 @@ public sealed class EmployeesController : ApiController
     [ProducesErrorResponseType(typeof(Error))]
     public async Task<IActionResult> Index(CancellationToken cancellationToken)
     {
-        var getAllEmployeesQuery = new GetAllEmployeesQuery();
+        GetAllEmployeesQuery getAllEmployeesQuery = new();
 
-        var result = await _sender.Send(getAllEmployeesQuery, cancellationToken);
+        Result<GetAllEmployeesResponse> result = await _sender.Send(getAllEmployeesQuery, cancellationToken);
 
         return result.IsSuccess ? Ok(result.Data) : BadRequest(result.Error);
     }
@@ -37,9 +41,9 @@ public sealed class EmployeesController : ApiController
     [ProducesErrorResponseType(typeof(Error))]
     public async Task<IActionResult> Get([FromRoute] Guid id, CancellationToken cancellationToken)
     {
-        var query = new GetEmployeeByIdQuery(id);
+        GetEmployeeByIdQuery query = new(id);
 
-        var result = await _sender.Send(query, cancellationToken);
+        Result<GetEmployeeByIdResponse> result = await _sender.Send(query, cancellationToken);
 
         return result.IsSuccess ? Ok(result.Data) : NotFound(result.Error);
     }
@@ -49,7 +53,7 @@ public sealed class EmployeesController : ApiController
     [ProducesErrorResponseType(typeof(Error))]
     public async Task<IActionResult> Post([FromBody] CreateEmployeeCommand command, CancellationToken cancellationToken)
     {
-        var result = await _sender.Send(command, cancellationToken);
+        Result<Guid> result = await _sender.Send(command, cancellationToken);
 
         return result.IsSuccess ? Ok(result.Data) : NotFound(result.Error);
     }
@@ -59,7 +63,7 @@ public sealed class EmployeesController : ApiController
     [ProducesErrorResponseType(typeof(Error))]
     public async Task<IActionResult> Put([FromBody] UpdateEmployeeCommand command, CancellationToken cancellationToken)
     {
-        var result = await _sender.Send(command, cancellationToken);
+        Result result = await _sender.Send(command, cancellationToken);
 
         return result.IsSuccess ? Ok() : NotFound(result.Error);
     }
@@ -69,10 +73,20 @@ public sealed class EmployeesController : ApiController
     [ProducesErrorResponseType(typeof(Error))]
     public async Task<IActionResult> Delete([FromRoute] Guid id, CancellationToken cancellationToken)
     {
-        var command = new DeleteEmployeeCommand(id, "Me");
+        DeleteEmployeeCommand command = new(id, "Me");
 
-        var result = await _sender.Send(command, cancellationToken);
+        Result result = await _sender.Send(command, cancellationToken);
 
         return result.IsSuccess ? Ok() : NotFound(result.Error);
+    }
+
+
+    // Login Section....................
+
+    public async Task<IActionResult> LoginEmployee([FromBody] LoginCommand loginCommand, CancellationToken cancellationToken)
+    {
+        Result<string> result = await _sender.Send(loginCommand, cancellationToken);
+
+        return result.IsSuccess ? Ok(result.Data) : NotFound(result.Error);
     }
 }

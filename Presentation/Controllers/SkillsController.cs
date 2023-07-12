@@ -6,12 +6,14 @@ using Application.Queries.Skills.GetAllSkills;
 using Application.Queries.Skills.GetSkillById;
 using Application.Shared;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.Controllers.Common;
 
 namespace Presentation.Controllers;
 
+[Authorize]
 [Route("api/skills")]
 public sealed class SkillsController : ApiController
 {
