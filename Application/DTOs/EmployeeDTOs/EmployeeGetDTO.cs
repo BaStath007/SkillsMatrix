@@ -1,5 +1,4 @@
 ﻿using Domain.Entities;
-using Domain.Entities.JoinEntities;
 using Domain.Shared;
 using Domain.ValueObjects;
 using System.ComponentModel.DataAnnotations;
@@ -26,16 +25,16 @@ public sealed class EmployeeGetDTO
     [EmailAddress]
     public Email Email { get;  set; }
     public Age Age { get;  set; }
-    public  Role? Role { get;  set; }
+    public  Position? Role { get;  set; }
     public  Team? Team { get;  set; }
-    public  ICollection<EmployeeSkill>? EmployeeSkills { get;  set; }
+    public  ICollection<Skill>? Skills { get;  set; }
 
     private EmployeeGetDTO
         (
             Guid id, DateTime createdAt, DateTime? updatedAt, DateTime? deletedAt, string createdBy,
             string? updatedBy, string? deletedBy, bool isActive, bool isDeleted, Guid? roleId, Guid? teamId,
             FirstName firstName, MiddleName employeeMiddleName, LastName lastName, Email email,
-            Age age, ICollection<EmployeeSkill>? employeeSkills
+            Age age, ICollection<Skill>? skills
         )
     {
         Id = id;
@@ -57,7 +56,7 @@ public sealed class EmployeeGetDTO
                    $"{lastName.Value}";
         Email = email;
         Age = age;
-        EmployeeSkills = employeeSkills;
+        Skills = skills;
     }
 
     public static EmployeeGetDTO Create
@@ -65,13 +64,13 @@ public sealed class EmployeeGetDTO
             Guid id, DateTime createdAt, DateTime? updatedAt, DateTime? deletedAt,
             string createdBy, string? updatedBy, string? deletedBy, bool isActive,
             bool isDeleted, Guid? roleId, Guid? teamId, FirstName firstName, MiddleName employeeMiddleName,
-            LastName lastName, Email email, Age age, ICollection<EmployeeSkill>? employeeSkills
+            LastName lastName, Email email, Age age, ICollection<Skill>? skills
         )
         => new EmployeeGetDTO
         (
             id, createdAt, updatedAt, deletedAt,
             createdBy, updatedBy, deletedBy, isActive, isDeleted,
             roleId, teamId, firstName, employeeMiddleName,
-            lastName, email, age, employeeSkills
+            lastName, email, age, skills
         );
 }

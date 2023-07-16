@@ -1,5 +1,4 @@
-﻿using Domain.Entities.JoinEntities;
-using Domain.Primitives;
+﻿using Domain.Primitives;
 using Domain.ValueObjects;
 
 namespace Domain.Entities;
@@ -14,25 +13,25 @@ public class TeamCategory : Entity
     private TeamCategory
         (
             string createdBy, Description description, 
-            ICollection<CategoryPerTeam>? categoriesPerTeam
+            ICollection<Team>? teams
         ) : base(createdBy)
     {
         Description = description;
-        CategoriesPerTeam = categoriesPerTeam;
+        Teams = teams;
     }
 
     public Description Description { get; private set; } = default!;
 
     // Navigation Properties
-    public virtual ICollection<CategoryPerTeam>? CategoriesPerTeam { get; private set; }
+    public virtual ICollection<Team>? Teams { get; private set; }
 
     public static TeamCategory Create
         (
             string createdBy, Description description,
-            ICollection<CategoryPerTeam>? categoriesPerTeam
+            ICollection<Team>? teams
         )
         => new TeamCategory
         (
-            createdBy, description, categoriesPerTeam
+            createdBy, description, teams
         );
 }

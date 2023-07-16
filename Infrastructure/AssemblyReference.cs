@@ -1,6 +1,8 @@
 ﻿using Application;
+using Application.Authentication;
 using Application.Data;
 using Application.Data.IRepositories;
+using Infrastructure.Authentication;
 using Infrastructure.Persistence;
 using Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -47,6 +49,7 @@ public static class AssemblyReference
         services.AddScoped<IEmployeeSkillRepository, EmployeeSkillRepository>();
         services.AddScoped<ISkillCategoryRepository, SkillCategoryRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<IJwtProvider, JwtProvider>();
         
         return services;
         

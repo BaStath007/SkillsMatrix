@@ -1,5 +1,7 @@
 ﻿using Application.Data.IRepositories;
+using Application.DTOs.SkillDTOs;
 using Application.Exceptions;
+using Application.Mapping;
 using Application.Queries.Common;
 using Domain.Shared;
 
@@ -18,7 +20,7 @@ public sealed class GetAllSkillsQueryHandler : IQueryHandler<GetAllSkillsQuery, 
     {
         try
         {
-            var skills = await _repository.GetAll(cancellationToken);
+            List<SkillGetDTO> skills = await _repository.GetAll(cancellationToken);
 
             if (skills == null)
             {
@@ -27,7 +29,17 @@ public sealed class GetAllSkillsQueryHandler : IQueryHandler<GetAllSkillsQuery, 
                             $"A error occured while trying to retrieve the skills from the database." +
                             $"\nPlease try again later.");
             }
-            var response = new GetAllSkillsResponse(skills);
+
+            foreach (SkillGetDTO skill in skills)
+            {
+                if (skill.ParentSkillId is not null)
+                {
+                    SkillGetDTO? parentSkill = await _repository.GetById((Guid)skill.ParentSkillId, cancellationToken);
+                    skill.ParentSkill = SkillExtensions.GetToDomain(parentSkill);
+                }
+            }
+
+            GetAllSkillsResponse response = new(skills);
 
             return response;
         }

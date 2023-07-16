@@ -2,10 +2,7 @@
 using Application.Data;
 using Application.Data.IRepositories;
 using Application.DTOs.EmployeeDTOs;
-using Application.DTOs.EmployeeSkillDTOs;
 using Application.Exceptions;
-using Domain.Entities;
-using Domain.Entities.JoinEntities;
 using Domain.Shared;
 using Domain.ValueObjects;
 
@@ -51,7 +48,7 @@ public sealed class UpdateEmployeeCommandHandler : ICommandHandler<UpdateEmploye
                 oldEmployee.DeletedBy,
                 request.IsActive,
                 oldEmployee.IsDeleted,
-                request.RoleId,
+                request.PositionId,
                 request.TeamId,
                 oldEmployee.FirstName,
                 Option<MiddleName>.Some(oldEmployee.EmployeeMiddleName),
@@ -59,12 +56,13 @@ public sealed class UpdateEmployeeCommandHandler : ICommandHandler<UpdateEmploye
                 oldEmployee.Email,
                 oldEmployee.Age);
 
-            var employeeId = _employeeRepo.Update(newEmployee);
+            
             if (request.EmployeeSkillUpdateDTOs is not null)
             {
-                var employeeSkills = await _employeeSkillRepo.GetSkillsByEmployeeId(employeeId, cancellationToken);
-                _employeeSkillRepo.UpdateEmployeeSkills(employeeId, employeeSkills, request.EmployeeSkillUpdateDTOs);
+                var employeeSkills = await _employeeSkillRepo.GetSkillsByEmployeeId(request.Id, oldEmployee.Skills!, cancellationToken);
+                _employeeSkillRepo.UpdateEmployeeSkills(request.Id, employeeSkills, request.EmployeeSkillUpdateDTOs);
             }
+            var employeeId = _employeeRepo.Update(newEmployee);
             await _unit.SaveChangesAsync(cancellationToken);
 
             return Result.Success();

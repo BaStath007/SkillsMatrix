@@ -1,6 +1,6 @@
 ﻿using Application.DTOs.EmployeeDTOs;
 
-namespace Application.Abstractions;
+namespace Application.Authentication;
 
 public interface IJwtProvider
 {

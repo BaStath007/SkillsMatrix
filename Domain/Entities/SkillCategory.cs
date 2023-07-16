@@ -1,5 +1,4 @@
-﻿using Domain.Entities.JoinEntities;
-using Domain.Primitives;
+﻿using Domain.Primitives;
 using Domain.ValueObjects;
 
 namespace Domain.Entities;
@@ -17,24 +16,24 @@ public class SkillCategory : Entity
         
     }
     private SkillCategory(string createdBy, Description description, 
-        ICollection<CategoryPerSkill>? categoriesPerSkill) 
+        ICollection<Skill>? skills) 
         : base(createdBy)
     {
         Description = description;
-        CategoriesPerSkill = categoriesPerSkill;
+        Skills = skills;
     }
 
     public Description Description { get; private set; } = default!;
 
     // Navigation Properties
-    public virtual ICollection<CategoryPerSkill>? CategoriesPerSkill { get; private set; }
+    public virtual ICollection<Skill>? Skills { get; private set; }
 
     public static SkillCategory Create
         (
             string createdBy, Description description, 
-            ICollection<CategoryPerSkill>? categoriesPerSkill) 
+            ICollection<Skill>? skills) 
         => new SkillCategory
         (
-            createdBy, description, categoriesPerSkill
+            createdBy, description, skills
         );
 }

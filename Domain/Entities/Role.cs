@@ -1,44 +1,52 @@
-﻿using Domain.Entities.JoinEntities;
-using Domain.Primitives;
-using Domain.ValueObjects;
+﻿using Domain.Primitives;
 
 namespace Domain.Entities;
 
-public class Role : Entity
+public class Role : Enumeration<Role>
 {
-    private Role(string createdBy)
-        :base(createdBy)
+    protected Role(int id, string name)
+        : base(id, name)
     {
-        
-    }
-    private Role
-        (
-            string createdBy, Description description, 
-            ICollection<Employee>? employees, ICollection<TeamRole>? teamRoles,
-            ICollection<RoleSkill>? roleSkills
-        ) : base(createdBy)
-    {
-        Description = description;
-        Employees = employees;
-        TeamRoles = teamRoles;
-        RoleSkills = roleSkills;
     }
 
-    public Description Description { get; private set; } = default!;
+    //public abstract string Description { get; }
+
+
+    public static readonly Role Admin = new AdminRole();
+    public static readonly Role Unregistered = new UnregisteredRole();
+    public static readonly Role Registered = new RegisteredRole();
 
     // Navigation Properties
-    public virtual ICollection<Employee>? Employees { get; private set; }
-    public virtual ICollection<TeamRole>? TeamRoles { get; private set; }
-    public virtual ICollection<RoleSkill>? RoleSkills { get; private set; }
+    public virtual ICollection<Permission> Permissions { get; set; } = default!;
+    public virtual ICollection<Employee>? Employees { get; set; } = default!;
 
-    public static Role Creat
-        (
-            string createdBy, Description description, ICollection<Employee>? employees,
-            ICollection<TeamRole>? teamRoles, ICollection<RoleSkill>? roleSkills
-        )
-        => new
-        (
-            createdBy, description,
-            employees, teamRoles, roleSkills
-        );
+    private sealed class AdminRole : Role
+    {
+        public AdminRole()
+            : base(0, "Admin")
+        {
+        }
+
+        public const string Description = "This user is an admin.";
+    }
+
+    private sealed class UnregisteredRole : Role
+    {
+        public UnregisteredRole()
+            : base(1, "Unregistered")
+        {
+        }
+
+        public const string Description = "This user is unregistered.";
+    }
+
+    private sealed class RegisteredRole : Role
+    {
+        public RegisteredRole()
+            : base(2, "Registered")
+        {
+        }
+
+        public const string Description = "This user is registered.";
+    }
 }

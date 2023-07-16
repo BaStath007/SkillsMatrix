@@ -17,23 +17,30 @@ public sealed class SkillsRepository : ISkillRepository
     public async Task<SkillGetDTO?> GetById(Guid id, CancellationToken cancellationToken)
     {
         var skill = await _context.Skills.AsNoTracking().Include(s => s.Description)
-            .Include(s => s.ParentSkill).Include(s => s.ChildrenSkills)
-            .Include(s => s.EmployeeSkills).Include(s => s.RoleSkills)
-            .Include(s => s.CategoriesPerSkill)
+            .Include(s => s.ChildrenSkills)
+            .Include(s => s.Employees)
+            .Include(s => s.Positions)
+            .Include(s => s.SkillCategories)
             .FirstOrDefaultAsync(s => s.Id == id, cancellationToken);
+
         return SkillExtensions.GetSkillToApplication(skill);
     }
 
     public async Task<List<SkillGetDTO>> GetAll(CancellationToken cancellationToken)
     {
-        var skills = await _context.Skills.Include(s => s.EmployeeSkills).ToListAsync(cancellationToken);
+        var skills = await _context.Skills
+            .Include(s => s.Employees)
+            .ToListAsync(cancellationToken);
+
         return SkillExtensions.GetAllSkillsToApplication(skills);
     }
 
     public Guid Add(SkillCreateDTO entity)
     {
         var skill = SkillExtensions.CreateToDomain(entity);
+
         _context.Skills.Add(skill);
+
         return skill.Id;
     }
     

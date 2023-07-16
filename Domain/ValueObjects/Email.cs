@@ -1,12 +1,11 @@
 ﻿using Domain.Primitives;
 using Domain.Shared;
-using System.ComponentModel.DataAnnotations;
 
 namespace Domain.ValueObjects;
 
 public sealed class Email : ValueObject
 {
-    private const int MaxLength = 30;
+    private const int MaxLength = 50;
     public string Value { get; } = string.Empty;
 
     private Email(string value)

@@ -1,8 +1,6 @@
-﻿using Domain.Entities.JoinEntities;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Domain.Enums;
 using Domain.ValueObjects;
-using Domain.Shared;
 
 namespace Application.DTOs.SkillDTOs;
 
@@ -21,17 +19,17 @@ public sealed class SkillDeleteDTO
     public Description Description { get; private init; }
     public SkillType SkillType { get; private init; }
     public ICollection<Skill>? ChildrenSkills { get; private init; }
-    public ICollection<EmployeeSkill>? EmployeeSkills { get; private init; }
-    public ICollection<RoleSkill>? RoleSkills { get; private init; }
-    public ICollection<CategoryPerSkill>? CategoriesPerSkill { get; private init; }
+    public ICollection<Employee>? Employees { get; private init; }
+    public ICollection<Position>? Positions { get; private init; }
+    public ICollection<SkillCategory>? SkillCategories { get; private init; }
 
     private SkillDeleteDTO
         (
             Guid id, DateTime createdAt, DateTime? updatedAt,
             string createdBy, string? updatedBy, string? deletedBy, Guid? parentSkillId,
             Description description, SkillType skillType,
-            ICollection<Skill>? childrenSkills, ICollection<EmployeeSkill>? employeeSkills,
-            ICollection<RoleSkill>? roleSkills, ICollection<CategoryPerSkill>? categoriesPerSkill
+            ICollection<Skill>? childrenSkills, ICollection<Employee>? employees,
+            ICollection<Position>? positions, ICollection<SkillCategory>? skillCategories
         )
     {
         Id = id;
@@ -47,9 +45,9 @@ public sealed class SkillDeleteDTO
         Description = description;
         SkillType = skillType;
         ChildrenSkills = childrenSkills;
-        EmployeeSkills = employeeSkills;
-        RoleSkills = roleSkills;
-        CategoriesPerSkill = categoriesPerSkill;
+        Employees = employees;
+        Positions = positions;
+        SkillCategories = skillCategories;
     }
 
     public static SkillDeleteDTO Create
@@ -57,8 +55,8 @@ public sealed class SkillDeleteDTO
             Guid id, DateTime createdAt, DateTime? updatedAt,
             string createdBy, string? updatedBy, string? deletedBy, Guid? parentSkillId,
             Description description, SkillType skillType,
-            ICollection<Skill>? childrenSkills, ICollection<EmployeeSkill>? employeeSkills,
-            ICollection<RoleSkill>? roleSkills, ICollection<CategoryPerSkill>? categoriesPerSkill
+            ICollection<Skill>? childrenSkills, ICollection<Employee>? employees,
+            ICollection<Position>? positions, ICollection<SkillCategory>? skillCategories
         )
         => new SkillDeleteDTO
         (
@@ -66,7 +64,7 @@ public sealed class SkillDeleteDTO
             createdBy, updatedBy, deletedBy,
             parentSkillId, description,
             skillType, childrenSkills,
-            employeeSkills, roleSkills, categoriesPerSkill
+            employees, positions, skillCategories
         );
 }
 

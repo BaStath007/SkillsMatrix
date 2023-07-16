@@ -1,5 +1,4 @@
-﻿using Domain.Entities.JoinEntities;
-using Domain.Enums;
+﻿using Domain.Enums;
 using Domain.Primitives;
 using Domain.ValueObjects;
 
@@ -18,9 +17,9 @@ public class Skill : Entity
         string createdBy, bool isActive, Guid? parentSkillId, 
         Description description, SkillType skillType, 
         ICollection<Skill>? childrenSkills, 
-        ICollection<EmployeeSkill>? employeeSkills, 
-        ICollection<RoleSkill>? roleSkills,
-        ICollection<CategoryPerSkill>? categoriesPerSkill)  
+        ICollection<Employee>? employees, 
+        ICollection<Position>? positions,
+        ICollection<SkillCategory>? skillCategories)  
         : base(createdBy)
     {
         IsActive = isActive;
@@ -28,9 +27,9 @@ public class Skill : Entity
         Description = description;
         SkillType = skillType;
         ChildrenSkills = childrenSkills;
-        EmployeeSkills = employeeSkills;
-        RoleSkills = roleSkills;
-        CategoriesPerSkill = categoriesPerSkill;
+        Employees = employees;
+        Positions = positions;
+        SkillCategories = skillCategories;
     }
 
     // This is called from static method Update
@@ -39,8 +38,8 @@ public class Skill : Entity
             Guid id, DateTime createdAt, DateTime? updatedAt, DateTime? deletedAt, string createdBy,
             string? updatedBy, string? deletedBy, bool isActive, bool isDeleted,
             Guid? parentSkillId, Description description, SkillType skillType,
-            ICollection<Skill>? childrenSkills, ICollection<EmployeeSkill>? employeeSkills,
-            ICollection<RoleSkill>? roleSkills, ICollection<CategoryPerSkill>? categoriesPerSkill
+            ICollection<Skill>? childrenSkills, ICollection<Employee>? employees,
+            ICollection<Position>? positions, ICollection<SkillCategory>? skillCategories
         ) : base(createdBy)
     {
         Id = id;
@@ -55,9 +54,9 @@ public class Skill : Entity
         Description = description;
         SkillType = skillType;
         ChildrenSkills = childrenSkills;
-        EmployeeSkills = employeeSkills;
-        RoleSkills = roleSkills;
-        CategoriesPerSkill = categoriesPerSkill;
+        Employees = employees;
+        Positions = positions;
+        SkillCategories = skillCategories;
     }
 
     public Guid? ParentSkillId { get; private set; } 
@@ -67,9 +66,9 @@ public class Skill : Entity
     // Navigation Properties
     public virtual Skill? ParentSkill { get; private set; } 
     public virtual ICollection<Skill>? ChildrenSkills { get; private set; }
-    public virtual ICollection<EmployeeSkill>? EmployeeSkills { get; private set; }
-    public virtual ICollection<RoleSkill>? RoleSkills { get; private set; }
-    public virtual ICollection<CategoryPerSkill>? CategoriesPerSkill { get; private set; }
+    public virtual ICollection<Employee>? Employees { get; private set; }
+    public virtual ICollection<Position>? Positions { get; private set; }
+    public virtual ICollection<SkillCategory>? SkillCategories { get; private set; }
 
     public static Skill Create
         (
@@ -78,16 +77,16 @@ public class Skill : Entity
             Description description,
             SkillType skillType,
             ICollection<Skill>? childrenSkills,
-            ICollection<EmployeeSkill>? employeeSkills,
-            ICollection<RoleSkill>? roleSkills,
-            ICollection<CategoryPerSkill>? categoriesPerSkill
+            ICollection<Employee>? employees,
+            ICollection<Position>? positions,
+            ICollection<SkillCategory>? skillCategories
         )
         =>new(
             createdBy, isActive,
             parentSkillId, 
             description, skillType,
-            childrenSkills, employeeSkills, roleSkills,
-            categoriesPerSkill
+            childrenSkills, employees, positions,
+            skillCategories
         );
 
     public static Skill Update
@@ -96,14 +95,14 @@ public class Skill : Entity
             string createdBy, string? updatedBy, string? deletedBy, bool isActive,
             bool isDeleted, Guid? parentSkillId,
             Description description, SkillType skillType,
-            ICollection<Skill>? childrenSkills, ICollection<EmployeeSkill>? employeeSkills,
-            ICollection<RoleSkill>? roleSkills, ICollection<CategoryPerSkill>? categoriesPerSkill
+            ICollection<Skill>? childrenSkills, ICollection<Employee>? employees,
+            ICollection<Position>? positions, ICollection<SkillCategory>? skillCategories
         )
         => new(
             id, createdAt, updatedAt, deletedAt,
             createdBy, updatedBy, deletedBy,  isActive, isDeleted, 
             parentSkillId, description,
             skillType, childrenSkills,
-            employeeSkills, roleSkills, categoriesPerSkill
+            employees, positions, skillCategories
         );
 }

@@ -24,7 +24,7 @@ public sealed class UpdateSkillCommandHandler : ICommandHandler<UpdateSkillComma
     {
         try
         {
-            var oldSkill = await _repository.GetById(request.Id, cancellationToken);
+            SkillGetDTO? oldSkill = await _repository.GetById(request.Id, cancellationToken);
             if (oldSkill == null)
             {
                 return new Error(
@@ -32,13 +32,13 @@ public sealed class UpdateSkillCommandHandler : ICommandHandler<UpdateSkillComma
                     $"The requested skill with Id: {request.Id} was not found.");
             }
 
-            var result = TryUpdateValueObjects(request, oldSkill);
+            Result result = TryUpdateValueObjects(request, oldSkill);
             if (result.IsFailure)
             {
                 return result;
             }
 
-            var newSkill = SkillUpdateDTO.Create
+            SkillUpdateDTO? newSkill = SkillUpdateDTO.Create
             (
                 oldSkill.Id,
                 oldSkill.CreatedAt,
@@ -52,9 +52,9 @@ public sealed class UpdateSkillCommandHandler : ICommandHandler<UpdateSkillComma
                 oldSkill.Description,
                 SkillType.FromName(request.SkillType)!,
                 request.ChildrenSkills,
-                request.EmployeeSkills,
-                request.RoleSkills,
-                request.CategoriesPerSkill
+                request.Employees,
+                request.Positions,
+                request.SkillCategories
             );
 
             _repository.Update(newSkill);
@@ -72,7 +72,7 @@ public sealed class UpdateSkillCommandHandler : ICommandHandler<UpdateSkillComma
     {
         if (!DescriptionsMatch(request, oldSkill))
         {
-            var descriptionResult = Description.Create(request.Description);
+            Result<Description> descriptionResult = Description.Create(request.Description);
             if (descriptionResult.IsFailure)
             {
                 return descriptionResult;

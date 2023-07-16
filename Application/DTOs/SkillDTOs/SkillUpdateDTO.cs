@@ -1,5 +1,4 @@
 ﻿using Domain.Entities;
-using Domain.Entities.JoinEntities;
 using Domain.Enums;
 using Domain.ValueObjects;
 
@@ -20,9 +19,9 @@ public sealed class SkillUpdateDTO
     public Description Description { get; private init; }
     public SkillType SkillType { get; private init; }
     public ICollection<Skill>? ChildrenSkills { get; private init; }
-    public ICollection<EmployeeSkill>? EmployeeSkills { get; private init; }
-    public ICollection<RoleSkill>? RoleSkills { get; private init; }
-    public ICollection<CategoryPerSkill>? CategoriesPerSkill { get; private init; }
+    public ICollection<Employee>? Employees { get; private init; }
+    public ICollection<Position>? Positions { get; private init; }
+    public ICollection<SkillCategory>? SkillCategories { get; private init; }
 
     private SkillUpdateDTO
         (
@@ -30,8 +29,8 @@ public sealed class SkillUpdateDTO
             string createdBy, string? updatedBy, string? deletedBy,
             bool isActive, bool isDeleted, Guid? parentSkillId,
             Description description, SkillType skillType,
-            ICollection<Skill>? childrenSkills, ICollection<EmployeeSkill>? employeeSkills,
-            ICollection<RoleSkill>? roleSkills, ICollection<CategoryPerSkill>? categoriesPerSkill
+            ICollection<Skill>? childrenSkills, ICollection<Employee>? employees,
+            ICollection<Position>? positions, ICollection<SkillCategory>? skillCategories
         )
     {
         Id = id;
@@ -47,9 +46,9 @@ public sealed class SkillUpdateDTO
         Description = description;
         SkillType = skillType ?? SkillType.None;
         ChildrenSkills = childrenSkills;
-        EmployeeSkills = employeeSkills;
-        RoleSkills = roleSkills;
-        CategoriesPerSkill = categoriesPerSkill;
+        Employees = employees;
+        Positions = positions;
+        SkillCategories = skillCategories;
     }
 
     public static SkillUpdateDTO Create
@@ -58,15 +57,15 @@ public sealed class SkillUpdateDTO
             string createdBy, string? updatedBy, string? deletedBy,
             bool isActive, bool isDeleted, Guid? parentSkillId,
             Description description, SkillType skillType,
-            ICollection<Skill>? childrenSkills, ICollection<EmployeeSkill>? employeeSkills,
-            ICollection<RoleSkill>? roleSkills, ICollection<CategoryPerSkill>? categoriesPerSkill
+            ICollection<Skill>? childrenSkills, ICollection<Employee>? employees,
+            ICollection<Position>? positions, ICollection<SkillCategory>? skillCategories
         )
         => new SkillUpdateDTO
         (
             id, createdAt, deletedAt, createdBy,
             updatedBy, deletedBy, isActive,
             isDeleted, parentSkillId, description,
-            skillType, childrenSkills, employeeSkills,
-            roleSkills, categoriesPerSkill
+            skillType, childrenSkills, employees,
+            positions, skillCategories
         );
 }

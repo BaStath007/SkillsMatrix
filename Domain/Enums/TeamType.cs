@@ -4,8 +4,8 @@ namespace Domain.Enums;
 
 public abstract class TeamType : Enumeration<TeamType>
 {
-    protected TeamType(int value, string name)
-        : base(value, name)
+    protected TeamType(int id, string name)
+        : base(id, name)
     {
     }
 

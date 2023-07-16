@@ -11,11 +11,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.Controllers.Common;
-using Error = Application.Shared.Error;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace Presentation.Controllers;
 
-[Authorize]
+
 [Route("api/employees")]
 public sealed class EmployeesController : ApiController
 {
@@ -81,8 +81,11 @@ public sealed class EmployeesController : ApiController
     }
 
 
-    // Login Section....................
+    // Register/Login Section....................
 
+    [HttpPost("login")]
+    [ProducesResponseType(typeof(JwtSecurityToken), StatusCodes.Status200OK)]
+    [ProducesErrorResponseType(typeof(Error))]
     public async Task<IActionResult> LoginEmployee([FromBody] LoginCommand loginCommand, CancellationToken cancellationToken)
     {
         Result<string> result = await _sender.Send(loginCommand, cancellationToken);

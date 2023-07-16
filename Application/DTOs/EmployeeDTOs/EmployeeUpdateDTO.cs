@@ -10,7 +10,7 @@ public sealed class EmployeeUpdateDTO
         (
             Guid id, DateTime createdAt, DateTime? deletedAt,
             string createdBy, string? updatedBy, string? deletedBy,
-            bool isActive, bool isDeleted, Guid? roleId, Guid? teamId,
+            bool isActive, bool isDeleted, Guid? positionId, Guid? teamId,
             FirstName firstName, Option<MiddleName> employeeMiddleName,
             LastName lastName, Email email, Age age
         )
@@ -29,7 +29,7 @@ public sealed class EmployeeUpdateDTO
         LastName = lastName;
         Email = email;
         Age = age;
-        RoleId = roleId;
+        PositionId = positionId;
         TeamId = teamId;
     }
 
@@ -48,20 +48,20 @@ public sealed class EmployeeUpdateDTO
     [EmailAddress]
     public Email Email { get; private init; }
     public Age Age { get; private init; }
-    public Guid? RoleId { get; private init; }
+    public Guid? PositionId { get; private init; }
     public Guid? TeamId { get; private init; }
 
     public static EmployeeUpdateDTO Create
         (
             Guid id, DateTime createdAt, DateTime? deletedAt, string createdBy,
             string? updatedBy, string? deletedBy, bool isActive, bool isDeleted,
-            Guid? roleId, Guid? teamId, FirstName firstName, Option<MiddleName> employeeMiddleName,
+            Guid? positionId, Guid? teamId, FirstName firstName, Option<MiddleName> employeeMiddleName,
             LastName lastName, Email email, Age age
         )
         => new
         (
             id, createdAt, deletedAt, createdBy, updatedBy,
-            deletedBy, isActive, isDeleted, roleId,
+            deletedBy, isActive, isDeleted, positionId,
             teamId, firstName, employeeMiddleName,
             lastName, email, age
         );

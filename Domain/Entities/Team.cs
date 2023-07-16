@@ -1,5 +1,4 @@
-﻿using Domain.Entities.JoinEntities;
-using Domain.Enums;
+﻿using Domain.Enums;
 using Domain.Primitives;
 using Domain.ValueObjects;
 
@@ -15,8 +14,8 @@ public class Team : Entity
     private Team(string createdBy, Guid? parentTeamId,
         Description description, TeamType teamType,
         Team? parentTeam, ICollection<Team>? childrenTeams,
-        ICollection<Employee>? employees, ICollection<TeamRole>? teamRoles,
-        ICollection<CategoryPerTeam>? categoriesPerTeam)
+        ICollection<Employee>? employees, ICollection<Position>? positions,
+        ICollection<TeamCategory>? teamCategories)
         : base(createdBy)
     {
         ParentTeamId = parentTeamId;
@@ -25,8 +24,8 @@ public class Team : Entity
         ParentTeam = parentTeam;
         ChildrenTeams = childrenTeams;
         Employees = employees;
-        TeamRoles = teamRoles;
-        CategoriesPerTeam = categoriesPerTeam;
+        Positions = positions;
+        TeamCategories = teamCategories;
     }
 
     public Guid? ParentTeamId { get; private set; } = Guid.Empty;
@@ -37,21 +36,21 @@ public class Team : Entity
     public Team? ParentTeam { get; private set; }
     public ICollection<Team>? ChildrenTeams { get; private set; }
     public ICollection<Employee>? Employees { get; private set; }
-    public ICollection<TeamRole>? TeamRoles { get; private set; }
-    public ICollection<CategoryPerTeam>? CategoriesPerTeam { get; private set; }
+    public ICollection<Position>? Positions { get; private set; }
+    public ICollection<TeamCategory>? TeamCategories { get; private set; }
 
     public static Team Create
         (
             string createdBy, Guid? parentTeamId, Description description,
             TeamType teamType, Team? ParentTeam, ICollection<Team>? childrenTeams,
-            ICollection<Employee>? employees, ICollection<TeamRole>? teamRole,
-            ICollection<CategoryPerTeam>? categoriesPerTeam
+            ICollection<Employee>? employees, ICollection<Position>? positions,
+            ICollection<TeamCategory>? teamCategories
         )
         => new
             (
                 createdBy, parentTeamId,
                 description, teamType, ParentTeam,
-                childrenTeams, employees, teamRole,
-                categoriesPerTeam
+                childrenTeams, employees, positions,
+                teamCategories
             );
 }

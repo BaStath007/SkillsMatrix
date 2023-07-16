@@ -2,6 +2,8 @@
 using Application.Data.IRepositories;
 using Application.DTOs.EmployeeSkillDTOs;
 using Application.Mapping;
+using Domain.Entities;
+using Domain.Entities.JoinEntities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistence.Repositories;
@@ -16,13 +18,25 @@ public sealed class EmployeeSkillRepository : IEmployeeSkillRepository
     }
 
     public async Task<List<EmployeeSkillGetDTO>> GetSkillsByEmployeeId(
-        Guid employeeId, CancellationToken cancellationToken)
+        Guid employeeId,
+        ICollection<Skill> skills,
+        CancellationToken cancellationToken)
     {
-        var employeeSkills = await _context.EmployeeSkills.AsNoTracking()
-            .Where(es => es.EmployeeId == employeeId)
-            .Include(es => es.Skill)
-            .Include(es => es.Employee)
-            .ToListAsync(cancellationToken);
+        List<EmployeeSkill> employeeSkills = new();
+        if (skills is not null)
+        {
+            foreach (Skill skill in skills)
+            {
+                var dbEmployeeSkill = await _context.EmployeeSkills.AsNoTracking()
+                .Where(es => es.EmployeeId == employeeId && es.SkillId == skill.Id)
+                .Include(es => es.Skill)
+                .Include(es => es.Employee)
+                .FirstAsync(cancellationToken);
+                employeeSkills.Add(dbEmployeeSkill);
+            }
+        }
+
+        
         return EmployeeSkillExtensions.GetEmployeeSkillsToApplication(employeeSkills);
     }
 

@@ -5,13 +5,13 @@ namespace Domain.Primitives;
 public abstract class Enumeration<TEnum> : IEquatable<Enumeration<TEnum>>
     where TEnum : Enumeration<TEnum>
 {
-    protected Enumeration(int value, string name)
+    protected Enumeration(int id, string name)
     {
-        Value = value;
+        Id = id;
         Name = name;
     }
 
-    public int Value { get; protected init; }
+    public int Id { get; protected init; }
     public string Name { get; protected init; } = string.Empty;
     private static readonly Dictionary<int, TEnum> Enumerations = CreateEnumerations();
 
@@ -28,7 +28,7 @@ public abstract class Enumeration<TEnum> : IEquatable<Enumeration<TEnum>>
             .Select(fieldInfo =>
                 (TEnum)fieldInfo.GetValue(default)!);
 
-        return fieldsForType.ToDictionary(x => x.Value);
+        return fieldsForType.ToDictionary(x => x.Id);
     }
 
     public static TEnum? FromName(string name)
@@ -38,10 +38,10 @@ public abstract class Enumeration<TEnum> : IEquatable<Enumeration<TEnum>>
             .SingleOrDefault(e => e.Name == name);
     }
 
-    public static TEnum? FromValue(int value)
+    public static TEnum? FromId(int id)
     {
         return Enumerations.TryGetValue(
-            value,
+            id,
             out TEnum? enumeration) ?
             enumeration :
             default;
@@ -54,7 +54,7 @@ public abstract class Enumeration<TEnum> : IEquatable<Enumeration<TEnum>>
             return false;
         }
         return GetType() == other.GetType() &&
-            Value == other.Value;
+            Id == other.Id;
     }
 
     public override bool Equals(object? obj)
@@ -65,7 +65,7 @@ public abstract class Enumeration<TEnum> : IEquatable<Enumeration<TEnum>>
 
     public override int GetHashCode()
     {
-        return Value.GetHashCode();
+        return Id.GetHashCode();
     }
 
     public override string? ToString()

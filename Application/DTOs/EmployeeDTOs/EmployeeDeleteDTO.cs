@@ -1,4 +1,4 @@
-﻿using Domain.Entities.JoinEntities;
+﻿using Domain.Entities;
 using Domain.Shared;
 using Domain.ValueObjects;
 using System.ComponentModel.DataAnnotations;
@@ -22,18 +22,18 @@ public sealed class EmployeeDeleteDTO
     [EmailAddress]
     public Email Email { get; private init; }
     public Age Age { get; private init; }
-    public Guid? RoleId { get; private init; }
+    public Guid? PositionId { get; private init; }
     public Guid? TeamId { get; private init; }
-    public ICollection<EmployeeSkill>? EmployeeSkills { get; private init; }
+    public ICollection<Skill>? Skills { get; private init; }
 
     private EmployeeDeleteDTO
         (
             Guid id, DateTime createdAt, DateTime? updatedAt, DateTime? deletedAt,
             string createdBy, string? updatedBy, string? deletedBy,
-            bool isActive, bool isDeleted, Guid? roleId, Guid? teamId,
+            bool isActive, bool isDeleted, Guid? positionId, Guid? teamId,
             FirstName firstName, Option<MiddleName> employeeMiddleName,
             LastName lastName, Email email, Age age,
-            ICollection<EmployeeSkill>? employeeSkills
+            ICollection<Skill>? skills
         )
     {
         Id = id;
@@ -50,23 +50,23 @@ public sealed class EmployeeDeleteDTO
         LastName = lastName;
         Email = email;
         Age = age;
-        RoleId = roleId;
+        PositionId = positionId;
         TeamId = teamId;
-        EmployeeSkills = employeeSkills;
+        Skills = skills;
     }
 
     public static EmployeeDeleteDTO Create
         (
             Guid id, DateTime createdAt, DateTime? updatedAt, DateTime? deletedAt,
             string createdBy, string? updatedBy, string? deletedBy, bool isActive,
-            bool isDeleted, Guid? roleId, Guid? teamId, FirstName firstName, Option<MiddleName> employeeMiddleName,
-            LastName lastName, Email email, Age age, ICollection<EmployeeSkill>? employeeSkills
+            bool isDeleted, Guid? positionId, Guid? teamId, FirstName firstName, Option<MiddleName> employeeMiddleName,
+            LastName lastName, Email email, Age age, ICollection<Skill>? skills
         )
         => new EmployeeDeleteDTO
         (
             id, createdAt, updatedAt, deletedAt,
             createdBy, updatedBy, deletedBy, isActive, isDeleted,
-            roleId, teamId, firstName, employeeMiddleName,
-            lastName, email, age, employeeSkills
+            positionId, teamId, firstName, employeeMiddleName,
+            lastName, email, age, skills
         );
 }

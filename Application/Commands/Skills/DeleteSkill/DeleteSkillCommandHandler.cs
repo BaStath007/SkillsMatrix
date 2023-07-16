@@ -22,7 +22,7 @@ public sealed class DeleteSkillCommandHandler : ICommandHandler<DeleteSkillComma
     {
         try
         {
-            var dbSkill = await _repository.GetById(request.Id, cancellationToken);
+            SkillGetDTO? dbSkill = await _repository.GetById(request.Id, cancellationToken);
             if (dbSkill == null)
             {
                 return Result.Failure(new Error
@@ -33,7 +33,7 @@ public sealed class DeleteSkillCommandHandler : ICommandHandler<DeleteSkillComma
                 );
             }
 
-            var skillToDelete = SkillDeleteDTO.Create
+            SkillDeleteDTO skillToDelete = SkillDeleteDTO.Create
                 (
                     dbSkill.Id,
                     dbSkill.CreatedAt,
@@ -45,9 +45,9 @@ public sealed class DeleteSkillCommandHandler : ICommandHandler<DeleteSkillComma
                     dbSkill.Description,
                     dbSkill.SkillType,
                     dbSkill.ChildrenSkills,
-                    dbSkill.EmployeeSkills,
-                    dbSkill.RoleSkills,
-                    dbSkill.CategoriesPerSkill
+                    dbSkill.Employees,
+                    dbSkill.Positions,
+                    dbSkill.SkillCategories
                  );
 
             _repository.SoftDelete(skillToDelete);

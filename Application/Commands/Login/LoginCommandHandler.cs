@@ -1,10 +1,9 @@
-﻿using Application.Abstractions;
+﻿using Application.Authentication;
 using Application.Commands.Common;
 using Application.Data.IRepositories;
 using Application.DTOs.EmployeeDTOs;
 using Domain.Shared;
 using Domain.ValueObjects;
-using MediatR;
 
 namespace Application.Commands.Login;
 
@@ -27,7 +26,7 @@ public sealed class LoginCommandHandler : ICommandHandler<LoginCommand, string>
             return result.Error;
         }
         List<EmployeeGetDTO> employees = await _employeeRepo.GetAll(cancellationToken);
-        EmployeeGetDTO? employee = employees?.Where(e => e.Email == result.Data).FirstOrDefault();
+        EmployeeGetDTO? employee = employees?.Where(e => e.Email.Value == result.Data.Value).FirstOrDefault();
         
         if (employee is null)
         {

@@ -21,7 +21,7 @@ internal sealed class CreateSkillCommandHandler : ICommandHandler<CreateSkillCom
     }
 
     public async Task<Result<Guid>> Handle(CreateSkillCommand request, CancellationToken cancellationToken)
-    {;
+    {
         try
         {
             var result = TryCreateValueObjects(request);
@@ -38,9 +38,9 @@ internal sealed class CreateSkillCommandHandler : ICommandHandler<CreateSkillCom
                     result.Data,
                     SkillType.FromName(request.SkillType)!,
                     request.ChildrenSkills,
-                    request.EmployeeSkills,
-                    request.RoleSkills,
-                    request.CategoriesPerSkill
+                    request.Employees,
+                    request.Positions,
+                    request.SkillCategories
                 );
             var skillId = _repository.Add(skill);
             await _unit.SaveChangesAsync(cancellationToken);

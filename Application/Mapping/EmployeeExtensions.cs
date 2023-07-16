@@ -1,7 +1,5 @@
 ﻿using Application.DTOs.EmployeeDTOs;
-using Application.DTOs.EmployeeSkillDTOs;
 using Domain.Entities;
-using Domain.Entities.JoinEntities;
 using Domain.ValueObjects;
 
 namespace Application.Mapping;
@@ -15,9 +13,9 @@ public static class EmployeeExtensions
         return EmployeeGetDTO.Create(
             employee.Id, employee.CreatedAt, employee.UpdatedAt, employee.DeletedAt,
             employee.CreatedBy, employee.UpdatedBy, employee.DeletedBy, employee.IsActive,
-            employee.IsDeleted, employee.RoleId, employee.TeamId,
+            employee.IsDeleted, employee.PositionId, employee.TeamId,
             employee.FirstName, employee.EmployeeMiddleName.Map(x => x).Reduce(MiddleName.Create(string.Empty)!.Data),
-            employee.LastName, employee.Email, employee.Age, employee.EmployeeSkills);
+            employee.LastName, employee.Email, employee.Age, employee.Skills);
     }
 
     public static List<EmployeeGetDTO> GetAllEmployeesToApplication(List<Employee> employees)
@@ -28,9 +26,9 @@ public static class EmployeeExtensions
             var employeeDTO = EmployeeGetDTO.Create(
             employee.Id, employee.CreatedAt, employee.UpdatedAt, employee.DeletedAt,
             employee.CreatedBy, employee.UpdatedBy, employee.DeletedBy, employee.IsActive,
-            employee.IsDeleted, employee.RoleId, employee.TeamId, employee.FirstName,
+            employee.IsDeleted, employee.PositionId, employee.TeamId, employee.FirstName,
             employee.EmployeeMiddleName.Map(x => x).Reduce(MiddleName.Create(string.Empty)!.Data),
-            employee.LastName, employee.Email, employee.Age, employee.EmployeeSkills);
+            employee.LastName, employee.Email, employee.Age, employee.Skills);
             employeeDTOs.Add(employeeDTO);
         }
         return employeeDTOs;
@@ -49,7 +47,7 @@ public static class EmployeeExtensions
         return Employee.Update(employeeUpdateDTO.Id, employeeUpdateDTO.CreatedAt, employeeUpdateDTO.UpdatedAt,
             employeeUpdateDTO.DeletedAt, employeeUpdateDTO.CreatedBy, employeeUpdateDTO.UpdatedBy,
             employeeUpdateDTO.DeletedBy, employeeUpdateDTO.IsActive, employeeUpdateDTO.IsDeleted,
-            employeeUpdateDTO.RoleId, employeeUpdateDTO.TeamId, employeeUpdateDTO.FirstName,
+            employeeUpdateDTO.PositionId, employeeUpdateDTO.TeamId, employeeUpdateDTO.FirstName,
             employeeUpdateDTO.EmployeeMiddleName, employeeUpdateDTO.LastName, employeeUpdateDTO.Email,
             employeeUpdateDTO.Age);
     }
@@ -59,8 +57,8 @@ public static class EmployeeExtensions
         return Employee.Delete(employeeDeleteDTO.Id, employeeDeleteDTO.CreatedAt, employeeDeleteDTO.UpdatedAt,
             employeeDeleteDTO.DeletedAt, employeeDeleteDTO.CreatedBy, employeeDeleteDTO.UpdatedBy,
             employeeDeleteDTO.DeletedBy, employeeDeleteDTO.IsActive, employeeDeleteDTO.IsDeleted,
-            employeeDeleteDTO.RoleId, employeeDeleteDTO.TeamId, employeeDeleteDTO.FirstName,
+            employeeDeleteDTO.PositionId, employeeDeleteDTO.TeamId, employeeDeleteDTO.FirstName,
             employeeDeleteDTO.EmployeeMiddleName, employeeDeleteDTO.LastName, employeeDeleteDTO.Email,
-            employeeDeleteDTO.Age, employeeDeleteDTO.EmployeeSkills!);
+            employeeDeleteDTO.Age, employeeDeleteDTO.Skills!);
     }
 }

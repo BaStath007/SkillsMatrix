@@ -1,7 +1,6 @@
-﻿using Domain.Entities.JoinEntities;
+﻿using Domain.Entities;
 using Domain.Enums;
 using Domain.ValueObjects;
-using Domain.Entities;
 
 namespace Application.DTOs.SkillDTOs;
 
@@ -13,9 +12,9 @@ public sealed class SkillCreateDTO
     public Description Description { get; private init; }
     public SkillType SkillType { get; private init; }
     public ICollection<Skill> ChildrenSkills { get; private init; }
-    public ICollection<EmployeeSkill> EmployeeSkills { get; private init; }
-    public ICollection<RoleSkill> RoleSkills { get; private init; }
-    public ICollection<CategoryPerSkill> CategoriesPerSkill { get; private init; }
+    public ICollection<Employee> Employees { get; private init; }
+    public ICollection<Position> Positions { get; private init; }
+    public ICollection<SkillCategory> SkillCategories { get; private init; }
 
     private SkillCreateDTO
         (
@@ -24,9 +23,9 @@ public sealed class SkillCreateDTO
             Description description,
             SkillType skillType,
             ICollection<Skill> childrenSkills,
-            ICollection<EmployeeSkill> employeeSkills,
-            ICollection<RoleSkill> roleSkills,
-            ICollection<CategoryPerSkill> categoriesPerSkill
+            ICollection<Employee> employees,
+            ICollection<Position> positions,
+            ICollection<SkillCategory> skillCategories
         )
     {
         CreatedBy = createdBy;
@@ -35,9 +34,9 @@ public sealed class SkillCreateDTO
         Description = description;
         SkillType = skillType ?? SkillType.None;
         ChildrenSkills = childrenSkills;
-        EmployeeSkills = employeeSkills;
-        RoleSkills = roleSkills;
-        CategoriesPerSkill = categoriesPerSkill;
+        Employees = employees;
+        Positions = positions;
+        SkillCategories = skillCategories;
     }
 
     public static SkillCreateDTO Create
@@ -47,16 +46,16 @@ public sealed class SkillCreateDTO
             Description description,
             SkillType skillType,
             ICollection<Skill> childrenSkills,
-            ICollection<EmployeeSkill> employeeSkills,
-            ICollection<RoleSkill> roleSkills,
-            ICollection<CategoryPerSkill> categoriesPerSkill
+            ICollection<Employee> employees,
+            ICollection<Position> positions,
+            ICollection<SkillCategory> skillCategories
         )
         => new
         (
             createdBy, isActive, parentSkillId,
             description, skillType,
-            childrenSkills, employeeSkills,
-            roleSkills,
-            categoriesPerSkill
+            childrenSkills, employees,
+            positions,
+            skillCategories
         );
 }

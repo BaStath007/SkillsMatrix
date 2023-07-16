@@ -1,7 +1,4 @@
-﻿//using Microsoft.AspNetCore.Mvc;
-//using Microsoft.AspNetCore.Mvc.Core;
-
-namespace Domain.Shared;
+﻿namespace Domain.Shared;
 
 public class Result
 {

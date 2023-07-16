@@ -1,4 +1,5 @@
 ﻿using Application.Data.IRepositories;
+using Application.DTOs.EmployeeDTOs;
 using Application.Exceptions;
 using Application.Queries.Common;
 using Domain.Shared;
@@ -18,7 +19,7 @@ public sealed class GetAllEmployeesQueryHandler : IQueryHandler<GetAllEmployeesQ
     {
         try
         {
-            var employees = await _employeeRepository.GetAll(cancellationToken);
+            List<EmployeeGetDTO> employees = await _employeeRepository.GetAll(cancellationToken);
             if (employees == null)
             {
                 return new Error(
@@ -26,7 +27,7 @@ public sealed class GetAllEmployeesQueryHandler : IQueryHandler<GetAllEmployeesQ
                             $"A error occured while trying to retrieve the employees from the database." +
                                 $"\nPlease try again later.");
             }
-            var response = new GetAllEmployeesResponse(employees);
+            GetAllEmployeesResponse response = new(employees);
             
             return response;
         }

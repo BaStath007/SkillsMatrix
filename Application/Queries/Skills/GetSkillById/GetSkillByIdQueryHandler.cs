@@ -1,6 +1,9 @@
 ﻿using Application.Data.IRepositories;
+using Application.DTOs.SkillDTOs;
 using Application.Exceptions;
+using Application.Mapping;
 using Application.Queries.Common;
+using Domain.Entities;
 using Domain.Shared;
 
 namespace Application.Queries.Skills.GetSkillById;
@@ -18,7 +21,7 @@ public sealed class GetSkillByIdQueryHandler : IQueryHandler<GetSkillByIdQuery, 
     {
         try
         {
-            var skill = await _repository.GetById(request.Id, cancellationToken);
+            SkillGetDTO? skill = await _repository.GetById(request.Id, cancellationToken);
 
             if (skill == null)
             {
@@ -26,8 +29,13 @@ public sealed class GetSkillByIdQueryHandler : IQueryHandler<GetSkillByIdQuery, 
                             "Skill.NotFound",
                             $"The requested skill with Id: {request.Id} was not found.");
             }
+            if (skill.ParentSkillId is not null)
+            {
+                SkillGetDTO? parentSkill = await _repository.GetById((Guid)skill.ParentSkillId, cancellationToken);
+                skill.ParentSkill = SkillExtensions.GetToDomain(parentSkill);
+            }
 
-            var response = new GetSkillByIdResponse(skill);
+            GetSkillByIdResponse response = new(skill);
 
             return response;
         }

@@ -13,9 +13,9 @@ public static class SkillExtensions
                 skillDTO.ParentSkillId, skillDTO.Description,
                 skillDTO.SkillType,
                 skillDTO.ChildrenSkills,
-                skillDTO.EmployeeSkills,
-                skillDTO.RoleSkills,
-                skillDTO.CategoriesPerSkill
+                skillDTO.Employees,
+                skillDTO.Positions,
+                skillDTO.SkillCategories
             );
         return skill;
     }
@@ -29,9 +29,9 @@ public static class SkillExtensions
                 skillDTO.IsActive, skillDTO.IsDeleted, skillDTO.ParentSkillId,
                 skillDTO.Description, skillDTO.SkillType,
                 skillDTO.ChildrenSkills,
-                skillDTO.EmployeeSkills,
-                skillDTO.RoleSkills,
-                skillDTO.CategoriesPerSkill
+                skillDTO.Employees,
+                skillDTO.Positions,
+                skillDTO.SkillCategories
             );
     }
 
@@ -44,9 +44,9 @@ public static class SkillExtensions
                 skillDTO.IsActive, skillDTO.IsDeleted, skillDTO.ParentSkillId,
                 skillDTO.Description, skillDTO.SkillType,
                 skillDTO.ChildrenSkills,
-                skillDTO.EmployeeSkills,
-                skillDTO.RoleSkills,
-                skillDTO.CategoriesPerSkill
+                skillDTO.Employees,
+                skillDTO.Positions,
+                skillDTO.SkillCategories
             );
     }
 
@@ -60,8 +60,8 @@ public static class SkillExtensions
                 skill.DeletedAt, skill.CreatedBy, skill.UpdatedBy,
                 skill.DeletedBy, skill.IsActive, skill.IsDeleted,
                 skill.ParentSkillId, skill.Description, skill.SkillType,
-                skill.ParentSkill, skill.ChildrenSkills, skill.EmployeeSkills,
-                skill.RoleSkills, skill.CategoriesPerSkill
+                skill.ParentSkill, skill.ChildrenSkills, skill.Employees,
+                skill.Positions, skill.SkillCategories
             );
     }
 
@@ -76,8 +76,8 @@ public static class SkillExtensions
                     domainSkill.DeletedAt, domainSkill.CreatedBy, domainSkill.UpdatedBy,
                     domainSkill.DeletedBy, domainSkill.IsActive, domainSkill.IsDeleted,
                     domainSkill.ParentSkillId, domainSkill.Description, domainSkill.SkillType,
-                    domainSkill.ParentSkill, domainSkill.ChildrenSkills, domainSkill.EmployeeSkills,
-                    domainSkill.RoleSkills, domainSkill.CategoriesPerSkill
+                    domainSkill.ParentSkill, domainSkill.ChildrenSkills, domainSkill.Employees,
+                    domainSkill.Positions, domainSkill.SkillCategories
                 );
             skillDTOs.Add(skillDTO);
         }
@@ -94,9 +94,9 @@ public static class SkillExtensions
                     skillGetDTO.IsActive, skillGetDTO.IsDeleted, skillGetDTO.ParentSkillId,
                     skillGetDTO.Description, skillGetDTO.SkillType,
                     skillGetDTO.ChildrenSkills,
-                    skillGetDTO.EmployeeSkills,
-                    skillGetDTO.RoleSkills,
-                    skillGetDTO.CategoriesPerSkill
+                    skillGetDTO.Employees,
+                    skillGetDTO.Positions,
+                    skillGetDTO.SkillCategories
                 );
         
     }

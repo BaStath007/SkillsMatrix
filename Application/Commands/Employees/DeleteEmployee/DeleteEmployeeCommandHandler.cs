@@ -52,7 +52,7 @@ public sealed class DeleteEmployeeCommandHandler : ICommandHandler<DeleteEmploye
                     dbEmployee.LastName,
                     dbEmployee.Email,
                     dbEmployee.Age,
-                    dbEmployee.EmployeeSkills
+                    dbEmployee.Skills
             );
 
             _repository.SoftDelete(employeeToDelete);

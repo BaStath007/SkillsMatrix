@@ -4,10 +4,11 @@ namespace Domain.Enums;
 
 public abstract class SkillType : Enumeration<SkillType>
 {
-    protected SkillType(int value, string name)
-        : base(value, name)
+    protected SkillType(int id, string name)
+        : base(id, name)
     {
     }
+
     public abstract List<string> Characteristics { get; }
 
 

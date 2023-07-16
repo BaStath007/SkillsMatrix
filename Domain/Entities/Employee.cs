@@ -17,12 +17,12 @@ public class Employee : Entity
     // This is called from static method Create
     private Employee
         (
-            string createdBy, bool isActive, Guid? roleId, Guid? teamId, FirstName firstName,
+            string createdBy, bool isActive, Guid? positionId, Guid? teamId, FirstName firstName,
             Option<MiddleName> employeeMiddleName, LastName lastName, Email email, Age age
         ) : base(createdBy)
     {
         IsActive = isActive;
-        RoleId = roleId;
+        PositionId = positionId;
         TeamId = teamId;
         FirstName = firstName;
         EmployeeMiddleName = employeeMiddleName;
@@ -38,7 +38,7 @@ public class Employee : Entity
     private Employee
         (
             Guid id, DateTime createdAt, DateTime? updatedAt, DateTime? deletedAt, string createdBy,
-            string? updatedBy, string? deletedBy, bool isActive, bool isDeleted, Guid? roleId, Guid? teamId,
+            string? updatedBy, string? deletedBy, bool isActive, bool isDeleted, Guid? positionId, Guid? teamId,
             FirstName firstName, Option<MiddleName> employeeMiddleName, LastName lastName, Email email, Age age
 
         ) :base(createdBy)
@@ -51,7 +51,7 @@ public class Employee : Entity
         DeletedBy = deletedBy;
         IsActive = isActive;
         IsDeleted = isDeleted;
-        RoleId = roleId;
+        PositionId = positionId;
         TeamId = teamId;
         FirstName = firstName;
         EmployeeMiddleName = employeeMiddleName;
@@ -68,9 +68,9 @@ public class Employee : Entity
     private Employee
         (
             Guid id, DateTime createdAt, DateTime? updatedAt, DateTime? deletedAt, string createdBy,
-            string? updatedBy, string? deletedBy, bool isActive, bool isDeleted, Guid? roleId, Guid? teamId,
+            string? updatedBy, string? deletedBy, bool isActive, bool isDeleted, Guid? positionId, Guid? teamId,
             FirstName firstName, Option<MiddleName> employeeMiddleName, LastName lastName, Email email,
-            Age age, ICollection<EmployeeSkill> employeeSkills
+            Age age, ICollection<Skill>? skills
 
         ) : base(createdBy)
     {
@@ -82,7 +82,7 @@ public class Employee : Entity
         DeletedBy = deletedBy;
         IsActive = isActive;
         IsDeleted = isDeleted;
-        RoleId = roleId;
+        PositionId = positionId;
         TeamId = teamId;
         FirstName = firstName;
         EmployeeMiddleName = employeeMiddleName;
@@ -92,10 +92,10 @@ public class Employee : Entity
                    $"{lastName.Value}";
         Email = email;
         Age = age;
-        EmployeeSkills = employeeSkills;
+        Skills = skills;
     }
 
-    public Guid? RoleId { get; private set; }
+    public Guid? PositionId { get; private set; }
     public Guid? TeamId { get; private set; }
     public FirstName FirstName { get; private set; } = default!;
     public Option<MiddleName> EmployeeMiddleName { get; private set; } = default!;
@@ -106,18 +106,18 @@ public class Employee : Entity
     public Age Age { get; private set; } = default!;
 
     // Navigation Properties
-    public virtual Role? Role { get; private set; }
+    public virtual Position? Position { get; private set; }
     public virtual Team? Team { get; private set; }
-    public virtual ICollection<EmployeeSkill>? EmployeeSkills { get; private set; }
+    public virtual ICollection<Skill>? Skills { get; private set; }
     
     public static Employee Create
         (
-            string createdBy, bool isActive, Guid? roleId, Guid? teamId, 
+            string createdBy, bool isActive, Guid? positionId, Guid? teamId, 
             FirstName firstName, Option<MiddleName> employeeMiddleName,
             LastName lastName, Email email, Age age)
         => new
         (
-            createdBy, isActive, roleId, teamId, 
+            createdBy, isActive, positionId, teamId, 
             firstName, employeeMiddleName, lastName, email, age
         );
 
@@ -125,14 +125,14 @@ public class Employee : Entity
         (
             Guid id, DateTime createdAt, DateTime? updatedAt, DateTime? deletedAt,
             string createdBy, string? updatedBy, string? deletedBy, bool isActive,
-            bool isDeleted, Guid? roleId, Guid? teamId, FirstName firstName, Option<MiddleName> employeeMiddleName,
+            bool isDeleted, Guid? positionId, Guid? teamId, FirstName firstName, Option<MiddleName> employeeMiddleName,
             LastName lastName, Email email, Age age
         )
         => new Employee
         (
             id, createdAt, updatedAt, deletedAt,
             createdBy, updatedBy, deletedBy, isActive, isDeleted,
-            roleId, teamId, firstName, employeeMiddleName,
+            positionId, teamId, firstName, employeeMiddleName,
             lastName, email, age
         );
 
@@ -140,20 +140,20 @@ public class Employee : Entity
         (
             Guid id, DateTime createdAt, DateTime? updatedAt, DateTime? deletedAt,
             string createdBy, string? updatedBy, string? deletedBy, bool isActive,
-            bool isDeleted, Guid? roleId, Guid? teamId, FirstName firstName, Option<MiddleName> employeeMiddleName,
-            LastName lastName, Email email, Age age, ICollection<EmployeeSkill> employeeSkills
+            bool isDeleted, Guid? positionId, Guid? teamId, FirstName firstName, Option<MiddleName> employeeMiddleName,
+            LastName lastName, Email email, Age age, ICollection<Skill>? skills
         )
         => new Employee
         (
             id, createdAt, updatedAt, deletedAt,
             createdBy, updatedBy, deletedBy, isActive, isDeleted,
-            roleId, teamId, firstName, employeeMiddleName,
-            lastName, email, age, employeeSkills
+            positionId, teamId, firstName, employeeMiddleName,
+            lastName, email, age, skills
         );
 
-    public static Employee AddSkillsToEmployee(Employee employee, ICollection<EmployeeSkill> skills)
+    public static Employee AddSkillsToEmployee(Employee employee, ICollection<Skill> skills)
     {
-        employee.EmployeeSkills = skills;
+        employee.Skills = skills;
         return employee;
     }
 }
