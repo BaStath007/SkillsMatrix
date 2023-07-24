@@ -362,3 +362,5 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /Infrastructure/Persistence/MyDbContextFactory.cs
+/Infrastructure/Persistence/DbContextFactory.cs
+/Infrastructure/Persistence/DbContextFactory.cs
