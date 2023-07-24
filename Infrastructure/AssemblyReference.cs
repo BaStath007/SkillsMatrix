@@ -21,26 +21,17 @@ public static class AssemblyReference
 
         if (configuration.GetValue<bool>("UseInMemoryDatabase"))
         {
-            services.AddDbContext<BaseSkillsMatrixDbContext>(options =>
-                {
+            services.AddDbContext<SkillsMatrixDbContext>(options =>
+            {
                     options.UseInMemoryDatabase("SkillsMatrixDb");
                     options.EnableSensitiveDataLogging();
-                });
-
-            services.AddDbContext<SkillsMatrixDbContext>(options =>
-                options.UseInMemoryDatabase("SkillsMatrixDb"));
+            });
         }
         else
         {
-            services.AddDbContext<BaseSkillsMatrixDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
-                builder =>
-                    builder.MigrationsAssembly(typeof(BaseSkillsMatrixDbContext).Assembly.FullName)));
-
             services.AddDbContext<SkillsMatrixDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
-                builder =>
-                    builder.MigrationsAssembly(typeof(SkillsMatrixDbContext).Assembly.FullName)));
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")!,
+                builder => builder.MigrationsAssembly(typeof(SkillsMatrixDbContext).Assembly.FullName)));
         }
         
         services.AddScoped<ISkillsMatrixDbContext, SkillsMatrixDbContext>();

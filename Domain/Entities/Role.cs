@@ -9,7 +9,11 @@ public class Role : Enumeration<Role>
     {
     }
 
-    //public abstract string Description { get; }
+    public static Role Create(string name)
+    {
+        Role role = Role.FromName(name)!;
+        return new(role.Id, role.Name);
+    }
 
 
     public static readonly Role Admin = new AdminRole();

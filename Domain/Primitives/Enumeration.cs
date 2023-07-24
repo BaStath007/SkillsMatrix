@@ -15,6 +15,11 @@ public abstract class Enumeration<TEnum> : IEquatable<Enumeration<TEnum>>
     public string Name { get; protected init; } = string.Empty;
     private static readonly Dictionary<int, TEnum> Enumerations = CreateEnumerations();
 
+    public static Dictionary<int, TEnum> GetValues()
+    {
+        return Enumerations;
+    }
+
     private static Dictionary<int, TEnum> CreateEnumerations()
     {
         var enumerationType = typeof(TEnum);

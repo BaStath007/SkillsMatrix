@@ -9,7 +9,11 @@ public class Permission : Enumeration<Permission>
     {
     }
 
-    //public string Description { get; }
+    public static Permission Create(string name)
+    {
+        Permission permission = Permission.FromName(name)!;
+        return new(permission.Id, permission.Name);
+    }
 
 
     public static readonly Permission Read = new ReadPermission();

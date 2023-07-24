@@ -97,6 +97,7 @@ public class Employee : Entity
 
     public Guid? PositionId { get; private set; }
     public Guid? TeamId { get; private set; }
+    public int? RoleId { get; private set; }
     public FirstName FirstName { get; private set; } = default!;
     public Option<MiddleName> EmployeeMiddleName { get; private set; } = default!;
     public LastName LastName { get; private set; } = default!;
@@ -108,6 +109,7 @@ public class Employee : Entity
     // Navigation Properties
     public virtual Position? Position { get; private set; }
     public virtual Team? Team { get; private set; }
+    public virtual Role Role { get; private set; }
     public virtual ICollection<Skill>? Skills { get; private set; }
     
     public static Employee Create

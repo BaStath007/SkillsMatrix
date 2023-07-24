@@ -8,7 +8,9 @@ public class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+
         var config = builder.Configuration;
+
         // Add Services to the container.
         builder.Services
             .AddInfrastructure(config)

@@ -1,5 +1,4 @@
 ﻿using Domain.Entities;
-using Domain.Entities.JoinEntities;
 using Domain.Enums;
 using Domain.Primitives;
 using Microsoft.EntityFrameworkCore;
@@ -17,30 +16,7 @@ public sealed class TeamConfiguration : IEntityTypeConfiguration<Team>
             .WithMany();
 
         builder.HasMany(x => x.ChildrenTeams)
-            .WithOne()
-            .HasForeignKey(x => x.ParentTeamId);
-
-        builder.HasMany(x => x.Positions)
-            .WithMany(x => x.Teams)
-            .UsingEntity<TeamPosition>(
-            x => x.HasOne<Position>()
-            .WithMany()
-            .HasForeignKey(x => x.PositionId),
-            x => x.HasOne<Team>()
-            .WithMany()
-            .HasForeignKey(x => x.TeamId),
-            x => x.HasKey(e => new { e.TeamId, e.PositionId }));
-
-        builder.HasMany(x => x.TeamCategories)
-            .WithMany(x => x.Teams)
-            .UsingEntity<CategoryPerTeam>(
-            x => x.HasOne<TeamCategory>()
-            .WithMany()
-            .HasForeignKey(x => x.TeamCategoryId),
-            x => x.HasOne<Team>()
-            .WithMany()
-            .HasForeignKey(x => x.TeamId),
-            x => x.HasKey(e => new { e.TeamId, e.TeamCategoryId }));
+            .WithOne();
 
         builder.OwnsOne(
             s => s.Description,

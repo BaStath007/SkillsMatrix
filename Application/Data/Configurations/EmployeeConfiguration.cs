@@ -12,14 +12,6 @@ public sealed class EmployeeConfiguration : IEntityTypeConfiguration<Employee>
     {
         builder.HasKey(x => x.Id);
 
-        builder.HasOne(x => x.Position)
-            .WithMany()
-            .HasForeignKey(x => x.PositionId);
-
-        builder.HasOne(x => x.Team)
-            .WithMany()
-            .HasForeignKey(x => x.TeamId);
-
         builder.OwnsOne(
             e => e.Age,
             a => a.Property(x => x.Value));
